@@ -1,0 +1,55 @@
+﻿@page "/quizaward/edit/{id}"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+
+@using Admin.Shared.Models
+@inject HttpClient Http
+
+@if (quizAward == null)
+{
+    <div class="spinner-grow-sm"><p>Loading...</p></div>
+}else
+            {
+                <QuizAwardForm QuizAwardModel="@quizAward" Title="Edit Quiz Award" isToBeEdited="true"
+                               OnQuizAwardFormEditSubmit="@((QuizAward) => OnEditFormSubmit(quizAward))"/>
+            }
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    private QuizAward quizAward;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            quizAward = await Http.GetFromJsonAsync<QuizAward>($"api/Quizawards/{Id}");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task OnEditFormSubmit(QuizAward quizAward)
+    {
+        try
+        {
+            //await Http.GetFromJsonAsync<Examination>($"api/Examinations/{Id}");
+
+            await Http.PutAsJsonAsync<QuizAward>($"api/Quizawards/{Id}", quizAward);
+
+            NavigationManager.NavigateTo("/quizesaward");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

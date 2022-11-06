@@ -1,0 +1,89 @@
+﻿@page "/chapter"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Admin.Shared.Models
+@using Admin.Shared.Models.Tutorials
+
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+<a href="/chapter/create" class="btn btn-primary">Create New Chapter</a>
+
+
+@if (chapters == null)
+{
+    <div class="spinner-grow text-primary"></div>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Chapter ID</th>
+                <th>Title</th>
+                <th>Position</th>
+                <th>Description</th>
+                <th>Lecture Count</th>
+                <td>TotalDuration</td>
+                <th>Subject</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var chapter in chapters)
+            {
+                <tr>
+                    <td>@chapter.Id</td>
+                    <td>@chapter.ChapterTitle</td>
+                    <td>@chapter.ChapterPriorityNumber</td>
+                    <td>@chapter.Description</td>
+                    <td>@chapter.LectureCount</td>
+                    <td>@chapter.TotalLectureDuration</td>
+                    <td>
+                        <a class="btn btn-info" href="/chapter/edit/@chapter.Id">Edit</a>
+                        <button class="btn btn-danger" @onclick="@(async () => await DeleteChapter(chapter))">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Chapter[] chapters;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            chapters = await Http.GetFromJsonAsync<Chapter[]>("api/Chapters");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task DeleteChapter(Chapter chapter)
+    {
+        //Ask for user confirmation then delete according
+        if (!await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to delete: '{chapter.ChapterTitle}'?"))
+            return;
+
+        //Delete and Navigate to List of Exams
+        try
+        {
+            await Http.DeleteAsync($"api/Chapters/{chapter.Id}");
+
+            chapters = await Http.GetFromJsonAsync<Chapter[]>("api/Chapters");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+    }
+}

@@ -1,0 +1,66 @@
+﻿@page "/instructor/addsubject/{Id}"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+@using Admin.Shared.Dtos
+
+@using Admin.Shared.Models
+@inject HttpClient Http
+
+@if ( instructor != null)
+{
+    <AddSubjectToInstructorsForm Title="@title" InstructorSubjectModel="instructorSubject"
+                     isToBeEdited="true"
+                     OnInstructorFormEditSubmit="@((InstructorSubject) => OnEditInstructorSubmit(instructorSubject))" />
+    
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    private Instructor instructor = null;
+    private InstructorSubject instructorSubject = new InstructorSubject();
+
+    string title = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            instructor = await Http.GetFromJsonAsync<Instructor>($"api/Instructors/{Id}");
+            if(instructor != null)
+            {
+                title = instructor.Name;
+                instructorSubject.InstructorId = instructor.Id;
+            }
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task OnEditInstructorSubmit(InstructorSubject instructorSubject)
+    {
+        try
+        {
+            instructorSubject.Subject = null;
+            instructorSubject.Instructor = null;
+
+            await Http.PostAsJsonAsync<InstructorSubject>("api/InstructorSubjects", instructorSubject);
+
+            NavigationManager.NavigateTo("/instructor");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

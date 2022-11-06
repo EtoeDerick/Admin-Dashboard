@@ -1,0 +1,75 @@
+﻿@page "/quizes"
+
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Admin.Shared.Models
+@using Admin.Client.ViewModels
+@using Admin.Shared.Dtos
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+    <a href="/quizes/create" class="btn btn-primary">Create New Constant</a>
+<h3>Index - Quizes</h3>
+@if (pastPapers == null)
+{
+    <div class="spinner-grow text-primary"></div>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>PastPaperID</th>
+                <th>Quiz ID.</th>
+                <th>Title</th>
+                <th>PaperYear</th>
+                <th>Owner</th>
+                <th>IsApproved</th>
+                <th>SubjectID</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pastPaper in pastPapers)
+            {
+                <tr>
+                    <td>@pastPaper.Id</td>
+                    <td>@pastPaper.QuizPassCode</td>
+                    <td>@pastPaper.Title</td>
+                    <td>@pastPaper.PaperYear</td>
+                    <td>@pastPaper.QuizOwnerId</td>
+                    <td>@(pastPaper.IsApproved? "Yes": "No")</td>
+                    <td>@pastPaper.SubjectID</td>
+                    <td>
+                        <a class="btn btn-info" href="/quizes/details/@pastPaper.Id">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+
+
+
+@code {
+    bool isLoading = true;
+    private PastPaper[] pastPapers;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        isLoading = true;
+        try
+        {
+            pastPapers = await Http.GetFromJsonAsync<PastPaper[]>("api/PastPapersQuizes");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+        isLoading = false;
+    }
+}

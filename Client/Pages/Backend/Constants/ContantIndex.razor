@@ -1,0 +1,88 @@
+﻿@page "/constant"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Admin.Shared.Models
+
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+<a href="/constant/create" class="btn btn-primary">Create New Constant</a>
+
+
+@if (constants == null)
+{
+    <div class="spinner-grow text-primary"></div>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ContstantID</th>
+                <th>Title</th>
+                <th>Key</th>
+                <th>Value</th>
+                <th>Code</th>
+                <td>Description</td>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var constant in constants)
+            {
+                <tr>
+                    <td>@constant.Id</td>
+                    <td>@constant.Title</td>
+                    <td>@constant.Key</td>
+                    <td>@constant.Value</td>
+                    <td>@constant.Code</td>
+                    <td>@constant.Description</td>
+                    <td>
+                        <a class="btn btn-info" href="/constant/edit/@constant.Id">Edit</a>
+                        <button class="btn btn-danger" @onclick="@(async () => await DeleteConstant(constant))">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Constants[] constants;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            constants = await Http.GetFromJsonAsync<Constants[]>("api/Constants");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task DeleteConstant(Constants constant)
+    {
+        //Ask for user confirmation then delete according
+        if (!await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to delete: '{constant.Title}'?"))
+            return;
+
+        //Delete and Navigate to List of Exams
+        try
+        {
+            await Http.DeleteAsync($"api/Constants/{constant.Id}");
+
+            constants = await Http.GetFromJsonAsync<Constants[]>("api/Constants");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+    }
+}

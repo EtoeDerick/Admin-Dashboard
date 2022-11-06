@@ -1,0 +1,48 @@
+﻿@page "/constant/create"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+
+@using Admin.Shared.Models
+@inject HttpClient Http
+@using Admin.Shared.Dtos
+
+@if (constant != null)
+{
+    <ConstantForm ConstantModel="constant" Title="Create New Constant Form"  isToBeEdited="false"
+             OnConstantFormEditSubmit="@((Constants) => OnCreateConstantSubmit(constant))" />
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+
+    private Constants constant = new Constants();
+
+
+    private async Task OnCreateConstantSubmit(Constants constant)
+    {
+        try
+        {
+
+            var result = await Http.PostAsJsonAsync<Constants>("api/Constants", constant);
+            if (result.IsSuccessStatusCode)
+            {
+                //Create the list of mcqs 
+            }
+            if(result != null)
+            {
+                NavigationManager.NavigateTo("/constant");
+            }
+
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

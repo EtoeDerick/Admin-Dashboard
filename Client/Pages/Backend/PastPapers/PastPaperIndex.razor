@@ -1,0 +1,107 @@
+﻿@page "/pastpaper"
+
+
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Admin.Shared.Models
+@using Admin.Client.ViewModels
+@using Admin.Shared.Dtos
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+<a href="/pastpaper/create" class="btn btn-primary">Create New Past Paper</a>
+
+
+@if (pastPapers == null)
+{
+    <div class="spinner-grow text-primary"></div>
+}
+else
+{
+<div>
+     @if (!isLoading) { 
+         <SubjectAndExamList />
+    }
+</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <td></td>
+                <th>PastPaperID</th>
+                <th>Quiz ID.</th>
+                <th>Title</th>
+                <th>PaperYear</th>
+                <th>Url</th>
+                <th>IsApproved</th>
+                <th>SubjectID</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pastPaper in pastPapers)
+            {
+                <tr>
+                    <td>
+                        <a class="btn btn-info" href="/mcq/edit/@pastPaper.Id">EditMCQs</a>
+                    </td>
+                    <td>@pastPaper.Id</td>
+                    <td>@pastPaper.QuizPassCode</td>
+                    <td>@pastPaper.Title</td>
+                    <td>@pastPaper.PaperYear</td>
+                    <td>@pastPaper.Url</td>
+                    <td>@(pastPaper.IsApproved? "Yes": "No")</td>
+                    <td>@pastPaper.SubjectID</td>
+                    <td>
+                        <a class="btn btn-info" href="/pastpaper/edit/@pastPaper.Id">Edit</a>
+                        <button class="btn btn-danger" @onclick="@(async () => await DeletePastPaper(pastPaper))">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private PastPaper[] pastPapers;
+    private ExamAndSubjectVM examAndSubjectVM = null;
+
+    bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoading = true;
+        try
+        {
+            pastPapers = await Http.GetFromJsonAsync<PastPaper[]>("api/PastPapers");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+        isLoading = false;
+    }
+
+    private async Task DeletePastPaper(PastPaper pastPaper)
+    {
+        //Ask for user confirmation then delete according
+        if (!await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to delete: '{pastPaper.Title}'?"))
+            return;
+
+        //Delete and Navigate to List of Exams
+        try
+        {
+            await Http.DeleteAsync($"api/PastPapers/{pastPaper.Id}");
+
+            pastPapers = await Http.GetFromJsonAsync<PastPaper[]>("api/PastPapers");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+    }
+
+    
+}

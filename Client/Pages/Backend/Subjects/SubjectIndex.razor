@@ -1,0 +1,92 @@
+﻿@page "/subject"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Admin.Shared.Models
+
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+<a href="/subject/create" class="btn btn-primary">Create New Subject</a>
+
+
+@if (subjects == null)
+{
+    <div class="spinner-grow text-primary"></div>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <td></td>
+                <th>SubjectID</th>
+                <th>Title</th>
+                <th>Is Free</th>
+                <th>Is Approved</th>
+                <th>Description</th>
+                <th>Question Range</th>
+                <th>IsApproved</th>
+                <th>Image Url</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var subject in subjects)
+            {
+                <tr>
+                    <td>
+                        <a class="btn btn-info" href="/subject/edit/@subject.Id">Edit</a>
+                        <button class="btn btn-danger" @onclick="@(async () => await DeleteSubject(subject))">Delete</button>
+                    </td>
+                    <td>@subject.Id</td>
+                    <td>@subject.Title</td>
+                    <td>@subject.Description</td>
+                    <td>@subject.IsFree</td>
+                    <td>@subject.IsApproved</td>
+                    <td>@subject.ImageUrl</td>
+                    <td>@(subject.IsApproved? "Yes": "No")</td>
+                    <td>@subject.Category</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Subject[] subjects;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            subjects = await Http.GetFromJsonAsync<Subject[]>("api/Subjects");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task DeleteSubject(Subject subject)
+    {
+        //Ask for user confirmation then delete according
+        if (!await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to delete: '{subject.Title}'?"))
+            return;
+
+        //Delete and Navigate to List of Exams
+        try
+        {
+            await Http.DeleteAsync($"api/Subjects/{subject.Id}");
+
+            subjects = await Http.GetFromJsonAsync<Subject[]>("api/Subjects");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+    }
+}

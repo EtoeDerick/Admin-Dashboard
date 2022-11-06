@@ -1,0 +1,191 @@
+@using Admin.Shared.Models
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using static System.Net.WebRequestMethods
+
+@inject NavigationManager NavigationManager
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+<div class="alert alert-secondary mt-4" role="alert">
+    <EditForm Model="@ExaminationEditModel" OnValidSubmit="HandleValidSubmit">
+
+        <h3> @Title </h3>
+        <hr />
+        <ValidationSummary />
+        <div class="form-group row">
+            <label for="id" class="col-sm-2 col-form-label">
+                ID
+            </label>
+            <div class="col-sm-10">
+                <InputText id="id" class="form-control" placeholder="Examination Code" disabled="@isToBeEdited"
+                           @bind-Value="ExaminationEditModel.Id" />
+                <ValidationMessage For="@(() => ExaminationEditModel.Id)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">
+                Title
+            </label>
+            <div class="col-sm-10">
+                <InputText id="title" class="form-control" placeholder="Title"
+                           @bind-Value="ExaminationEditModel.Title" />
+                <ValidationMessage For="@(() => ExaminationEditModel.Title)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="exam-type" class="col-sm-2 col-form-label">
+                Exam Type
+            </label>
+            <div class="col-sm-10">
+                <InputText id="exam-type" class="form-control" placeholder="Title"
+                           @bind-Value="ExaminationEditModel.ExamType" />
+                <ValidationMessage For="@(() => ExaminationEditModel.ExamType)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="questionrange" class="col-sm-2 col-form-label">
+                Question Range
+            </label>
+            <div class="col-sm-10">
+                <InputText id="questionrange" class="form-control" placeholder="Question Range"
+                           @bind-Value="ExaminationEditModel.QuestionRange" />
+                <ValidationMessage For="@(() => ExaminationEditModel.QuestionRange)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="email" class="col-sm-2 col-form-label">
+                Description
+            </label>
+            <div class="col-sm-10">
+                <InputText id="description" class="form-control" placeholder="Description"
+                           @bind-Value="ExaminationEditModel.Description" />
+                <ValidationMessage For="@(() => ExaminationEditModel.Description)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="imageurl" class="col-sm-2 col-form-label">
+                Image URL
+            </label>
+            <div class="col-sm-10">
+                <InputText id="imageurl" class="form-control" placeholder="Image url"
+                           @bind-Value="ExaminationEditModel.ImageUrl" />
+                <ValidationMessage For="@(() => ExaminationEditModel.ImageUrl)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="isApproved" class="col-sm-2 col-form-label">
+                Is Approved
+            </label>
+            <div class="col-sm-10">
+                <InputCheckbox id="isApproved" class="form-control"
+                               @bind-Value="ExaminationEditModel.IsApproved" />
+                <ValidationMessage For="@(() => ExaminationEditModel.IsApproved)" />
+            </div>
+        </div>
+        @if(examCategories != null && examCategories.Count>0){
+            <div class="form-group row">
+                <label for="email" class="col-sm-4 col-form-label">
+                    Exam Category:
+                </label>
+                <div class="col-sm-8">
+                    <InputSelectNumber  ValueChanged="@((int value) => ExanCategoryHasChanged(value))"
+                            ValueExpression="@(() => examCategoryId)"
+                            Value="@examCategoryId" >
+                        <option value="0">@examSelectedTitle</option>
+                        @foreach (var exam in examCategories)
+                        {
+                            if(exam.Id == examCategoryId){
+                                <option selected value="@exam.Id">@exam.Title</option>
+                            }
+                            else{
+                                <option value="@exam.Id">@exam.Title</option>
+                            }
+                        }
+                    </InputSelectNumber>
+                    <ValidationMessage For="@(() => ExaminationEditModel.ExamCategoryId)" />
+                </div>
+            </div>
+        }else{
+            <div style="margin:auto; width:50%">
+                <div class="spinner-grow bg-primary"> <br /> <p>Loading...</p></div>
+            </div>
+            
+        }
+        
+
+        <div class="form-group row">
+            <label for="examination-date" class="col-sm-2 col-form-label">
+                Examination Date
+            </label>
+            <div class="col-sm-10">
+                <InputDate id="examination-date" class="form-control"
+                               @bind-Value="ExaminationEditModel.WrittenOn" />
+                <ValidationMessage For="@(() => ExaminationEditModel.WrittenOn)" />
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </EditForm>
+</div>
+
+@code {
+    // Demonstrates how a parent component can supply parameters
+    [Parameter]
+    public string Title { get; set; }
+    public List<ExamCategory> examCategories ;
+
+    [Parameter]
+    public bool isToBeEdited { get; set; }
+
+    [Parameter] 
+    public Examination ExaminationEditModel { get; set; }
+
+    int examCategoryId = 0;
+    string examSelectedTitle = "Select Exam Category";
+
+    [Parameter]
+    public EventCallback<Examination> OnExaminationFormEditSubmit { get; set; }
+
+    protected override async Task OnInitializedAsync(){
+        try{
+
+            if(examCategories == null){
+                await LoadExamCategories();
+            }
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    public async Task HandleValidSubmit()
+    {
+        ExaminationEditModel.ExamCategory = null;
+        ExaminationEditModel.Subjects = null;
+
+        //await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to delete: '{ExaminationEditModel.ExamCategoryId}'?");
+
+        await OnExaminationFormEditSubmit.InvokeAsync(ExaminationEditModel);
+    }
+
+    void ExanCategoryHasChanged(int id){
+
+        ExaminationEditModel.ExamCategoryId = id;
+        foreach(var e in examCategories){
+            if(e.Id == id){
+                examSelectedTitle = e.Title;
+            }
+        }
+        //await JSRuntime.InvokeAsync<bool>("confirm", $"ExamCategoryId Selected: '{id}'?");
+    }
+
+
+    private async Task LoadExamCategories()
+    {
+        examCategories = await Http.GetFromJsonAsync<List<ExamCategory>>("api/ExamCategory");
+    }
+
+}

@@ -1,0 +1,54 @@
+﻿@page "/subject/create"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+
+@using Admin.Shared.Models
+@inject HttpClient Http
+
+<p>
+   @if(subject != null)
+            {
+                <SubjectForm SubjectEditModel="subject" Title="Create New Subject Form" isToBeEdited="false"
+                                 OnSubjectFormEditSubmit="@((SubjectDto) => OnCreateSubjectSubmit(subject))"/>
+            }
+            else
+            {
+                <Loading Message="Loading"/>
+            }
+</p>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Subject subject = new Subject();
+
+
+    private async Task OnCreateSubjectSubmit(Subject newSubject)
+    {
+        try
+        {
+            newSubject.Examination.Id = newSubject.ExaminationId;
+            newSubject.Examination.Title = "....";
+            newSubject.Examination.Description = ".....";
+
+            newSubject.InstructorSubjects = null; 
+            newSubject.MCQS = null; 
+            newSubject.PastPapers = null; 
+            newSubject.Topics = null; 
+            newSubject.Tutorials = null; 
+            newSubject.UserSubjects = null;
+
+            await Http.PostAsJsonAsync<Subject>("api/Subjects", newSubject);
+
+            NavigationManager.NavigateTo("/subject");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

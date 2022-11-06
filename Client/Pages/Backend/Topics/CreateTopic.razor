@@ -1,0 +1,50 @@
+﻿@page "/topic/create"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+
+@using Admin.Shared.Models
+@inject HttpClient Http
+@using Admin.Shared.Dtos
+
+@if (topic != null)
+{
+    <TopicForm TopicModel="topic" Title="Create New Topic Form"  isToBeEdited="false"
+             OnTopicFormEditSubmit="@((Topic) => OnCreateTopicSubmit(topic))" />
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+
+    private Topic topic = new Topic();
+
+
+    private async Task OnCreateTopicSubmit(Topic topic)
+    {
+        try
+        {
+            topic.Subject = null;
+
+
+            var result = await Http.PostAsJsonAsync<Topic>("api/Topics", topic);
+            if (result.IsSuccessStatusCode)
+            {
+                //Create the list of mcqs 
+            }
+            if(result != null)
+            {
+                NavigationManager.NavigateTo("/topic");
+            }
+
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

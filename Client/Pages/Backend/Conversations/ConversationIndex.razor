@@ -1,0 +1,93 @@
+﻿@page "/conversation"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Admin.Shared.Models
+@using Admin.Shared.Models.Tutorials
+
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+<a href="/conversation/create" class="btn btn-primary">Create New Conversation</a>
+
+
+@if (conversations == null)
+{
+    <div class="spinner-grow text-primary"></div>
+}
+else if(conversations.Length == 0)
+{
+    <p>No conversation found</p>
+}else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Conversation ID</th>
+                <th>Date</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>IsNotApproved</th>
+                <td>ForumId</td>
+                <th>Subject</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var c in conversations)
+            {
+                <tr>
+                    <td>@c.Id</td>
+                    <td>@c.Date</td>
+                    <td>@c.MessageTitle</td>
+                    <td>@c.MessageDescription</td>
+                    <td>@c.IsNotApproved</td>
+                    <td>@c.DiscussionForumId</td>
+                    <td>@c.SubjectId</td>
+                    <td>
+                        <a class="btn btn-info" href="/conversation/edit/@c.Id">Edit</a>
+                        <button class="btn btn-danger" @onclick="@(async () => await Delete(c))">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Conversation[] conversations;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            conversations = await Http.GetFromJsonAsync<Conversation[]>("api/Conversations");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task Delete(Conversation conversation)
+    {
+        //Ask for user confirmation then delete according
+        if (!await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to delete: '{conversation.MessageTitle}'?"))
+            return;
+
+        //Delete and Navigate to List of Exams
+        try
+        {
+            await Http.DeleteAsync($"api/Conversations/{conversation.Id}");
+
+            conversations = await Http.GetFromJsonAsync<Conversation[]>("api/Conversations");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+    }
+}

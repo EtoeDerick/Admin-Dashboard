@@ -1,0 +1,92 @@
+﻿@page "/video"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Admin.Shared.Models
+@using Admin.Shared.Models.Tutorials
+
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+<a href="/video/create" class="btn btn-primary">Create New Video</a>
+
+
+@if (videos == null)
+{
+    <div class="spinner-grow text-primary"></div>
+}
+else
+{
+    <table class="table" style="width: 100%">
+        <thead>
+            <tr>
+                <th>Video ID</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Duration</th>
+                <th>Thumbnail</th>
+                <td>Pdf URL</td>
+                <th>Position</th>
+                <th>Views, Likes, Unlikes, Comments#</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var video in videos)
+            {
+                <tr>
+                    <td>@video.Id</td>
+                    <td>@video.Title</td>
+                    <td>@video.Description</td>
+                    <td>@video.Duration</td>
+                    <td>@video.Thumbnail</td>
+                    <td>@video.PdfTutorialUrl</td>
+                    <td>@video.Position</td>
+                    <td>@video.ViewsCount, @video.LikesCount, @video.UnlikesCount, @video.Commentscount</td>
+                    <td>
+                        <a class="btn btn-info" href="/video/edit/@video.Id">Edit</a>
+                        <button class="btn btn-danger" @onclick="@(async () => await DeleteVideo(video))">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Video[] videos;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            videos = await Http.GetFromJsonAsync<Video[]>("api/Videos");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task DeleteVideo(Video video)
+    {
+        //Ask for user confirmation then delete according
+        if (!await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to delete: '{video.Title}'?"))
+            return;
+
+        //Delete and Navigate to List of Exams
+        try
+        {
+            await Http.DeleteAsync($"api/Videos/{video.Id}");
+
+            videos = await Http.GetFromJsonAsync<Video[]>("api/Videos");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+    }
+}

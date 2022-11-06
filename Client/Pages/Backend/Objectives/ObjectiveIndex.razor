@@ -1,0 +1,82 @@
+﻿@page "/objective"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Admin.Shared.Models
+@using Admin.Shared.Models.Tutorials
+
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+<a href="/objective/create" class="btn btn-primary">Create New Chapter Objective </a>
+
+
+@if (objectives == null)
+{
+    <div class="spinner-grow text-primary"></div>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Objective ID</th>
+                <th>Title</th>
+                <th>ChapterID</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in objectives)
+            {
+                <tr>
+                    <td>@obj.Id</td>
+                    <td>@obj.Title</td>
+                    <td>@obj.ChapterId</td>
+                    <td>
+                        <a class="btn btn-info" href="/objective/edit/@obj.Id">Edit</a>
+                        <button class="btn btn-danger" @onclick="@(async () => await DeleteObjective(obj))">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Objective[] objectives;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            objectives = await Http.GetFromJsonAsync<Objective[]>("api/Objectives");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task DeleteObjective(Objective objective)
+    {
+        //Ask for user confirmation then delete according
+        if (!await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to delete: '{objective.Title}'?"))
+            return;
+
+        //Delete and Navigate to List of Exams
+        try
+        {
+            await Http.DeleteAsync($"api/Objectives/{objective.Id}");
+
+            objectives = await Http.GetFromJsonAsync<Objective[]>("api/Objectives");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+    }
+}

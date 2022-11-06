@@ -1,0 +1,46 @@
+﻿@page "/report/create"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+
+@using Admin.Shared.Models
+@inject HttpClient Http
+@using Admin.Shared.Dtos
+
+@if (mCQReport != null)
+{
+    <ReportForm mCQReportModel="mCQReport" Title="Create New Report Form"  isToBeEdited="false"
+             OnReportFormEditSubmit="@((MCQReport) => OnCreateReportSubmit(mCQReport))" />
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+
+    private MCQReport mCQReport = new MCQReport();
+
+    private async Task OnCreateReportSubmit(MCQReport mCQReport)
+    {
+        try
+        {
+            var result = await Http.PostAsJsonAsync<MCQReport>("api/McqReports", mCQReport);
+            if (result.IsSuccessStatusCode)
+            {
+                //Create the list of mcqs 
+            }
+            if(result != null)
+            {
+                NavigationManager.NavigateTo("/report");
+            }
+
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

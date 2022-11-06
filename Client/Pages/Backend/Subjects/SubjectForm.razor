@@ -1,0 +1,298 @@
+@using Admin.Shared.Models
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+
+
+@inject HttpClient Http
+
+<div style="width: 600px; margin: auto 0">
+
+    <div class="alert alert-secondary mt-4" role="alert">
+        <EditForm Model="@SubjectEditModel" OnValidSubmit="HandleValidSubmit">
+
+            <h3> @Title </h3>
+            <hr />
+            <ValidationSummary />
+            <div class="form-group row">
+                <label for="id" class="col-sm-2 col-form-label">
+                    ID
+                </label>
+                <div class="col-sm-10">
+                    <InputNumber id="id" class="form-control" placeholder="subject Code" disabled="@isToBeEdited"
+                                 @bind-Value="SubjectEditModel.Id" />
+                    <ValidationMessage For="@(() => SubjectEditModel.Id)" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="title" class="col-sm-2 col-form-label">
+                    Title
+                </label>
+                <div class="col-sm-10">
+                    <InputText id="title" class="form-control" placeholder="Title"
+                               @bind-Value="SubjectEditModel.Title" />
+                    <ValidationMessage For="@(() => SubjectEditModel.Title)" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="description" class="col-sm-2 col-form-label">
+                    Description
+                </label>
+                <div class="col-sm-10">
+                    <InputText id="description" class="form-control" placeholder="Description"
+                               @bind-Value="SubjectEditModel.Description" />
+                    <ValidationMessage For="@(() => SubjectEditModel.Description)" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="imageurl" class="col-sm-2 col-form-label">
+                    Image URL
+                </label>
+                <div class="col-sm-10">
+                    <InputText id="imageurl" class="form-control" placeholder="Image url"
+                               @bind-Value="SubjectEditModel.ImageUrl" />
+                    <ValidationMessage For="@(() => SubjectEditModel.ImageUrl)" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="marquee" class="col-sm-2 col-form-label">
+                    Marquee Image URL
+                </label>
+                <div class="col-sm-10">
+                    <InputText id="marquee" class="form-control" placeholder="Maruquee Image Url"
+                               @bind-Value="SubjectEditModel.MarqueeImageUrl" />
+                    <ValidationMessage For="@(() => SubjectEditModel.MarqueeImageUrl)" />
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="email" class="col-sm-2 col-form-label">
+                    Monthly Price
+                </label>
+                <div class="col-sm-10">
+                    <InputNumber id="monthlyprice" class="form-control" placeholder="Description"
+                                 @bind-Value="SubjectEditModel.MonthlyPrice" />
+                    <ValidationMessage For="@(() => SubjectEditModel.MonthlyPrice)" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="price" class="col-sm-2 col-form-label">
+                    Three Months Price
+                </label>
+                <div class="col-sm-10">
+                    <InputNumber id="price" class="form-control" placeholder="Description"
+                                 @bind-Value="SubjectEditModel.Price" />
+                    <ValidationMessage For="@(() => SubjectEditModel.Price)" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="price" class="col-sm-2 col-form-label">
+                    Ten Months Price
+                </label>
+                <div class="col-sm-10">
+                    <InputNumber id="price" class="form-control" placeholder="Description"
+                                 @bind-Value="SubjectEditModel.TenMonths" />
+                    <ValidationMessage For="@(() => SubjectEditModel.TenMonths)" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="email" class="col-sm-2 col-form-label">
+                    Nick Name: <b>@SubjectEditModel.SubjectExamNickName</b>
+                </label>
+                <div class="col-sm-10">
+                    <InputSelect @bind-Value="SubjectEditModel.SubjectExamNickName">
+                        @foreach (var nickname in Enum.GetValues(typeof(ExamNickName)))
+                        {
+                            <option value="@nickname">@nickname</option>
+                        }
+                    </InputSelect>
+                    <ValidationMessage For="@(() => SubjectEditModel.SubjectExamNickName)" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="year" class="col-sm-2 col-form-label">
+                    Category
+                </label>
+                <div class="col-sm-10">
+                    <InputText id="category" class="form-control" placeholder="Science or Arts"
+                               @bind-Value="SubjectEditModel.Category" />
+                    <ValidationMessage For="@(() => SubjectEditModel.Category)" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="year" class="col-sm-2 col-form-label">
+                    Title
+                </label>
+                <div class="col-sm-10">
+                    <InputText id="year" class="form-control" placeholder="Current Year"
+                               @bind-Value="SubjectEditModel.Year" />
+                    <ValidationMessage For="@(() => SubjectEditModel.Year)" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="subjectfree" class="col-sm-6 col-form-label">
+                    Is Subject Free
+                </label>
+                <div class="col-sm-6">
+                    <InputCheckbox id="subjectfree" class="form-control"
+                                   @bind-Value="SubjectEditModel.IsFree" />
+                    <ValidationMessage For="@(() => SubjectEditModel.IsFree)" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="year" class="col-sm-6 col-form-label">
+                    Is Paper1 Content Available
+                </label>
+                <div class="col-sm-6">
+                    <InputCheckbox id="free" class="form-control"
+                                   @bind-Value="SubjectEditModel.IsPaper1ContentAvailable" />
+                    <ValidationMessage For="@(() => SubjectEditModel.IsPaper1ContentAvailable)" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="year" class="col-sm-6 col-form-label">
+                    Is Paper2 Content Available
+                </label>
+                <div class="col-sm-6">
+                    <InputCheckbox id="free" class="form-control"
+                                   @bind-Value="SubjectEditModel.IsPaper2ContentAvailable" />
+                    <ValidationMessage For="@(() => SubjectEditModel.IsPaper2ContentAvailable)" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="year" class="col-sm-6 col-form-label">
+                    Is Paper3 Content Available
+                </label>
+                <div class="col-sm-6">
+                    <InputCheckbox id="free" class="form-control"
+                                   @bind-Value="SubjectEditModel.IsPaper3ContentAvailable" />
+                    <ValidationMessage For="@(() => SubjectEditModel.IsPaper3ContentAvailable)" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="year" class="col-sm-6 col-form-label">
+                    Is Tutorial Content Available
+                </label>
+                <div class="col-sm-6">
+                    <InputCheckbox id="free" class="form-control"
+                                   @bind-Value="SubjectEditModel.IsTutorialContentAvailable" />
+                    <ValidationMessage For="@(() => SubjectEditModel.IsTutorialContentAvailable)" />
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="year" class="col-sm-3 col-form-label">
+                    VideoPreviewUrl
+                </label>
+                <div class="col-sm-9">
+                    <InputText id="videourl" class="form-control" placeholder="Video preview url"
+                               @bind-Value="SubjectEditModel.VideoPreviewUrl" />
+                    <ValidationMessage For="@(() => SubjectEditModel.VideoPreviewUrl)" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="isApproved" class="col-sm-2 col-form-label">
+                    Is Approved
+                </label>
+                <div class="col-sm-10">
+                    <InputCheckbox id="isApproved" class="form-control"
+                                   @bind-Value="SubjectEditModel.IsApproved" />
+                    <ValidationMessage For="@(() => SubjectEditModel.IsApproved)" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="isApproved" class="col-sm-2 col-form-label">
+                    Is Free
+                </label>
+                <div class="col-sm-10">
+                    <InputCheckbox id="isFree" class="form-control"
+                                   @bind-Value="SubjectEditModel.IsFree" />
+                    <ValidationMessage For="@(() => SubjectEditModel.IsFree)" />
+                </div>
+            </div>
+            @if (!isToBeEdited)
+            {
+                <div class="form-group row">
+                    <label for="email" class="col-sm-4 col-form-label">
+                        Examination:
+                    </label>
+                    <div class="col-sm-8">
+                        <InputSelect @bind-Value="SubjectEditModel.ExaminationId">
+                            <option>Select Examination Type</option>
+                            @foreach (var exam in Examinations)
+                                {
+                                <option value="@exam.Id">@exam.Title</option>
+                                }
+                        </InputSelect>
+                        <ValidationMessage For="@(() => SubjectEditModel.ExaminationId)" />
+                    </div>
+                </div>
+            }
+
+
+
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </EditForm>
+    </div>
+
+
+</div>
+
+
+
+@code {
+    // Demonstrates how a parent component can supply parameters
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public bool isToBeEdited { get; set; }
+
+    [Parameter] public Subject SubjectEditModel { get; set; }
+
+    public List<Examination> Examinations { get; set; } = new List<Examination>();
+    public string ExamTitle { get; set; } = string.Empty;
+
+    [Parameter]
+    public EventCallback<Subject> OnSubjectFormEditSubmit { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            Examinations = await Http.GetFromJsonAsync<List<Examination>>("api/Examinations");
+
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+
+    public async Task HandleValidSubmit()
+    {
+        await OnSubjectFormEditSubmit.InvokeAsync(SubjectEditModel);
+    }
+
+    public enum ExamNickName
+    {
+        CUSS,
+        GCE,
+        Concours
+    };
+}

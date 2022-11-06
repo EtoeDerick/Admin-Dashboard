@@ -1,0 +1,64 @@
+﻿@page "/pastpaper2n3/edit/{id}"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+@using Admin.Shared.Dtos
+@using Admin.Shared.Models.ETQ
+
+@using Admin.Shared.Models
+@inject HttpClient Http
+
+@if (pastPaper != null)
+{
+<ETQForm PastPaperModel="pastPaper" Title="Create New Past Paper Form" etqs="essayTypeQuestions" isToBeEdited="true"
+         OnPastPaperFormEditSubmit="@((PastPaper) => OnEditPastPaperSubmit(pastPaper))" />
+
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    private PastPaper pastPaper = null;
+    public List<EssayTypeQuestion> essayTypeQuestions = new List<EssayTypeQuestion>();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            pastPaper = await Http.GetFromJsonAsync<PastPaper>($"api/PastPapers2n3/{Id}");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task OnEditPastPaperSubmit(PastPaper pastPaper)
+    {
+        try
+        {
+            pastPaper.Subject.Title = "...";
+            pastPaper.Subject.Examination.Title = "...";
+            pastPaper.Subject.Examination.Description = "...";
+            //pastPaper.Videos = null;
+            pastPaper.Questions = null;
+
+            await Http.PutAsJsonAsync<PastPaper>($"api/PastPapers/{pastPaper.Id}", pastPaper);
+
+            NavigationManager.NavigateTo("/pastpaper2n3");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

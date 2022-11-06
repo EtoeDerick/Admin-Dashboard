@@ -1,0 +1,94 @@
+﻿@page "/examination"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Admin.Shared.Models
+
+@inject NavigationManager NavigationManager
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+    <a class="btn btn-primary" href="/examination/create">Create New Examination</a>
+
+@if (exams == null)
+{
+    <div class="spinner-grow"></div>
+}
+else 
+@if(!exams.Any())
+{
+<h3>No Data Found!</h3>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <td></td>
+            <th>ExaminationID</th>
+            <th>Title</th>
+            <th>ExamType</th>
+            <th>Description</th>
+            <th>Question Range</th>
+            <th>IsApproved</th>
+            <th>Image Url</th>
+        </tr>
+    </thead>
+    @if (exams.Any())
+    {
+        <tbody>
+            @foreach (var exam in exams)
+            {
+                <tr>
+                    <td>
+                        <a class="btn btn-info" href="/examination/edit/@exam.Id">Edit</a>
+                        <button class="btn btn-danger" @onclick="@(async () => await DeleteExam(exam))">Delete</button>
+                    </td>
+                    <td>@exam.Id</td>
+                    <td>@exam.Title</td>
+                    <td>@exam.ExamType</td>
+                    <td>@exam.Description</td>
+                    <td>@exam.QuestionRange</td>
+                    <td>@(exam.IsApproved? "Yes": "No")</td>
+                    <td>@exam.ImageUrl</td>
+                </tr>
+            }
+        </tbody>
+    }
+</table>
+
+@code {
+    private List<Examination> exams = null;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        
+        try
+        {
+            exams = new List<Examination>();
+            exams = await Http.GetFromJsonAsync<List<Examination>>("api/Examinations");            
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task DeleteExam(Examination exam)
+    {
+        //Ask for user confirmation then delete according
+        if (!await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to delete: '{exam.Title}'?"))
+            return;
+
+        //Delete and Navigate to List of Exams
+        try
+        {
+            await Http.DeleteAsync($"api/Examinations/{exam.Id}");
+
+            exams = await Http.GetFromJsonAsync<List<Examination>>("api/Examinations");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

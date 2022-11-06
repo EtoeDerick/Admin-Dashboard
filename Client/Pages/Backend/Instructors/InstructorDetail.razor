@@ -1,0 +1,124 @@
+﻿@page "/instructorsubject/detail/{Id}"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+@using Admin.Shared.Dtos
+
+@using Admin.Shared.Models
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+@if (instructor != null)
+{
+    <div>
+        <h2>Instructor's Detail</h2>
+        <h4>@instructor.Name - @instructor.Id</h4>
+
+        @if (instructor.InstructorSubjects.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Subject ID</th>
+                        <th>Date</th>
+                        <th>IsActive</th>
+                        <th>Commission</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ins in instructor.InstructorSubjects)
+                    {
+                        <tr>
+                            <td>
+                                <a href="/instructorsubject/edit/@ins.SubjectId/@ins.InstructorId" class="btn btn-info"><span class="oi oi-pencil"></span></a>
+                                <button class="btn btn-danger" @onclick="@(async () => await DeleteInstructorSubject(ins))">Remove</button>
+                            </td>
+                            <td>@ins.SubjectId</td>
+                            <td>@ins.Date</td>
+                            <td>@ins.IsActive</td>
+                            <td>@ins.Commission</td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+         }
+        else {
+            <p>No record found</p>
+        }
+    
+    </div>
+
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    private Instructor instructor = null;
+    private InstructorSubject instructorSubject = new InstructorSubject();
+
+    string title = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            instructor = await Http.GetFromJsonAsync<Instructor>($"api/Instructors/{Id}");
+            if (instructor != null)
+            {
+                title = instructor.Name;
+                instructorSubject.InstructorId = instructor.Id;
+            }
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task OnEditInstructorSubmit(InstructorSubject instructorSubject)
+    {
+        try
+        {
+            instructorSubject.Subject = null;
+            instructorSubject.Instructor = null;
+
+            await Http.PutAsJsonAsync<InstructorSubject>("api/InstructorSubjects", instructorSubject);
+
+            NavigationManager.NavigateTo("/instructor");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task DeleteInstructorSubject(InstructorSubject instructorSubject)
+    {
+        //Ask for user confirmation then delete according
+        if (!await JSRuntime.InvokeAsync<bool>("confirm", $"Remove: '{instructorSubject.SubjectId}'?"))
+            return;
+
+        //Delete and Navigate to List of Exams
+        try
+        {
+            await Http.DeleteAsync($"api/InstructorSubjects/{instructorSubject.SubjectId}?instructorId={instructorSubject.InstructorId}");
+
+            instructor = await Http.GetFromJsonAsync<Instructor>($"api/Instructors/{Id}");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+    }
+}

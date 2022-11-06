@@ -1,0 +1,54 @@
+﻿@page "/lesson/create"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+
+@using Admin.Shared.Models
+
+@using Admin.Shared.Models.Tutorials
+
+@inject HttpClient Http
+@using Admin.Shared.Dtos
+
+@if (lesson != null)
+{
+    <LessonForm LessonModel="lesson" Title="Create New Lesson Form"  isToBeEdited="false"
+             OnConstantFormEditSubmit="@((Constants) => OnCreateLessonSubmit(lesson))" />
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+
+    private Lesson lesson = new Lesson();
+
+
+    private async Task OnCreateLessonSubmit(Lesson lesson)
+    {
+        try
+        {
+            lesson.Chapter = null;
+            lesson.Downloads = null;
+            lesson.Videos = null;
+
+            var result = await Http.PostAsJsonAsync<Lesson>("api/Lessons", lesson);
+            if (result.IsSuccessStatusCode)
+            {
+                //Create the list of mcqs 
+            }
+            if(result != null)
+            {
+                NavigationManager.NavigateTo("/lesson");
+            }
+
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

@@ -1,0 +1,60 @@
+﻿@page "/lesson/edit/{id:int}"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+@using Admin.Shared.Dtos 
+
+@using Admin.Shared.Models
+@using Admin.Shared.Models.Tutorials 
+@inject HttpClient Http
+
+@if (lesson != null)
+{
+    <LessonForm LessonModel="lesson" Title="Edit Lesson Form"  isToBeEdited="true"
+             OnConstantFormEditSubmit="@((Lesson) => OnEditLessonSubmit(lesson))" />
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Lesson lesson = null;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            lesson = await Http.GetFromJsonAsync<Lesson>($"api/Lessons/{Id}");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task OnEditLessonSubmit(Lesson lesson)
+    {
+        try
+        {
+            lesson.Chapter = null;
+            lesson.Downloads = null;
+            lesson.Videos = null;
+
+            await Http.PutAsJsonAsync<Lesson>($"api/Lessons/{lesson.Id}", lesson);
+
+            NavigationManager.NavigateTo("/lesson");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

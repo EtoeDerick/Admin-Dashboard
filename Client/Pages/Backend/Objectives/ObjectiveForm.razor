@@ -1,0 +1,229 @@
+@using Admin.Shared.Models
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.Extensions.Logging
+
+@using Admin.Shared.Models.Tutorials
+@using Admin.Shared.Dtos
+@using System.IO
+
+ 
+@using Newtonsoft.Json 
+
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+@inject ILogger<Objective> Logger
+
+<div class="alert alert-secondary mt-4" role="alert">    
+    <EditForm OnValidSubmit="HandleValidSubmit" Model="ObjectiveModel">
+        <h3> @Title </h3>
+        <hr />
+
+        <ValidationSummary />
+        @if (!isToBeEdited)
+        {
+
+
+            @if (isLoading)
+            {
+                <LoadingSpinner />
+            }
+            else
+            {
+                <div class="form-group row">
+                    <label for="email" class="col-sm-3 col-form-label">
+                        Examination:
+                    </label>
+                    <div class="col-sm-3">
+                        <select value="@examId" @onchange="OnChangeExamination">
+                            <option value="0">Select Examination</option>
+                            @foreach (var exam in Examinations)
+                            {
+                                <option value="@exam.ExamId">@exam.ExamTitle</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <select value="@subjectId" @onchange="OnChangeSubject">
+                            <option value="0">Select Subject</option>
+                            @foreach (var subject in Subjects)
+                            {
+                                <option value="@subject.SubjectId">@subject.SubjectTitle</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <div>
+                            @if (isLoadingChapters)
+                            {
+                                <LoadingSpinner />
+                            }
+                            else
+                            {
+                                @if (Chapters.Count > 0)
+                                {
+                                    <div class="col-sm-12">
+                                        <select value="@chapterId" @onchange="OnChapterHasChanged">
+                                            <option value="0">Select Chapter</option>
+                                            @foreach (var chapter in Chapters)
+                                            {
+                                                if (chapter.Id == ObjectiveModel.ChapterId)
+                                                {
+                                                    <option selected value="@ObjectiveModel.ChapterId">@chapter.ChapterTitle</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@chapter.Id">@chapter.ChapterTitle</option>
+                                                }
+                                            }
+
+                                        </select>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                
+            }
+        }
+
+
+        <div class="form-group row">
+            <label for="id" class="col-sm-2 col-form-label">
+                Lesson ID:
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="id" class="form-control" placeholder="Auto Generated ID" disabled="true"
+                             @bind-Value="ObjectiveModel.Id" />
+                <ValidationMessage For="@(() => ObjectiveModel.Id)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">
+                Title
+            </label>
+            <div class="col-sm-10">
+                <InputText id="title" class="form-control" placeholder="Lesson Title"
+                           @bind-Value="ObjectiveModel.Title" />
+                <ValidationMessage For="@(() => ObjectiveModel.Title)" />
+            </div>
+        </div>
+        
+        <div style="display: flex; align-items: center">
+            <button class="btn btn-primary" type="submit" style="margin: auto">Submit</button>
+        </div>
+    </EditForm>
+
+</div>
+
+
+@code {
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public bool isToBeEdited { get; set; }
+
+    [Parameter] public Objective ObjectiveModel { get; set; }
+
+    public List<McqPastPaperFormDto> Examinations { get; set; } = new List<McqPastPaperFormDto>();
+    public List<McqSubjectFormDto> Subjects { get; set; } = new List<McqSubjectFormDto>();
+    public List<Chapter> Chapters { get; set; } = new List<Chapter>();
+
+
+    public string ExamTitle { get; set; } = string.Empty;
+
+    public string examId { get; set; } = "0";
+    private int subjectId { get; set; } = 0;
+
+    private int chapterId { get; set; } = 0;
+    private string chapterTitle { get; set; } = "Select Chapter";
+
+    public bool isLoading { get; set; }
+    private bool isLoadingChapters;
+    [Parameter]
+    public EventCallback<Objective> OnConstantFormEditSubmit { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoading = true;
+        try
+        {
+            Examinations = await Http.GetFromJsonAsync<List<McqPastPaperFormDto>>("api/ExamSubjects");
+            //Chapters = await Http.GetFromJsonAsync<List<Chapter>>("api/Chapters");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+        isLoading = false;
+
+    }
+
+    private void OnChangeExamination(ChangeEventArgs e)
+    {
+
+        LoadSubjects(e.Value.ToString());
+
+    }
+
+    private async void OnChangeSubject(ChangeEventArgs e)
+    {
+        var subjectId = Convert.ToInt32(e.Value.ToString());
+
+        await LoadChapters(subjectId);
+    }
+
+    async Task LoadChapters(int subjectId)
+    {
+        isLoadingChapters = true;
+        try
+        {
+
+            Chapters = await Http.GetFromJsonAsync<List<Chapter>>($"api/ChaptersBySubjectId/{subjectId}");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+        isLoadingChapters = false;
+        StateHasChanged();
+    }
+
+    public async Task HandleValidSubmit()
+    {
+
+        await OnConstantFormEditSubmit.InvokeAsync(ObjectiveModel);
+    }
+
+    private void LoadSubjects(string examId)
+    {
+        Subjects = new List<McqSubjectFormDto>();
+
+        foreach (var exam in Examinations)
+        {
+            if (exam.ExamId == examId)
+            {
+                Subjects = exam.McqSubjects;
+                return;
+            }
+        }
+    }
+    private async void SubjectHasChanged(int subjectId)
+    {
+        //Get the list chapters for this chapter
+        await LoadChapters(subjectId);
+    }
+    private void OnChapterHasChanged(ChangeEventArgs e)
+    {
+        var chaptId = Convert.ToInt32(e.Value.ToString());
+        ObjectiveModel.ChapterId = chaptId;
+    }
+}
+

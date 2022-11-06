@@ -1,0 +1,187 @@
+﻿@page "/mcq/edit/{Id}"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+
+@using Admin.Shared.Models
+@using Admin.Client.Pages.Backend.MCQs
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+
+<form>
+    <div class="form-group row">
+        <label for="email" class="col-sm-4 col-form-label">
+            GET MCQ:
+        </label>
+        <div class="col-sm-8">
+            <input type="number"  @oninput="OnChangeNumber" value="@questionNumber"
+                   min="1" max="@maxrange" />
+            @*<input value="@InputValue"
+                   @onchange="@((ChangeEventArgs __e) => InputValue = __e.Value.ToString())" />*@
+        </div>
+    </div>
+</form>
+
+<div class="alert alert-secondary mt-4">
+    @if (mcqs == null)
+    {
+        <LoadingSpinner />
+    }
+    else
+    {
+        <EditMCQForm Title="@Id" mcqModel="mcq" />
+
+        @*@if (mcq.Options.Count() == 4)
+        {
+            <EditMCQForm Title="@Id" mcqModel="mcq" />
+        }
+        else
+        {
+            <EditMCQForm Title="@Id" mcqModel="@mcq" op1="@op1" op2="@op2" op3="@op3" op4="@op4" op5="@op5"
+                         op1i="@op1i" op2i="@op2i" op3i="@op3i" op4i="@op4i" op5i="@op5i" />
+        }*@
+    }
+</div>
+
+
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    public string op1 { get; set; } = string.Empty;
+    public string op2 { get; set; } = string.Empty;
+
+    public string op3 { get; set; } = string.Empty;
+
+    public string op4 { get; set; } = string.Empty;
+
+    public string op5 { get; set; } = string.Empty;
+
+    public string op1i { get; set; } = string.Empty;
+
+    public string op2i { get; set; } = string.Empty;
+
+    public string op3i { get; set; } = string.Empty;
+
+    public string op4i { get; set; } = string.Empty;
+
+    public string op5i { get; set; } = string.Empty;
+
+    private MCQ mcq = new MCQ();
+
+    private List<MCQ> mcqs = null;
+
+    private int maxrange = 1;
+    private int questionNumber = 1;
+
+    private string InputValue;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            mcqs = await Http.GetFromJsonAsync<List<MCQ>>($"api/MCQs/{Id}");
+            if (mcqs.Any())
+            {
+                mcqs = mcqs.OrderBy(m => m.Position).ToList();
+                mcq = mcqs.ElementAt(0);
+                maxrange = mcqs.Count();
+
+            }
+            //if (mcqs.Any())
+            //{
+            //    mcq = mcqs.ElementAt(0);
+            //    maxrange = mcqs.Count();
+            //    if(mcq.Options.Count() < 5)
+            //    {
+            //        setOptions(mcq, 4);
+            //    }
+            //    else
+            //    {
+            //        setOptions(mcq, 5);
+            //    }
+            //
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task OnEditFormSubmit(MCQ updatedMCQ)
+    {
+        try
+        {
+            //await Http.GetFromJsonAsync<Examination>($"api/Examinations/{Id}");
+            updatedMCQ.PastPaper = null;
+
+            await Http.PutAsJsonAsync<MCQ>($"api/MCQs/{updatedMCQ.Id}", updatedMCQ);
+
+            //NavigationManager.NavigateTo("/subject");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private void OnChangeNumber(ChangeEventArgs e)
+    {
+        var value = e.Value.ToString();
+        int selectedPosition = 1;
+        //await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to delete: ${value}?");
+
+        bool isParsable = Int32.TryParse(value, out selectedPosition);
+
+        if (isParsable)
+        {
+            mcq = mcqs.ElementAt(selectedPosition - 1);
+            //if (mcq.Options.Any())
+            //    if(mcq.Options.Count < 5)
+            //    {
+            //        setOptions(mcq, 4);
+            //    }
+            //    else
+            //    {
+            //        setOptions(mcq, 5);
+            //    }
+        }
+
+    }
+
+    private void setOptions(MCQ mcq, int optionCounts)
+    {
+        if(optionCounts != 4)
+        {
+            //Setting options
+            op1 = mcq.Options.ElementAt(0).mcqOption;
+            op2 = mcq.Options.ElementAt(1).mcqOption;
+            op3 = mcq.Options.ElementAt(2).mcqOption;
+            op4 = mcq.Options.ElementAt(3).mcqOption;
+            op5 = mcq.Options.ElementAt(4).mcqOption;
+
+            //Setting Option Images
+            op1i = mcq.OptionImageUrl.ElementAt(0).OptionImgUrl;
+            op2i = mcq.OptionImageUrl.ElementAt(1).OptionImgUrl;
+            op3i = mcq.OptionImageUrl.ElementAt(2).OptionImgUrl;
+            op4i = mcq.OptionImageUrl.ElementAt(3).OptionImgUrl;
+            op5i = mcq.OptionImageUrl.ElementAt(4).OptionImgUrl;
+        }
+        else
+        {
+            op1 = mcq.Options.ElementAt(0).mcqOption;
+            op2 = mcq.Options.ElementAt(1).mcqOption;
+            op3 = mcq.Options.ElementAt(2).mcqOption;
+            op4 = mcq.Options.ElementAt(3).mcqOption;
+
+            op1i = string.IsNullOrWhiteSpace(mcq.OptionImageUrl.ElementAt(0).OptionImgUrl) ? "": mcq.OptionImageUrl.ElementAt(0).OptionImgUrl;
+            op2i = string.IsNullOrWhiteSpace(mcq.OptionImageUrl.ElementAt(1).OptionImgUrl) ? "" : mcq.OptionImageUrl.ElementAt(1).OptionImgUrl;
+            op3i = string.IsNullOrWhiteSpace(mcq.OptionImageUrl.ElementAt(2).OptionImgUrl) ? "" : mcq.OptionImageUrl.ElementAt(2).OptionImgUrl;
+            op4i = string.IsNullOrWhiteSpace(mcq.OptionImageUrl.ElementAt(3).OptionImgUrl) ? "" : mcq.OptionImageUrl.ElementAt(3).OptionImgUrl;
+        }
+    }
+}

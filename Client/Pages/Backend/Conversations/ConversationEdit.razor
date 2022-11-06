@@ -1,0 +1,62 @@
+﻿@page "/conversation/edit/{id:int}"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+@using Admin.Shared.Dtos
+
+@using Admin.Shared.Models
+@using Admin.Shared.Models.Tutorials
+@inject HttpClient Http
+
+@if (conversation != null)
+{
+    <ConversationForm ConversationModel="conversation" Title="Edit Conversation Form" isToBeEdited="true"
+          OnFormEditSubmit="@((Conversation) => OnEditSubmit(conversation))" />
+    <!--
+
+    <ChapterForm ChapterModel="chapter" Title="Edit Chapter Form"  isToBeEdited="true"
+             OnConstantFormEditSubmit="@((Chapter) => OnEditChapterSubmit(chapter))" />
+        -->
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Conversation conversation = null;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            conversation = await Http.GetFromJsonAsync<Conversation>($"api/Conversations/{Id}");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task OnEditSubmit(Conversation conversation)
+    {
+        try
+        {
+
+            await Http.PutAsJsonAsync<Conversation>($"api/Conversations/{conversation.Id}", conversation);
+
+            NavigationManager.NavigateTo("/conversation");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

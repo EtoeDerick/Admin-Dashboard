@@ -1,0 +1,592 @@
+@using Admin.Shared.Models
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.Extensions.Logging
+
+@using Admin.Shared.Dtos
+@using System.IO
+@using Admin.Shared.Models.ETQ
+
+@using Newtonsoft.Json
+
+
+
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+@inject ILogger<ETQForm> Logger
+
+<div class="alert alert-secondary mt-4" role="alert">
+
+    <EditForm OnValidSubmit="HandleValidSubmit" Model="PastPaperModel">
+        <h3> @Title </h3>
+        <hr />
+
+        <ValidationSummary />
+        <div class="form-group row">
+            <label for="id" class="col-sm-2 col-form-label">
+                PastPaper ID:
+            </label>
+            <div class="col-sm-10">
+                <InputText id="id" class="form-control" placeholder="Auto Generated ID" disabled="true"
+                           @bind-Value="PastPaperModel.Id" />
+                <ValidationMessage For="@(() => PastPaperModel.Id)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">
+                Title
+            </label>
+            <div class="col-sm-10">
+                <InputText id="title" class="form-control" placeholder="Title"
+                           @bind-Value="PastPaperModel.Title" />
+                <ValidationMessage For="@(() => PastPaperModel.Title)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">
+                Status
+            </label>
+            <div class="col-sm-10">
+                <InputSelect @bind-Value="PastPaperModel.Status">
+                    <option value="Premium">Select Subscription Type</option>
+                    <option value="Free">Free</option>
+                    <option value="Basic">Basic</option>
+                    <option value="Premium">Premium</option>
+                </InputSelect>
+
+                <ValidationMessage For="@(() => PastPaperModel.Status)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="description" class="col-sm-2 col-form-label">
+                Year
+            </label>
+            <div class="col-sm-10">
+                <InputText id="description" class="form-control" placeholder="Paper year"
+                           @bind-Value="PastPaperModel.PaperYear" />
+                <ValidationMessage For="@(() => PastPaperModel.PaperYear)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="description" class="col-sm-2 col-form-label">
+                No. of Questions
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="numofquestions" class="form-control" placeholder="Paper year"
+                             @bind-Value="PastPaperModel.Quantity" />
+                <ValidationMessage For="@(() => PastPaperModel.Quantity)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="description" class="col-sm-2 col-form-label">
+                DownloadSize KB
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="description" class="form-control" placeholder="Paper year"
+                             @bind-Value="PastPaperModel.DownloadSize" />
+                <ValidationMessage For="@(() => PastPaperModel.DownloadSize)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="imageurl" class="col-sm-2 col-form-label">
+                Paper Number
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="imageurl" class="form-control" placeholder="Paper number"
+                             @bind-Value="PastPaperModel.PaperNumber" />
+                <ValidationMessage For="@(() => PastPaperModel.PaperNumber)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="imageurl" class="col-sm-2 col-form-label">
+                Paper URL
+            </label>
+            <div class="col-sm-10">
+                <InputText id="imageurl" class="form-control" placeholder="Image url"
+                           @bind-Value="PastPaperModel.Url" />
+                <ValidationMessage For="@(() => PastPaperModel.Url)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="marquee" class="col-sm-2 col-form-label">
+                Thumbnail
+            </label>
+            <div class="col-sm-10">
+                <InputText id="marquee" class="form-control" placeholder="Maruquee Image Url"
+                           @bind-Value="PastPaperModel.Thumbnail" />
+                <ValidationMessage For="@(() => PastPaperModel.Thumbnail)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="price" class="col-sm-2 col-form-label">
+                Is Approved?
+            </label>
+            <div class="col-sm-10">
+                <InputCheckbox id="price" class="form-control" placeholder="Is the subject Approved?"
+                               @bind-Value="PastPaperModel.IsApproved" />
+                <ValidationMessage For="@(() => PastPaperModel.IsApproved)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="price" class="col-sm-2 col-form-label">
+                Is Free?
+            </label>
+            <div class="col-sm-10">
+                <InputCheckbox id="price" class="form-control" placeholder="Is the subject free?"
+                               @bind-Value="PastPaperModel.IsFree" />
+                <ValidationMessage For="@(() => PastPaperModel.IsFree)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="price" class="col-sm-2 col-form-label">
+                Status
+            </label>
+            <div class="col-sm-10">
+                <InputText id="price" class="form-control" placeholder="Status"
+                           @bind-Value="PastPaperModel.Status" />
+                <ValidationMessage For="@(() => PastPaperModel.Status)" />
+            </div>
+        </div>
+        @if (isToBeEdited)
+        {
+            <div class="form-group row">
+                <label for="description" class="col-sm-2 col-form-label">
+                    Update DownloadSize KB
+                </label>
+                <div class="col-sm-10">
+                    <InputNumber id="description" class="form-control" placeholder="Paper year"
+                                 @bind-Value="PastPaperModel.CorrectAnswerCount" />
+                    <ValidationMessage For="@(() => PastPaperModel.CorrectAnswerCount)" />
+                </div>
+            </div>
+        }
+
+        @if (!isToBeEdited)
+        {
+
+
+            @if (isLoading)
+            {
+                <LoadingSpinner />
+            }
+            else
+            {
+                <div class="form-group row">
+                    <label for="email" class="col-sm-4 col-form-label">
+                        Examination:
+                    </label>
+                    <div class="col-sm-8">
+                        <select value="@examId" @onchange="OnChangeExamination">
+                            <option value="0">Select Examination</option>
+                            @foreach (var exam in Examinations)
+                            {
+                                <option value="@exam.ExamId">@exam.ExamTitle</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="email" class="col-sm-4 col-form-label">
+                        Subject: <b>@PastPaperModel.SubjectID</b>
+                    </label>
+                    <div class="col-sm-8">
+
+                        <InputSelectNumber ValueChanged="@((int subId) => SubjectHasChanged(subId))"
+                                           ValueExpression="@(() => subjectId)" Value="@subjectId">
+                            <option value="0">Select Subject</option>
+                            @foreach (var subject in Subjects)
+                            {
+                                <option value="@subject.SubjectId">@subject.SubjectTitle</option>
+                            }
+                        </InputSelectNumber>
+                        <ValidationMessage For="@(() => PastPaperModel.SubjectID)" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-6 col-form-label">
+                        Pick The Question File:
+                    </label>
+                    <div class="col-sm-6">
+                        <InputFile OnChange="@OnInputFileChange" multiple />
+                    </div>
+                </div>
+            }
+        }
+
+
+        <div style="display: flex; align-items: center">
+            <button class="btn btn-primary" type="submit" style="margin: auto">Submit</button>
+        </div>
+    </EditForm>
+
+</div>
+
+<div>
+
+    @if (etqs.Any())
+    {
+        @foreach (var etq in etqs)
+        {
+    <div style="border: 1px solid gray; margin-top: 10px; padding: 10px">
+
+        @if (!string.IsNullOrEmpty(etq.ImageUrlBeforeIntroduction))
+        {
+            <div>
+                <img src="@etq.ImageUrlBeforeIntroduction" height="200" />
+                <p>@((MarkupString)@etq.ImageUrlBeforeIntroduction)</p>
+            </div>
+        }
+        <p> @((MarkupString)etq.Introduction) </p>
+
+        @if (!string.IsNullOrEmpty(etq.ImageUrlAfterIntroduction))
+        {
+            <div>
+                <img src="@etq.ImageUrlAfterIntroduction" height="200" />
+                <p>@((MarkupString)@etq.ImageUrlAfterIntroduction)</p>
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(etq.VideoUrl))
+        {
+            <div>
+                <video width="320" height="240" controls>
+                    <source src="@etq.VideoUrl" type="video/mp4">
+                </video>
+                <p>@((MarkupString)@etq.VideoUrl)</p>
+            </div>
+        }
+
+        @if (etq.Questions.Any())
+        {
+            @foreach (var q in etq.Questions)
+            {
+                @if (!string.IsNullOrEmpty(q.ImageUrlBeforeText))
+                {
+                    <div>
+                        <img src="@q.ImageUrlBeforeText" height="200" />
+                        <p>@((MarkupString)@q.ImageUrlBeforeText)</p>
+                    </div>
+                }
+                <p> @((MarkupString)q.Text) </p>
+
+                @if (!string.IsNullOrEmpty(q.ImageUrlAfterText))
+                {
+                    <div>
+                        <img src="@q.ImageUrlAfterText}" height="200" />
+                        <p>@((MarkupString)@q.ImageUrlAfterText)</p>
+                    </div>
+                }
+
+                @if (!string.IsNullOrEmpty(q.VideoUrl))
+                {
+                    <div>
+                        <video width="320" height="240" controls>
+                            <source src="@q.VideoUrl" type="video/mp4">
+                        </video>
+                        <p>@((MarkupString)@q.VideoUrl)</p>
+                    </div>
+                }
+
+
+                @if(q.SubQuestions.Any())
+                {
+                    @foreach(var subq in q.SubQuestions)
+                    {
+                        <div style="padding-left:35px">
+                             @if (!string.IsNullOrEmpty(subq.ImageUrlBeforeText))
+                                {
+                                    <div>
+                                        <img src="@subq.ImageUrlBeforeText" height="200" />
+                                        <p>@((MarkupString)@subq.ImageUrlBeforeText)</p>
+                                    </div>
+                                }
+                                <p> @((MarkupString)subq.Text) </p>
+
+                                @if (!string.IsNullOrEmpty(subq.ImageUrlAfterText))
+                                {
+                                    <div>
+                                        <img src="@subq.ImageUrlAfterText}" height="200" />
+                                        <p>@((MarkupString)@subq.ImageUrlAfterText)</p>
+                                    </div>
+                                }
+
+                                @if (!string.IsNullOrEmpty(subq.VideoUrl))
+                                {
+                                    <div>
+                                        <video width="320" height="240" controls>
+                                            <source src="@subq.VideoUrl" type="video/mp4">
+                                        </video>
+                                        <p>@((MarkupString)@subq.VideoUrl)</p>
+                                    </div>
+                                }
+
+                            @if (subq.Solution.Any())
+                            {
+                                @foreach (var p in subq.Solution)
+                                    {
+                                        <div style="background-color:lightgray; padding: 12px; border: 1px solid gray">
+                                            <p>
+                                                @if (!string.IsNullOrEmpty(p.ImageUrl))
+                                                {
+                                                    <div>
+                                                        <img src="@p.ImageUrl" height="200" />
+                                                        <p>@((MarkupString)@p.ImageUrl)</p>
+                                                    </div>
+                                                }
+                                                <div>
+                                                    <p>@((MarkupString)@p.Content)</p>
+                                                </div>
+
+                                            </p>
+                                        </div>
+                                    }
+                            }
+
+
+                            
+                        </div>
+                    }
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                }
+        }
+
+    </div>
+              
+         }
+     }               
+
+</div>
+
+@code {
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public bool isToBeEdited { get; set; }
+
+    [Parameter] public PastPaper PastPaperModel { get; set; }
+    //[Parameter] public List<mcqdto> mcqs { get; set; }
+    [Parameter] public List<EssayTypeQuestion> etqs { get; set; }
+
+    public List<McqPastPaperFormDto> Examinations { get; set; } = new List<McqPastPaperFormDto>();
+    public List<McqSubjectFormDto> Subjects { get; set; } = new List<McqSubjectFormDto>();
+
+
+    public string ExamTitle { get; set; } = string.Empty;
+
+    public string examId { get; set; } = "0";
+    private int subjectId { get; set; } = 0;
+    public bool isLoading { get; set; }
+
+    private long DownloadSize;
+
+
+    [Parameter]
+    public EventCallback<PastPaper> OnPastPaperFormEditSubmit { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoading = true;
+        try
+        {
+            Examinations = await Http.GetFromJsonAsync<List<McqPastPaperFormDto>>("api/ExamSubjects");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+        isLoading = false;
+
+    }
+
+    private void OnChangeExamination(ChangeEventArgs e)
+    {
+
+        LoadSubjects(e.Value.ToString());
+
+    }
+
+
+    public async Task HandleValidSubmit()
+    {
+        PastPaperModel.Id = PastPaperModel.SetId();
+
+        //Initialize the MCQ collection list
+        //SetETQs();
+
+        if (!isToBeEdited)
+        {
+            PastPaperModel.DownloadSize = DownloadSize;
+        }
+        else
+        {
+            PastPaperModel.DownloadSize = PastPaperModel.CorrectAnswerCount;
+        }
+        //PastPaperModel.Quantity = etqs.Count;
+        PastPaperModel.CorrectAnswerCount = 0;
+
+        PastPaperModel.EssayTypeQuestions = etqs;
+
+        await OnPastPaperFormEditSubmit.InvokeAsync(PastPaperModel);
+    }
+
+    public void SubjectHasChanged(int subjId)
+    {
+        PastPaperModel.SubjectID = subjId;
+
+        //Set pastPaperId
+        if (isToBeEdited)
+        {
+            PastPaperModel.Id = PastPaperModel.SetId();
+        }
+    }
+
+    private void LoadSubjects(string examId)
+    {
+        Subjects = new List<McqSubjectFormDto>();
+
+        foreach (var exam in Examinations)
+        {
+            if (exam.ExamId == examId)
+            {
+                Subjects = exam.McqSubjects;
+                return;
+            }
+        }
+    }
+    private async Task OnInputFileChange(InputFileChangeEventArgs e)
+    {
+
+        var file = e.File;
+
+        // Check if the file is null then return from the method
+        if (file == null)
+            return;
+
+        DownloadSize = file.Size / 1024; //Download size in Kilobytes
+
+        string jsonFromFile;
+        using (var reader = new StreamReader(file.OpenReadStream(file.Size + 10000)))
+        {
+            jsonFromFile = await reader.ReadToEndAsync();
+        }
+
+        try
+        {
+            etqs = JsonConvert.DeserializeObject<List<EssayTypeQuestion>>(jsonFromFile);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Deserialization failed", ex.Message);
+        }
+
+    }
+
+    //private void SetETQs()
+    //{
+    //    var questions = new List<MCQ>();
+    //    foreach(var mcq in mcqs)
+    //    {
+    //        //1. set regular properties
+    //        var mCQ = new MCQ()
+    //        {
+    //            Question = mcq.Question,
+    //            QuestionImageUrl = mcq.QuestionImageUrl,
+    //            Answer = mcq.Answer,
+    //            MultipleAnswers = mcq.MultipleAnswers,
+    //            IsAnonymous = mcq.IsAnonymous,
+    //            correctAnswer = mcq.correctAnswer,
+    //            JustificationText = mcq.JustificationText,
+    //            JustificationImageUrl = mcq.JustificationImageUrl,
+    //            Instruction = mcq.Instruction,
+    //            TopicId = mcq.TopicId,
+    //            Position = mcq.Position,
+    //            PastPaperId = PastPaperModel.Id,
+    //            SubjectId = PastPaperModel.SubjectID
+    //        };
+
+    //        //2. Set options for this question if any
+    //        if (mcq.Options.Any())
+    //        {
+    //            var options = new List<Option>();
+    //            foreach(var opt in mcq.Options)
+    //            {
+    //                var option = new Option()
+    //                {
+    //                    mcqOption = opt
+    //                };
+    //                options.Add(option);
+    //            }
+
+    //            //Attach a list of options
+    //            mCQ.Options = options;
+    //        }
+
+    //        //2. Set Image Options for this question if any
+    //        if (mcq.QuestionImageUrl.Any())
+    //        {
+    //            var options = new List<OptionImage>();
+    //            foreach (var opt in mcq.OptionImageUrl)
+    //            {
+    //                var option = new OptionImage()
+    //                {
+    //                    OptionImgUrl = opt
+    //                };
+    //                options.Add(option);
+    //            }
+
+    //            //Attach a list of options
+    //            mCQ.OptionImageUrl = options;
+    //        }
+
+    //        //3. Map a collection of answers
+    //        if (mcq.Answers.Any())
+    //        {
+    //            var answers = new List<Answer>();
+
+    //            foreach(var ans in answers)
+    //            {
+    //                answers.Add(new Answer()
+    //                {
+    //                    Ans = ans.Ans
+    //                });
+    //            }
+
+    //            mCQ.Answers = answers;
+    //        }
+
+    //        questions.Add(mCQ);
+    //    }
+
+    //    PastPaperModel.Questions = questions;
+    //    PastPaperModel.EssayTypeQuestions = etqs;
+    //}
+}
+

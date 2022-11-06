@@ -1,0 +1,39 @@
+﻿@page "/quizesawards/create"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+
+@using Admin.Shared.Models
+@inject HttpClient Http
+
+@if (quizAward == null)
+{
+    <div class="spinner-grow-sm"><p>Loading...</p></div>
+}
+else
+{
+    <QuizAwardForm QuizAwardModel="@quizAward" Title="Create Quiz Award" isToBeEdited="true"
+                   OnQuizAwardFormEditSubmit="@((QuizAward) => OnCreateFormSubmit(quizAward))" />
+}
+
+@code {
+    private QuizAward quizAward = new QuizAward();
+
+    private async Task OnCreateFormSubmit(QuizAward quizAward)
+    {
+        try
+        {
+            //await Http.GetFromJsonAsync<Examination>($"api/Examinations/{Id}");
+
+            await Http.PostAsJsonAsync<QuizAward>($"api/Quizawards", quizAward);
+
+            NavigationManager.NavigateTo("/quizesaward");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

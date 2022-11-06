@@ -1,0 +1,51 @@
+﻿@page "/chapter/create"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+
+@using Admin.Shared.Models
+
+@using Admin.Shared.Models.Tutorials
+
+@inject HttpClient Http
+@using Admin.Shared.Dtos
+
+@if (chapter != null)
+{
+    <ChapterForm ChapterModel="chapter" Title="Create New Chapter Form"  isToBeEdited="false"
+             OnConstantFormEditSubmit="@((Constants) => OnCreateChapterSubmit(chapter))" />
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+
+    private Chapter chapter = new Chapter();
+
+
+    private async Task OnCreateChapterSubmit(Chapter chapter)
+    {
+        try
+        {
+
+            var result = await Http.PostAsJsonAsync<Chapter>("api/Chapters", chapter);
+            if (result.IsSuccessStatusCode)
+            {
+                //Create the list of mcqs 
+            }
+            if(result != null)
+            {
+                NavigationManager.NavigateTo("/chapter");
+            }
+
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

@@ -1,0 +1,246 @@
+@using Admin.Shared.Models
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.Extensions.Logging
+
+@using Admin.Shared.Models.Tutorials
+@using Admin.Shared.Dtos
+@using System.IO
+
+ 
+@using Newtonsoft.Json 
+
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+@inject ILogger<Conversation> Logger
+
+<div class="alert alert-secondary mt-4" role="alert">    
+    <EditForm OnValidSubmit="HandleValidSubmit" Model="ConversationModel">
+        <h3> @Title </h3>
+        <hr />
+
+        <ValidationSummary />
+        <div class="form-group row">
+            <label for="id" class="col-sm-2 col-form-label">
+                Conversation ID:
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="id" class="form-control" placeholder="Auto Generated ID" disabled="true"
+                             @bind-Value="ConversationModel.Id" />
+                <ValidationMessage For="@(() => ConversationModel.Id)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">
+                Title
+            </label>
+            <div class="col-sm-10">
+                <InputText id="title" class="form-control" placeholder="Chapter Title"
+                           @bind-Value="ConversationModel.MessageTitle" />
+                <ValidationMessage For="@(() => ConversationModel.MessageTitle)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="key" class="col-sm-2 col-form-label">
+                Message Description
+            </label>
+            <div class="col-sm-10">
+                <InputTextArea id="key" class="form-control" placeholder="conversation description"
+                               @bind-Value="ConversationModel.MessageDescription" />
+                <ValidationMessage For="@(() => ConversationModel.MessageDescription)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="key" class="col-sm-2 col-form-label">
+                Date
+            </label>
+            <div class="col-sm-10">
+                <InputDate id="key" class="form-control" placeholder="conversation description"
+                               @bind-Value="ConversationModel.Date" />
+                <ValidationMessage For="@(() => ConversationModel.Date)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="value" class="col-sm-2 col-form-label">
+                ReplyID
+            </label>
+            <div class="col-sm-1">
+                <InputNumber id="value" class="form-control" placeholder="Value"
+                             @bind-Value="ConversationModel.ReplyId" />
+                <ValidationMessage For="@(() => ConversationModel.ReplyId)" />
+            </div>
+
+            <label for="value" class="col-sm-2 col-form-label">
+                IsAReply
+            </label>
+            <div class="col-sm-1">
+                <InputCheckbox id="isreply" class="form-control" placeholder="Value"
+                               @bind-Value="ConversationModel.IsAReply" />
+                <ValidationMessage For="@(() => ConversationModel.IsAReply)" />
+            </div>
+
+            <label for="value" class="col-sm-2 col-form-label">
+                IsNotApproved
+            </label>
+            <div class="col-sm-1">
+                <InputCheckbox id="isnotapproved" class="form-control" placeholder="Value"
+                               @bind-Value="ConversationModel.IsNotApproved" />
+                <ValidationMessage For="@(() => ConversationModel.IsNotApproved)" />
+            </div>
+
+            <label for="value" class="col-sm-2 col-form-label">
+                ForumId
+            </label>
+            <div class="col-sm-1">
+                <InputNumber id="forumid" class="form-control" placeholder="Value"
+                             @bind-Value="ConversationModel.DiscussionForumId" />
+                <ValidationMessage For="@(() => ConversationModel.DiscussionForumId)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="code" class="col-sm-2 col-form-label">
+                SubjectID
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="subjectid" class="form-control" placeholder="Code"
+                             @bind-Value="ConversationModel.SubjectId" />
+                <ValidationMessage For="@(() => ConversationModel.SubjectId)" />
+            </div>
+        </div>
+
+
+        @if (!isToBeEdited)
+        {
+
+
+            @if (isLoading)
+            {
+                <LoadingSpinner />
+            }
+            else
+            {
+                <div class="form-group row">
+                    <label for="email" class="col-sm-4 col-form-label">
+                        Examination:
+                    </label>
+                    <div class="col-sm-8">
+                        <select value="@examId" @onchange="OnChangeExamination">
+                            <option value="0">Select Examination</option>
+                            @foreach (var exam in Examinations)
+                            {
+                                <option value="@exam.ExamId">@exam.ExamTitle</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="email" class="col-sm-4 col-form-label">
+                        Subject: <b>@ConversationModel.SubjectId</b>
+                    </label>
+                    <div class="col-sm-8">
+
+                        <InputSelectNumber ValueChanged="@((int subId) => SubjectHasChanged(subId))"
+                                           ValueExpression="@(() => subjectId)" Value="@subjectId">
+                            <option value="0">Select Subject</option>
+                            @foreach (var subject in Subjects)
+                            {
+                                <option value="@subject.SubjectId">@subject.SubjectTitle</option>
+                            }
+                        </InputSelectNumber>
+                        <ValidationMessage For="@(() => ConversationModel.SubjectId)" />
+                    </div>
+                </div>
+
+
+            }
+        }
+
+
+        <div style="display: flex; align-items: center">
+            <button class="btn btn-primary" type="submit" style="margin: auto">Submit</button>
+        </div>
+    </EditForm>
+
+</div>
+
+
+@code {
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public bool isToBeEdited { get; set; }
+
+    [Parameter] public Conversation ConversationModel { get; set; }
+
+    public List<McqPastPaperFormDto> Examinations { get; set; } = new List<McqPastPaperFormDto>();
+    public List<McqSubjectFormDto> Subjects { get; set; } = new List<McqSubjectFormDto>();
+
+
+    public string ExamTitle { get; set; } = string.Empty;
+
+    public string examId { get; set; } = "0";
+    private int subjectId { get; set; } = 0;
+    public bool isLoading { get; set; }
+
+
+    [Parameter]
+    public EventCallback<Conversation> OnFormEditSubmit { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoading = true;
+        try
+        {
+            Examinations = await Http.GetFromJsonAsync<List<McqPastPaperFormDto>>("api/ExamSubjects");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+        isLoading = false;
+
+    }
+
+    private void OnChangeExamination(ChangeEventArgs e)
+    {
+
+        LoadSubjects(e.Value.ToString());
+
+    }
+
+
+    public async Task HandleValidSubmit()
+    {
+
+        await OnFormEditSubmit.InvokeAsync(ConversationModel);
+    }
+
+
+    private void LoadSubjects(string examId)
+    {
+        Subjects = new List<McqSubjectFormDto>();
+
+        foreach (var exam in Examinations)
+        {
+            if (exam.ExamId == examId)
+            {
+                Subjects = exam.McqSubjects;
+                return;
+            }
+        }
+    }
+    private void SubjectHasChanged(int subjectId)
+    {
+        ConversationModel.SubjectId = subjectId;
+    }
+}
+

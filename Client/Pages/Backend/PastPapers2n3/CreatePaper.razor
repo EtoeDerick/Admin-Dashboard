@@ -1,0 +1,59 @@
+﻿@page "/pastpaper2n3/create"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+
+@using Admin.Shared.Models
+@using Admin.Shared.Models.ETQ
+@inject HttpClient Http
+@using Admin.Shared.Dtos
+
+@if (pastPaper != null)
+{
+    <ETQForm PastPaperModel="pastPaper" Title="Create New Past Paper Form" etqs="essayTypeQuestions" isToBeEdited="false"
+             OnPastPaperFormEditSubmit="@((PastPaper) => OnCreatePastPaperSubmit(pastPaper))" />
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+    //[Parameter]
+    //public string Id { get; set; }
+
+    private PastPaper pastPaper = new PastPaper();
+    public List<EssayTypeQuestion> essayTypeQuestions = new List<EssayTypeQuestion>();
+
+
+    private async Task OnCreatePastPaperSubmit(PastPaper pastPaper)
+    {
+        try
+        {
+            pastPaper.Subject.Title = "...";
+            pastPaper.Subject.Examination.Title = "...";
+            pastPaper.Subject.Examination.Description = "...";
+            //pastPaper.Videos = null;
+            pastPaper.Questions = null;
+            //pastPaper.EssayTypeQuestions = essayTypeQuestions;
+
+
+            var result = await Http.PostAsJsonAsync<PastPaper>("api/PastPapers2n3", pastPaper);
+            if (result.IsSuccessStatusCode)
+            {
+                //Create the list of mcqs 
+            }
+            if(result != null)
+            {
+                NavigationManager.NavigateTo("/pastpaper2n3");
+            }
+
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

@@ -1,0 +1,48 @@
+﻿@page "/instructor/create"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+
+@using Admin.Shared.Models
+@inject HttpClient Http
+
+
+@if (instructor != null)
+{
+    <InstructorsForm  Title="Create New Instructor Form" InstructorModel="instructor"
+                      isToBeEdited="false"
+                     OnInstructorFormEditSubmit="@((Instructor) => OnCreateInstructorSubmit(instructor))"/>
+    
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+
+    private Instructor instructor = new Instructor();
+
+
+    private async Task OnCreateInstructorSubmit(Instructor instructor)
+    {
+        try
+        {
+
+            var result = await Http.PostAsJsonAsync<Instructor>("api/Instructors", instructor);
+            if (result.IsSuccessStatusCode)
+            {
+                //Create the list of mcqs 
+            }
+            if(result != null)
+            {
+                NavigationManager.NavigateTo("/instructor");
+            }
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

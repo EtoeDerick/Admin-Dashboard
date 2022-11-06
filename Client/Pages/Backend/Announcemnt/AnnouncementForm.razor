@@ -1,0 +1,314 @@
+@using Admin.Shared.Models
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.Extensions.Logging
+
+@using Admin.Shared.Dtos
+@using System.IO
+
+ 
+@using Newtonsoft.Json 
+
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+@inject ILogger<Announcement> Logger
+
+<div class="alert alert-secondary mt-4" role="alert">    
+    <EditForm OnValidSubmit="HandleValidSubmit" Model="AnnouncementModel">
+        <h3> @Title </h3>
+        <hr />
+
+        <ValidationSummary />
+        <div class="form-group row">
+            <label for="id" class="col-sm-2 col-form-label">
+                Announcment ID:
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="id" class="form-control" placeholder="Auto Generated ID" disabled="true"
+                             @bind-Value="AnnouncementModel.Id" />
+                <ValidationMessage For="@(() => AnnouncementModel.Id)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">
+                Number Of Days To Examination
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="daysLeft" class="form-control" placeholder="Number of days to the exam" disabled="true"
+                             @bind-Value="AnnouncementModel.NumberOfDaysToExamination" />
+                <ValidationMessage For="@(() => AnnouncementModel.NumberOfDaysToExamination)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="key" class="col-sm-2 col-form-label">
+                Examination ID
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="examId" class="form-control" placeholder="Examination Id"
+                             @bind-Value="AnnouncementModel.ExaminationId" />
+                <ValidationMessage For="@(() => AnnouncementModel.ExaminationId)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="value" class="col-sm-2 col-form-label">
+                Examination NickName Title
+            </label>
+            <div class="col-sm-10">
+                <InputText id="examTitle" class="form-control" placeholder="Examination NickName Title"
+                           @bind-Value="AnnouncementModel.ExaminationTitle" />
+                <ValidationMessage For="@(() => AnnouncementModel.ExaminationTitle)" />
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label for="value" class="col-sm-2 col-form-label">
+                Announcement Title
+            </label>
+            <div class="col-sm-10">
+                <InputText id="announceTitle" class="form-control" placeholder="Announcement Title"
+                           @bind-Value="AnnouncementModel.AnnouncementTitle" />
+                <ValidationMessage For="@(() => AnnouncementModel.AnnouncementTitle)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="value" class="col-sm-2 col-form-label">
+                Announcement Description
+            </label>
+            <div class="col-sm-10">
+                <InputText id="announceDescription" class="form-control" placeholder="Announcement Description"
+                           @bind-Value="AnnouncementModel.AnnouncementDescription" />
+                <ValidationMessage For="@(() => AnnouncementModel.AnnouncementDescription)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="value" class="col-sm-2 col-form-label">
+                ExamDaysLeft BgColor
+            </label>
+            <div class="col-sm-10">
+                <InputText id="examDaysLeftBgColor" class="form-control" placeholder="ExamDaysLeftBgColor"
+                           @bind-Value="AnnouncementModel.ExamDaysLeftBgColor" />
+                <ValidationMessage For="@(() => AnnouncementModel.ExamDaysLeftBgColor)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="value" class="col-sm-2 col-form-label">
+                Label 1 Sub 1
+            </label>
+            <div class="col-sm-10">
+                <InputText id="lbl1" class="form-control" placeholder="Label1Sub1"
+                           @bind-Value="AnnouncementModel.Label1Sub1" />
+                <ValidationMessage For="@(() => AnnouncementModel.Label1Sub1)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="value" class="col-sm-2 col-form-label">
+                Label 1 Sub2
+            </label>
+            <div class="col-sm-10">
+                <InputText id="lbl2" class="form-control" placeholder="Label1Sub2"
+                           @bind-Value="AnnouncementModel.Label1Sub2" />
+                <ValidationMessage For="@(() => AnnouncementModel.Label1Sub2)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="value" class="col-sm-2 col-form-label">
+                Label 1 Sub3
+            </label>
+            <div class="col-sm-10">
+                <InputText id="lbl3" class="form-control" placeholder="Label1Sub3"
+                           @bind-Value="AnnouncementModel.Label1Sub3" />
+                <ValidationMessage For="@(() => AnnouncementModel.Label1Sub3)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="value" class="col-sm-2 col-form-label">
+                Label 2 Sub1
+            </label>
+            <div class="col-sm-10">
+                <InputText id="lbl4" class="form-control" placeholder="Label2Sub1"
+                           @bind-Value="AnnouncementModel.Label2Sub1" />
+                <ValidationMessage For="@(() => AnnouncementModel.Label2Sub1)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="value" class="col-sm-2 col-form-label">
+                Label 2 Sub2
+            </label>
+            <div class="col-sm-10">
+                <InputText id="lbl5" class="form-control" placeholder="Label2Sub2"
+                           @bind-Value="AnnouncementModel.Label2Sub2" />
+                <ValidationMessage For="@(() => AnnouncementModel.Label2Sub2)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="value" class="col-sm-2 col-form-label">
+                Label 3 Sub3
+            </label>
+            <div class="col-sm-10">
+                <InputText id="lbl6" class="form-control" placeholder="Label2Sub3"
+                           @bind-Value="AnnouncementModel.Label2Sub3" />
+                <ValidationMessage For="@(() => AnnouncementModel.Label2Sub3)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="value" class="col-sm-2 col-form-label">
+                Announcement Video Url
+            </label>
+            <div class="col-sm-10">
+                <InputText id="videoUrl" class="form-control" placeholder="HowToUseOgaBookVideoUrl"
+                           @bind-Value="AnnouncementModel.HowToUseOgaBookVideoUrl" />
+                <ValidationMessage For="@(() => AnnouncementModel.HowToUseOgaBookVideoUrl)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="value" class="col-sm-2 col-form-label">
+                Video Title
+            </label>
+            <div class="col-sm-10">
+                <InputText id="videoTitle" class="form-control" placeholder="VideoTitle"
+                           @bind-Value="AnnouncementModel.VideoTitle" />
+                <ValidationMessage For="@(() => AnnouncementModel.VideoTitle)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="value" class="col-sm-2 col-form-label">
+                Email Contact
+            </label>
+            <div class="col-sm-10">
+                <InputText id="email" class="form-control" placeholder="EmailContact"
+                           @bind-Value="AnnouncementModel.EmailContact" />
+                <ValidationMessage For="@(() => AnnouncementModel.EmailContact)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="value" class="col-sm-2 col-form-label">
+                Contact 1 (WhatsApp)
+            </label>
+            <div class="col-sm-10">
+                <InputText id="contact1" class="form-control" placeholder="Line1ContactWithWhatsApp"
+                           @bind-Value="AnnouncementModel.Line1ContactWithWhatsApp" />
+                <ValidationMessage For="@(() => AnnouncementModel.Line1ContactWithWhatsApp)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="value" class="col-sm-2 col-form-label">
+                Contact 2
+            </label>
+            <div class="col-sm-10">
+                <InputText id="lbl3" class="form-control" placeholder="Line2Contact"
+                           @bind-Value="AnnouncementModel.Line2Contact" />
+                <ValidationMessage For="@(() => AnnouncementModel.Line2Contact)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="isApproved" class="col-sm-2 col-form-label">
+                Is Active(Approved)
+            </label>
+            <div class="col-sm-10">
+                <InputCheckbox id="isApproved" class="form-control"
+                               @bind-Value="AnnouncementModel.IsActive" />
+                <ValidationMessage For="@(() => AnnouncementModel.IsActive)" />
+            </div>
+        </div>
+
+
+
+
+        <div class="form-group row">
+            <label for="code" class="col-sm-2 col-form-label">
+                Date
+            </label>
+            <div class="col-sm-10">
+                <InputDate id="code" class="form-control" placeholder="Code"
+                           @bind-Value="AnnouncementModel.Date" />
+                <ValidationMessage For="@(() => AnnouncementModel.Date)" />
+            </div>
+        </div>
+
+
+
+        <div style="display: flex; align-items: center">
+            <button class="btn btn-primary" type="submit" style="margin: auto">Submit</button>
+        </div>
+    </EditForm>
+
+</div>
+
+
+@code {
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public bool isToBeEdited { get; set; }
+
+    [Parameter] public Announcement AnnouncementModel { get; set; }
+
+    //public List<McqPastPaperFormDto> Examinations { get; set; } = new List<McqPastPaperFormDto>();
+    //public List<McqSubjectFormDto> Subjects { get; set; } = new List<McqSubjectFormDto>();
+
+
+    //public string ExamTitle { get; set; } = string.Empty;
+
+    //public string examId { get; set; } = "0";
+    //private int subjectId { get; set; } = 0;
+    public bool isLoading { get; set; }
+
+
+    [Parameter]
+    public EventCallback<Announcement> OnAnnouncementFormEditSubmit { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoading = true;
+        try
+        {
+            //AnnouncementModel = await Http.GetFromJsonAsync<Announcement>($"api/Announcements/{Id}");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+        isLoading = false;
+
+    }
+
+    //private void OnChangeExamination(ChangeEventArgs e)
+    //{
+
+    //    LoadSubjects(e.Value.ToString());
+
+    //}
+
+
+    public async Task HandleValidSubmit()
+    {
+
+        await OnAnnouncementFormEditSubmit.InvokeAsync(AnnouncementModel);
+    }
+
+
+    //private void LoadSubjects(string examId)
+    //{
+    //    Subjects = new List<McqSubjectFormDto>();
+
+    //    foreach (var exam in Examinations)
+    //    {
+    //        if (exam.ExamId == examId)
+    //        {
+    //            Subjects = exam.McqSubjects;
+    //            return;
+    //        }
+    //    }
+    //}
+
+}
+

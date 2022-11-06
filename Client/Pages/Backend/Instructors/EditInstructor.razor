@@ -1,0 +1,58 @@
+﻿@page "/instructor/edit/{Id}"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+@using Admin.Shared.Dtos
+
+@using Admin.Shared.Models
+@inject HttpClient Http
+
+@if (instructor != null)
+{
+    <InstructorsForm Title="Edit Instructor Form" InstructorModel="instructor"
+                     isToBeEdited="true"
+                     OnInstructorFormEditSubmit="@((Instructor) => OnEditInstructorSubmit(instructor))" />
+    
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    private Instructor instructor = null;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            instructor = await Http.GetFromJsonAsync<Instructor>($"api/Instructors/{Id}");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task OnEditInstructorSubmit(Instructor instructor)
+    {
+        try
+        {
+
+            await Http.PutAsJsonAsync<Instructor>($"api/Instructors/{instructor.Id}", instructor);
+
+            NavigationManager.NavigateTo("/instructor");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

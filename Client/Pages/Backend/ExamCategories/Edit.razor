@@ -1,0 +1,54 @@
+﻿@page "/examination/category/edit/{id:int}"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+
+@using Admin.Shared.Models
+@inject HttpClient Http
+
+@if(exam != null){
+    <Form ExaminationEditModel="@exam" Title="Exam Category Edit Form" isToBeEdited="true"
+        OnExaminationFormEditSubmit="@((ExamCategory) => OnEditFormSubmit(exam))"/>
+}else{
+    <div class="spinner-grow"><br/><p>Loading...</p></div>
+}
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private ExamCategory exam;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            exam = await Http.GetFromJsonAsync<ExamCategory>($"api/ExamCategory/{Id}");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task OnEditFormSubmit(ExamCategory updatedExam)
+    {
+        try
+        {
+            //await Http.GetFromJsonAsync<Examination>($"api/Examinations/{Id}");
+
+            await Http.PutAsJsonAsync<ExamCategory>($"api/ExamCategory/{updatedExam.Id}", updatedExam);
+
+            NavigationManager.NavigateTo("/examination/category");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

@@ -1,0 +1,57 @@
+﻿@page "/topic/edit/{id:int}"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+@using Admin.Shared.Dtos 
+
+@using Admin.Shared.Models
+@inject HttpClient Http
+
+@if (topic != null)
+{
+    <TopicForm TopicModel="topic" Title="Edit Topic Form"  isToBeEdited="true"
+             OnTopicFormEditSubmit="@((Topic) => OnEditPastPaperSubmit(topic))" />
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Topic topic = null;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            topic = await Http.GetFromJsonAsync<Topic>($"api/Topics/{Id}");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task OnEditPastPaperSubmit(Topic topic)
+    {
+        try
+        {
+            topic.Subject = null;
+
+            await Http.PutAsJsonAsync<Topic>($"api/Topics/{topic.Id}", topic);
+
+            NavigationManager.NavigateTo("/topic");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

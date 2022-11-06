@@ -1,0 +1,57 @@
+﻿@page "/announcement/edit/{id:int}"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+@using Admin.Shared.Dtos
+
+@using Admin.Shared.Models
+@inject HttpClient Http
+
+@if (announcement != null)
+{
+    <AnnouncementForm AnnouncementModel="announcement" Title="Edit Announcement Form"
+                      isToBeEdited="true"
+                      OnAnnouncementFormEditSubmit="@((Announcement) => OnEditAnnouncementSubmit(announcement))" />
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Announcement announcement = null;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            announcement = await Http.GetFromJsonAsync<Announcement>($"api/Announcements/{Id}");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task OnEditAnnouncementSubmit(Announcement announcement)
+    {
+        try
+        {
+
+            await Http.PutAsJsonAsync<Announcement>($"api/Announcements/{announcement.Id}", announcement);
+
+            NavigationManager.NavigateTo("/announcement");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

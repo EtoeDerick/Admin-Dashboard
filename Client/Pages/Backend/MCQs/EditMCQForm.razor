@@ -1,0 +1,228 @@
+@using Admin.Shared.Models
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.Extensions.Logging
+
+@using Admin.Shared.Dtos
+@using System.IO
+
+ 
+@using Newtonsoft.Json 
+
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+<div class="alert alert-secondary mt-4" role="alert">
+
+    <EditForm OnValidSubmit="HandleValidSubmit" Model="mcqModel">
+        <h3> @Title </h3>
+        <hr />
+
+        <ValidationSummary />
+        <div class="form-group row">
+            <label for="id" class="col-sm-2 col-form-label">
+                MCQ ID:
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="id" class="form-control" placeholder="Auto Generated ID" disabled="true"
+                             @bind-Value="mcqModel.Id" />
+                <ValidationMessage For="@(() => mcqModel.Id)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">
+                Instruction
+            </label>
+            <div class="col-sm-10">
+                <InputText id="title" class="form-control" 
+                           @bind-Value="mcqModel.Instruction" />
+                <ValidationMessage For="@(() => mcqModel.Instruction)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">
+                Questions
+            </label>
+            <div class="col-sm-10">
+                <InputText id="title" class="form-control" 
+                           @bind-Value="mcqModel.Question" />
+                <ValidationMessage For="@(() => mcqModel.Question)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="description" class="col-sm-2 col-form-label">
+                QuestionImageURL
+            </label>
+            <div class="col-sm-10">
+                <InputText id="description" class="form-control" 
+                           @bind-Value="mcqModel.QuestionImageUrl" />
+                <ValidationMessage For="@(() => mcqModel.QuestionImageUrl)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="imageurl" class="col-sm-2 col-form-label">
+                Answer
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="imageurl" class="form-control" 
+                             @bind-Value="mcqModel.Answer" />
+                <ValidationMessage For="@(() => mcqModel.Answer)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="imageurl" class="col-sm-2 col-form-label">
+                Multiple Answers
+            </label>
+            <div class="col-sm-10">
+                <InputCheckbox id="imageurl" class="form-control" 
+                               @bind-Value="mcqModel.MultipleAnswers" />
+                <ValidationMessage For="@(() => mcqModel.MultipleAnswers)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="marquee" class="col-sm-2 col-form-label">
+                Is Anonymous?
+            </label>
+            <div class="col-sm-10">
+                <InputCheckbox id="marquee" class="form-control" placeholder="Anonymous question?"
+                               @bind-Value="mcqModel.IsAnonymous" />
+                <ValidationMessage For="@(() => mcqModel.IsAnonymous)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="price" class="col-sm-2 col-form-label">
+                Justification Text
+            </label>
+            <div class="col-sm-10">
+                <InputTextArea id="price" class="form-control" placeholder="Justification Text"
+                               @bind-Value="mcqModel.JustificationText" />
+                <ValidationMessage For="@(() => mcqModel.JustificationText)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="price" class="col-sm-2 col-form-label">
+                Justification ImageURL
+            </label>
+            <div class="col-sm-10">
+                <InputText id="price" class="form-control" placeholder="Justification Image Url"
+                           @bind-Value="mcqModel.JustificationImageUrl" />
+                <ValidationMessage For="@(() => mcqModel.JustificationImageUrl)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="price" class="col-sm-2 col-form-label">
+                Topic ID
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="price" class="form-control" placeholder="Topic ID"
+                             @bind-Value="mcqModel.TopicId" />
+                <ValidationMessage For="@(() => mcqModel.TopicId)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="price" class="col-sm-2 col-form-label">
+                Position
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="price" class="form-control" placeholder="Position"
+                             @bind-Value="mcqModel.Position" />
+                <ValidationMessage For="@(() => mcqModel.Position)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <input type="text" @bind-value="op1" /><br />
+                <input type="text" @bind-value="op2" /><br />
+                <input type="text" @bind-value="op3" /><br />
+                <input type="text" @bind-value="op4" /><br />
+            </div>
+            <div class="col-sm-6">
+                
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: center">
+            <button class="btn btn-primary" type="submit" style="margin: auto">Submit</button>
+        </div>
+    </EditForm>
+
+</div>
+
+
+@code {
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public bool isToBeEdited { get; set; }
+
+    [Parameter] public MCQ mcqModel { get; set; }
+    private string op1 = "option1", op2, op3, op4, op5;
+
+    private bool isLoading;
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoading = true;
+        try
+        {
+            if (mcqModel.Options.Any())
+            {
+                setOptions(mcqModel, 4);
+            }
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+        isLoading = false;
+
+    }
+
+
+    public async Task HandleValidSubmit()
+    {
+
+    }
+    private void setOptions(MCQ mcq, int optionCounts)
+    {
+        if (optionCounts != 4)
+        {
+            //Setting options
+            op1 = mcq.Options.ElementAt(0).mcqOption;
+            op2 = mcq.Options.ElementAt(1).mcqOption;
+            op3 = mcq.Options.ElementAt(2).mcqOption;
+            op4 = mcq.Options.ElementAt(3).mcqOption;
+            op5 = mcq.Options.ElementAt(4).mcqOption;
+
+            //Setting Option Images
+            //op1i = mcq.OptionImageUrl.ElementAt(0).OptionImgUrl;
+            //op2i = mcq.OptionImageUrl.ElementAt(1).OptionImgUrl;
+            //op3i = mcq.OptionImageUrl.ElementAt(2).OptionImgUrl;
+            //op4i = mcq.OptionImageUrl.ElementAt(3).OptionImgUrl;
+            //op5i = mcq.OptionImageUrl.ElementAt(4).OptionImgUrl;
+        }
+        else
+        {
+            op1 = mcq.Options.ElementAt(0).mcqOption;
+            op2 = mcq.Options.ElementAt(1).mcqOption;
+            op3 = mcq.Options.ElementAt(2).mcqOption;
+            op4 = mcq.Options.ElementAt(3).mcqOption;
+
+            //op1i = string.IsNullOrWhiteSpace(mcq.OptionImageUrl.ElementAt(0).OptionImgUrl) ? "" : mcq.OptionImageUrl.ElementAt(0).OptionImgUrl;
+            //op2i = string.IsNullOrWhiteSpace(mcq.OptionImageUrl.ElementAt(1).OptionImgUrl) ? "" : mcq.OptionImageUrl.ElementAt(1).OptionImgUrl;
+            //op3i = string.IsNullOrWhiteSpace(mcq.OptionImageUrl.ElementAt(2).OptionImgUrl) ? "" : mcq.OptionImageUrl.ElementAt(2).OptionImgUrl;
+            //op4i = string.IsNullOrWhiteSpace(mcq.OptionImageUrl.ElementAt(3).OptionImgUrl) ? "" : mcq.OptionImageUrl.ElementAt(3).OptionImgUrl;
+        }
+    }
+}
+

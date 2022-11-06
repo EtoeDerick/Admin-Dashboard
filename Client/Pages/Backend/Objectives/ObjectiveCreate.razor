@@ -1,0 +1,52 @@
+﻿@page "/objective/create"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+
+@using Admin.Shared.Models
+
+@using Admin.Shared.Models.Tutorials
+
+@inject HttpClient Http
+@using Admin.Shared.Dtos
+
+@if (objective != null)
+{
+    <ObjectiveForm ObjectiveModel="objective" Title="Create New Objective Form"  isToBeEdited="false"
+             OnConstantFormEditSubmit="@((Objective) => OnCreateSubmit(objective))" />
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+
+    private Objective objective = new Objective();
+
+
+    private async Task OnCreateSubmit(Objective objective)
+    {
+        try
+        {
+            
+
+            var result = await Http.PostAsJsonAsync<Objective>("api/Objectives", objective);
+            if (result.IsSuccessStatusCode)
+            {
+                //Create the list of mcqs 
+            }
+            if(result != null)
+            {
+                NavigationManager.NavigateTo("/objective");
+            }
+
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

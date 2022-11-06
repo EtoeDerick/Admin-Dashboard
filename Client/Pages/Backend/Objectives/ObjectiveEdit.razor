@@ -1,0 +1,57 @@
+﻿@page "/objective/edit/{id:int}"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+@using Admin.Shared.Dtos 
+
+@using Admin.Shared.Models
+@using Admin.Shared.Models.Tutorials 
+@inject HttpClient Http
+
+@if (objective != null)
+{
+    <ObjectiveForm ObjectiveModel="objective" Title="Edit Objective Form"  isToBeEdited="true"
+             OnConstantFormEditSubmit="@((Lesson) => OnEditSubmit(objective))" />
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Objective objective = null;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            objective = await Http.GetFromJsonAsync<Objective>($"api/Objectives/{Id}");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task OnEditSubmit(Objective objective)
+    {
+        try
+        {
+            
+            await Http.PutAsJsonAsync<Objective>($"api/Objective/{objective.Id}", objective);
+
+            NavigationManager.NavigateTo("/objective");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

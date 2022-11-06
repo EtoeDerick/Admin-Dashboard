@@ -1,0 +1,57 @@
+﻿@page "/pastpaper/create"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+
+@using Admin.Shared.Models
+@inject HttpClient Http
+@using Admin.Shared.Dtos
+
+@if (pastPaper != null)
+{
+    <MCQForm PastPaperModel="pastPaper" Title="Create New Past Paper Form" mcqs="mcqs" isToBeEdited="false"
+             OnPastPaperFormEditSubmit="@((PastPaper) => OnCreatePastPaperSubmit(pastPaper))" />
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+    //[Parameter]
+    //public string Id { get; set; }
+
+    private PastPaper pastPaper = new PastPaper();
+    public List<mcqdto> mcqs = new List<mcqdto>();
+
+
+    private async Task OnCreatePastPaperSubmit(PastPaper pastPaper)
+    {
+        try
+        {
+            pastPaper.Subject.Title = "...";
+            pastPaper.Subject.Examination.Title = "...";
+            pastPaper.Subject.Examination.Description = "...";
+            //pastPaper.Videos = null;
+            pastPaper.EssayTypeQuestions = null;
+
+
+            var result = await Http.PostAsJsonAsync<PastPaper>("api/PastPapers", pastPaper);
+            if (result.IsSuccessStatusCode)
+            {
+                //Create the list of mcqs 
+            }
+            if(result != null)
+            {
+                NavigationManager.NavigateTo("/pastpaper");
+            }
+
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

@@ -1,0 +1,166 @@
+@using Admin.Shared.Models
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.Extensions.Logging
+
+@using Admin.Shared.Dtos
+@using System.IO
+
+ 
+@using Newtonsoft.Json 
+
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+@inject ILogger<Constants> Logger
+
+<div class="alert alert-secondary mt-4" role="alert">    
+    <EditForm OnValidSubmit="HandleValidSubmit" Model="ConstantModel">
+        <h3> @Title </h3>
+        <hr />
+
+        <ValidationSummary />
+        <div class="form-group row">
+            <label for="id" class="col-sm-2 col-form-label">
+                Constant ID:
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="id" class="form-control" placeholder="Auto Generated ID" disabled="true"
+                             @bind-Value="ConstantModel.Id" />
+                <ValidationMessage For="@(() => ConstantModel.Id)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">
+                Title
+            </label>
+            <div class="col-sm-10">
+                <InputText id="title" class="form-control" placeholder="Title"
+                           @bind-Value="ConstantModel.Title" />
+                <ValidationMessage For="@(() => ConstantModel.Title)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="key" class="col-sm-2 col-form-label">
+                Key
+            </label>
+            <div class="col-sm-10">
+                <InputText id="key" class="form-control" placeholder="Key"
+                           @bind-Value="ConstantModel.Key" />
+                <ValidationMessage For="@(() => ConstantModel.Key)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="value" class="col-sm-2 col-form-label">
+                Value
+            </label>
+            <div class="col-sm-10">
+                <InputText id="value" class="form-control" placeholder="Value"
+                           @bind-Value="ConstantModel.Value" />
+                <ValidationMessage For="@(() => ConstantModel.Value)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="code" class="col-sm-2 col-form-label">
+                Code
+            </label>
+            <div class="col-sm-10">
+                <InputText id="code" class="form-control" placeholder="Code"
+                           @bind-Value="ConstantModel.Code" />
+                <ValidationMessage For="@(() => ConstantModel.Code)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="des" class="col-sm-2 col-form-label">
+                Description
+            </label>
+            <div class="col-sm-10">
+                <InputText id="desc" class="form-control" placeholder="Description"
+                           @bind-Value="ConstantModel.Description" />
+                <ValidationMessage For="@(() => ConstantModel.Description)" />
+            </div>
+        </div>
+
+
+
+        <div style="display: flex; align-items: center">
+            <button class="btn btn-primary" type="submit" style="margin: auto">Submit</button>
+        </div>
+    </EditForm>
+
+</div>
+
+
+@code {
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public bool isToBeEdited { get; set; }
+
+    [Parameter] public Constants ConstantModel { get; set; }
+
+    public List<McqPastPaperFormDto> Examinations { get; set; } = new List<McqPastPaperFormDto>();
+    public List<McqSubjectFormDto> Subjects { get; set; } = new List<McqSubjectFormDto>();
+
+
+    public string ExamTitle { get; set; } = string.Empty;
+
+    public string examId { get; set; } = "0";
+    private int subjectId { get; set; } = 0;
+    public bool isLoading { get; set; }
+
+
+    [Parameter]
+    public EventCallback<Constants> OnConstantFormEditSubmit { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoading = true;
+        try
+        {
+            Examinations = await Http.GetFromJsonAsync<List<McqPastPaperFormDto>>("api/ExamSubjects");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+        isLoading = false;
+
+    }
+
+    private void OnChangeExamination(ChangeEventArgs e)
+    {
+
+        LoadSubjects(e.Value.ToString());
+
+    }
+    
+
+    public async Task HandleValidSubmit()
+    {
+
+        await OnConstantFormEditSubmit.InvokeAsync(ConstantModel);
+    }
+
+
+    private void LoadSubjects(string examId)
+    {
+        Subjects = new List<McqSubjectFormDto>();
+
+        foreach (var exam in Examinations)
+        {
+            if (exam.ExamId == examId)
+            {
+                Subjects = exam.McqSubjects;
+                return;
+            }
+        }
+    }
+    
+}
+

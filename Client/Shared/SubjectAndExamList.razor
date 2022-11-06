@@ -1,0 +1,116 @@
+﻿9kio
+@using Admin.Shared.Dtos
+@using Admin.Client.ViewModels
+
+
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject HttpClient Http
+
+<div style="max-width: 400px; border: 1px solid gray; padding: 10px; border-radius: 6px; margin: 10px;">
+    @if (Examinations == null)
+    {
+        <LoadingSpinner />
+    }
+    else
+    {
+        <EditForm Model="examAndSubject">
+            <h3> Get Subject -> Exam </h3>
+            <hr />
+            <div class="form-group row">
+                <label for="emil" class="col-sm-4 col-form-label">
+                    Examination:
+                </label>
+                <div class="col-sm-8">
+                    <select value="@examId" @onchange="OnChangeExamination">
+                        <option value="0">Select Examination</option>
+                        @foreach (var exam in Examinations)
+                        {
+                            <option value="@exam.ExamId">@exam.ExamTitle</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="email" class="col-sm-4 col-form-label">
+                    Subject: <b>@examAndSubject.SubjectId</b>
+                </label>
+                <div class="col-sm-8">
+
+                    <InputSelectNumber ValueChanged="@((int subId) => SubjectHasChanged(subId))"
+                                       ValueExpression="@(() => subjectId)" Value="@subjectId">
+                        <option value="0">Select Subject</option>
+                        @if (Subjects.Any())
+                        {
+                            @foreach (var subject in Subjects)
+                            {
+                                <option value="@subject.SubjectId">@subject.SubjectTitle</option>
+                            }
+                        }
+                    </InputSelectNumber>
+                    <ValidationMessage For="@(() => examAndSubject.SubjectId)" />
+                </div>
+            </div>
+
+        </EditForm>
+    }
+</div>
+
+
+
+
+
+@code {
+
+    public List<McqPastPaperFormDto> Examinations = null;
+    public string examId { get; set; } = "0";
+    private int subjectId { get; set; } = 0;
+
+    public List<McqSubjectFormDto> Subjects = new List<McqSubjectFormDto>();
+    public ExamAndSubjectVM examAndSubject = new ExamAndSubjectVM();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            //pastPapers = await Http.GetFromJsonAsync<PastPaper[]>("api/PastPapers");
+            Examinations = await Http.GetFromJsonAsync<List<McqPastPaperFormDto>>("api/ExamSubjects");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+    private void OnChangeExamination(ChangeEventArgs e)
+    {
+        if(!string.IsNullOrEmpty(e.Value.ToString()))
+            LoadSubjects(e.Value.ToString());
+
+    }
+
+    public void SubjectHasChanged(int subjId)
+    {
+        examAndSubject.SubjectId = subjId;
+        examAndSubject.ExamId = examId;
+        examAndSubject.ExamTitle = Examinations.SingleOrDefault(e => e.ExamId == examId).ExamTitle;
+        examAndSubject.SubjectTitle = Subjects.SingleOrDefault(s => s.SubjectId == subjectId).SubjectTitle;
+
+        //ToDo
+        //Fire an action based on SubjectId on the caller of the this component
+        
+    }
+
+    private void LoadSubjects(string examId)
+    {
+        Subjects = new List<McqSubjectFormDto>();
+
+        foreach (var exam in Examinations)
+        {
+            if (exam.ExamId == examId)
+            {
+                Subjects = exam.McqSubjects;
+                return;
+            }
+        }
+    }
+}

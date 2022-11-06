@@ -1,0 +1,239 @@
+﻿@page "/adminprof/dashboard"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Admin.Shared.Dtos
+@using Admin.Client.ViewModels
+
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+
+@if (count == null)
+{
+    <div class="spinner-grow text-primary"></div>
+}
+else
+{
+    @foreach(var card in Cards)
+    {
+        <CardItem Card="card"/>
+    }
+
+}
+
+@code {
+    private DbCount count;
+    private List<Card> Cards = new List<Card>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            count = await Http.GetFromJsonAsync<DbCount>("api/AdminDashboards");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+        PopulateCard();
+    }
+
+    void PopulateCard()
+    {
+        var cards = new List<Card>()
+        {
+            new Card {
+                id = 1,
+                backgroundColor = "#176c37",
+                count = count.examinations,
+                description = "Examinations",
+                icon = "oi oi-vertical-align-top",
+                url = "/examination"
+            },
+            new Card{
+                id = 2,
+                backgroundColor= "#009688",
+                count = count.subjects,
+                description = "Subjects",
+                icon = "oi oi-browser",
+                url = "/subject"
+            },
+            new Card {
+                id = 3,
+                backgroundColor = "#244336",
+                count = count.instructorsubjects,
+                description = "Instructor & Subjects",
+                icon = "oi oi-spreadsheet",
+                url = "/instructorsubject"
+            }
+            ,
+            new Card {
+
+                id = 4,
+                backgroundColor = "#009688",
+                count = count.instructors,
+                description = "Instructors",
+                icon = "oi oi-person",
+                url = "/instructor"
+            },
+            new Card {
+                id = 5,
+                backgroundColor = "#244336",
+                count = count.essaytypequestions,
+                description = "Paper 2 Pastpapers",
+                icon = "oi oi-list",
+                url = "/pastpaper2n3"
+            }
+            ,
+            new Card {
+                id = 6,
+                backgroundColor = "#3f51b5",
+                count = count.mcqs,
+                description = "MCQs",
+                icon = "oi oi-list-rich",
+                url = "/pastpaper"
+            },
+            new Card {
+                id = 7,
+                backgroundColor = "#176c37",
+                count = count.usersubjects,
+                description = "Subjects Enrollment",
+                icon = "oi oi-spreadsheet",
+                url = "/usersubject"
+            },
+
+            new Card {
+
+                id = 8,
+                backgroundColor = "#8f21b0",
+                count = count.payments,
+                description = "Payments",
+                icon = "oi oi-rain",
+                url = "/payments"
+            },
+            new Card {
+                id = 9,
+                backgroundColor = "#9c27b0",
+                count = count.topics,
+                description = "Topics",
+                icon = "oi oi-loop-square",
+                url = "/topic"
+            },
+            new Card {
+                id = 10,
+                backgroundColor = "#f44336",
+                count = count.reports,
+                description = "Reports from Users",
+                icon = "oi oi-vertical-align-center",
+                url = "/report"
+            },
+            new Card {
+                id = 11,
+                backgroundColor = "#414141",
+                count = count.constants,
+                description = "Constants",
+                icon = "oi oi-vertical-align-bottom",
+                url = "/constant"
+            },
+
+            new Card {
+                id = 12,
+                backgroundColor = "#006a4e",
+                count = count.announcements,
+                description = "Announcements",
+                icon = "oi oi-info",
+                url = "/announcement"
+            },
+            new Card {
+
+                id = 13,
+                backgroundColor = "#2e8b57",
+                count = count.chapters,
+                description = "Chapters",
+                icon = "oi oi-calendar",
+                url = "/chapter"
+            }
+            ,
+            new Card {
+
+                id = 14,
+                backgroundColor = "#2f4f4f",
+                count = count.lessons,
+                description = "Tutorial Lessons",
+                icon = "oi oi-book",
+                url = "/lesson"
+            },
+            new Card {
+
+                id = 15,
+                backgroundColor = "#a52a2a",
+                count = count.videos,
+                description = "Videos",
+                icon = "oi oi-video",
+                url = "/video"
+            },
+            new Card {
+
+                id = 16,
+                backgroundColor = "#674846",
+                count = count.downloads,
+                description = "Video Downloads",
+                icon = "oi oi-cloud-download",
+                url = "/download"
+            },
+            new Card {
+
+                id = 17,
+                backgroundColor = "#009688",
+                count = count.objectives,
+                description = "Chapter Objectives",
+                icon = "oi oi-calculator",
+                url = "/objective"
+            },
+            new Card {
+                id = 18,
+                backgroundColor = "#006a4e",
+                count = count.conversations,
+                description = "Conversations",
+                icon = "oi oi-info",
+                url = "/conversation"
+            },
+            new Card {
+                id = 19,
+                backgroundColor = "#6C3483",
+                count = count.examCategories,
+                description = "ExamCategories",
+                icon = "oi oi-cog",
+                url = "/examination/category"
+            },
+            new Card {
+                id = 19,
+                backgroundColor = "#6C3483",
+                count = count.quizes,
+                description = "Print Quiz Results",
+                icon = "oi oi-list-rich",
+                url = "/quizes"
+            },
+            new Card {
+
+                id = 14,
+                backgroundColor = "#2f4f4f",
+                count = count.quizawards,
+                description = "Quiz Award Winners",
+                icon = "oi oi-book",
+                url = "/quizesaward"
+            }
+
+
+        };
+
+        Cards = cards;
+    }
+
+
+}

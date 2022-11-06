@@ -1,0 +1,62 @@
+﻿@page "/pastpaper/edit/{id}"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+@using Admin.Shared.Dtos 
+
+@using Admin.Shared.Models
+@inject HttpClient Http
+
+@if (pastPaper != null)
+{
+    <MCQForm PastPaperModel="pastPaper" Title="Edit Past Paper Form" mcqs="mcqs" isToBeEdited="true"
+             OnPastPaperFormEditSubmit="@((PastPaper) => OnEditPastPaperSubmit(pastPaper))" />
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    private PastPaper pastPaper = null;
+    public List<mcqdto> mcqs = new List<mcqdto>();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            pastPaper = await Http.GetFromJsonAsync<PastPaper>($"api/PastPapers/{Id}");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task OnEditPastPaperSubmit(PastPaper pastPaper)
+    {
+        try
+        {
+            pastPaper.Subject.Title = "...";
+            pastPaper.Subject.Examination.Title = "...";
+            pastPaper.Subject.Examination.Description = "...";
+            //pastPaper.Videos = null;
+            pastPaper.Questions = null;
+
+            await Http.PutAsJsonAsync<PastPaper>($"api/PastPapers/{pastPaper.Id}", pastPaper);
+
+            NavigationManager.NavigateTo("/pastpaper");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

@@ -1,0 +1,89 @@
+﻿@page "/lesson"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Admin.Shared.Models
+@using Admin.Shared.Models.Tutorials
+
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+<a href="/lesson/create" class="btn btn-primary">Create New Lesson</a>
+
+
+@if (lessons == null)
+{
+    <div class="spinner-grow text-primary"></div>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Lesson ID</th>
+                <th>Title</th>
+                <th>Position</th>
+                <th>Description</th>
+                <th>Lecture Count</th>
+                <td>TotalDuration</td>
+                <th>Subject</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var lesson in lessons)
+            {
+                <tr>
+                    <td>@lesson.Id</td>
+                    <td>@lesson.LessonTitle</td>
+                    <td>@lesson.LessonNumber</td>
+                    <td>@lesson.Description</td>
+                    <td>@lesson.LectureCount</td>
+                    <td>@lesson.TotalLectureDuration</td>
+                    <td>
+                        <a class="btn btn-info" href="/lesson/edit/@lesson.Id">Edit</a>
+                        <button class="btn btn-danger" @onclick="@(async () => await DeleteLesson(lesson))">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Lesson[] lessons;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            lessons = await Http.GetFromJsonAsync<Lesson[]>("api/Lessons");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task DeleteLesson(Lesson lesson)
+    {
+        //Ask for user confirmation then delete according
+        if (!await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to delete: '{lesson.LessonTitle}'?"))
+            return;
+
+        //Delete and Navigate to List of Exams
+        try
+        {
+            await Http.DeleteAsync($"api/Lessons/{lesson.Id}");
+
+            lessons = await Http.GetFromJsonAsync<Lesson[]>("api/Lessons");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+    }
+}

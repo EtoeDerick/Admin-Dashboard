@@ -1,0 +1,61 @@
+﻿@page "/subject/edit/{id:int}"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+
+@using Admin.Shared.Models
+@inject HttpClient Http
+
+<p>
+   @if(subject != null)
+            {
+                <SubjectForm SubjectEditModel="@subject" Title="Examination Edit Form" isToBeEdited="true"
+                                 OnSubjectFormEditSubmit="@((Subject) => OnEditFormSubmit(subject))"/>
+            }
+            else
+            {
+                //Provide a center loading spinner
+            }
+</p>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Subject subject;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            subject = await Http.GetFromJsonAsync<Subject>($"api/Subjects/{Id}");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task OnEditFormSubmit(Subject updatedSubject)
+    {
+        try
+        {
+            //await Http.GetFromJsonAsync<Examination>($"api/Examinations/{Id}");
+            updatedSubject.ExaminationId = updatedSubject.ExaminationId;
+            updatedSubject.Examination.Title = "....";
+            updatedSubject.Examination.Description = "......";
+
+            await Http.PutAsJsonAsync<Subject>($"api/Subjects/{updatedSubject.Id}", updatedSubject);
+
+            NavigationManager.NavigateTo("/subject");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

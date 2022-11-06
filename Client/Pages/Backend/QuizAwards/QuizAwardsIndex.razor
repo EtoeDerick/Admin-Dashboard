@@ -1,0 +1,88 @@
+﻿@page "/quizesaward"
+
+@using Admin.Shared.Models
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+@using System.Net.Http.Json
+
+    <a href="/quizesawards/create" class="btn btn-primary">Create New Quiz Award</a>
+
+    @if (quizAwards == null )
+    {
+
+
+        <div class="spinner-grow text-primary"></div>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>UserId</th>
+                    <th>PastPaperId</th>
+                    <th>AwardedDate</th>
+                    <th>Title</th>
+                    <td>Description</td>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var q in quizAwards)
+                {
+                    <tr>
+                        <td>@q.Id</td>
+                        <td>@q.UserId </td>
+                        <td>@q.PastPaperId</td>
+                        <td>@q.AwardedDate</td>
+                        <td>@q.PastPaperTitle</td>
+                        <td></td>
+                        <td>
+                            <a class="btn btn-info" href="/quizaward/edit/@q.PastPaperId">Edit</a>
+                            <button class="btn btn-danger" @onclick="@(async () => await DeleteAward(q))">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+
+    @code {
+        private QuizAwardDto[] quizAwards;
+        protected override async Task OnInitializedAsync()
+        {
+            try
+            {
+                quizAwards = await Http.GetFromJsonAsync<QuizAwardDto[]>("api/PastQuizAwards");
+                
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+            }
+        }
+
+        private async Task DeleteAward(QuizAwardDto quizAward)
+        {
+            //Ask for user confirmation then delete according
+            if (!await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to delete: '{quizAward.Id}'?"))
+                return;
+
+            //Delete and Navigate to List of Exams
+            try
+            {
+                await Http.DeleteAsync($"api/Quizawards/{quizAward.Id}");
+                quizAwards = await Http.GetFromJsonAsync<QuizAwardDto[]>("api/PastQuizAwards");
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+            }
+
+        }
+    }

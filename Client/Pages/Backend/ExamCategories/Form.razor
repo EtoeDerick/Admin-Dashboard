@@ -1,0 +1,104 @@
+﻿@using Admin.Shared.Models
+
+<div class="alert alert-secondary mt-4" role="alert">
+    <EditForm Model="@ExaminationEditModel" OnValidSubmit="HandleValidSubmit">
+
+        <h3> @Title </h3>
+        <hr />
+        <ValidationSummary />
+        <div class="form-group row">
+            <label for="id" class="col-sm-2 col-form-label">
+                <b>ID: @ExaminationEditModel.Id</b>
+            </label>
+            <div class="col-sm-10">
+                @*<InputNumber id="id" class="form-control" placeholder="Examination Code" disabled="@isToBeEdited"
+                           @bind-Value="ExaminationEditModel.Id" />
+                <ValidationMessage For="@(() => ExaminationEditModel.Id)" />*@
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">
+                Title
+            </label>
+            <div class="col-sm-10">
+                <InputText id="title" class="form-control" placeholder="Title"
+                           @bind-Value="ExaminationEditModel.Title" />
+                <ValidationMessage For="@(() => ExaminationEditModel.Title)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="email" class="col-sm-2 col-form-label">
+                Code
+            </label>
+            <div class="col-sm-10">
+                <InputText id="description" class="form-control" placeholder="Code"
+                           @bind-Value="ExaminationEditModel.Code" />
+                <ValidationMessage For="@(() => ExaminationEditModel.Code)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">
+                Description
+            </label>
+            <div class="col-sm-10">
+                <InputText id="title" class="form-control" placeholder="Description"
+                           @bind-Value="ExaminationEditModel.Description" />
+                <ValidationMessage For="@(() => ExaminationEditModel.Description)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">
+                Category TextColor
+            </label>
+            <div class="col-sm-10">
+                <InputText id="title" class="form-control" placeholder="TextColor of ExamCategory"
+                           @bind-Value="ExaminationEditModel.CategoryTextColor" />
+                <ValidationMessage For="@(() => ExaminationEditModel.CategoryTextColor)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="email" class="col-sm-2 col-form-label">
+                Category BgColor
+            </label>
+            <div class="col-sm-10">
+                <InputText id="description" class="form-control" placeholder="Background Color of ExamCategory"
+                           @bind-Value="ExaminationEditModel.CategoryBgColor" />
+                <ValidationMessage For="@(() => ExaminationEditModel.CategoryBgColor)" />
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label for="email" class="col-sm-2 col-form-label">
+                Code
+            </label>
+            <div class="col-sm-10">
+                <InputText id="description" class="form-control" placeholder="Description"
+                           @bind-Value="ExaminationEditModel.Description" />
+                <ValidationMessage For="@(() => ExaminationEditModel.Description)" />
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </EditForm>
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public bool isToBeEdited { get; set; }
+
+    [Parameter] public ExamCategory ExaminationEditModel { get; set; }
+
+    [Parameter]
+    public EventCallback<ExamCategory> OnExaminationFormEditSubmit { get; set; }
+
+    public async Task HandleValidSubmit()
+    {
+        await OnExaminationFormEditSubmit.InvokeAsync(ExaminationEditModel);
+    }
+}

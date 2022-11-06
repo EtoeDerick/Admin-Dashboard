@@ -1,0 +1,139 @@
+﻿@*@using Admin.Shared.Models
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+
+<div class="alert alert-secondary mt-4" role="alert">
+
+    <EditForm OnValidSubmit="HandleValidSubmit" Model="MCQEditModel">
+        <h3>What is happening @Title </h3>
+        <hr />
+
+        <ValidationSummary />
+        <div class="form-group row">
+            <label for="id" class="col-sm-2 col-form-label">
+                MCQ ID:
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="id" class="form-control" placeholder="Auto Generated ID" disabled="true"
+                             @bind-Value="MCQEditModel.Id" />
+                <ValidationMessage For="@(() => MCQEditModel.Id)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">
+                Question
+            </label>
+            <div class="col-sm-10">
+                <InputText id="title" class="form-control" placeholder="Title"
+                           @bind-Value="MCQEditModel.Instruction" />
+                <ValidationMessage For="@(() => MCQEditModel.Instruction)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">
+                Question
+            </label>
+            <div class="col-sm-10">
+                <InputText id="title" class="form-control" placeholder="Title"
+                           @bind-Value="MCQEditModel.Question" />
+                <ValidationMessage For="@(() => MCQEditModel.Question)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="description" class="col-sm-2 col-form-label">
+                QuestionImageUrl
+            </label>
+            <div class="col-sm-10">
+                <InputText id="description" class="form-control" placeholder="Paper year"
+                           @bind-Value="MCQEditModel.QuestionImageUrl" />
+                <ValidationMessage For="@(() => MCQEditModel.QuestionImageUrl)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="imageurl" class="col-sm-2 col-form-label">
+                Answer
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="imageurl" class="form-control" placeholder="Paper number"
+                             @bind-Value="MCQEditModel.Answer" />
+                <ValidationMessage For="@(() => MCQEditModel.Answer)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="imageurl" class="col-sm-2 col-form-label">
+                Paper URL
+            </label>
+            <div class="col-sm-10">
+                <InputText id="imageurl" class="form-control" placeholder="Image url"
+                           @bind-Value="MCQEditModel.JustificationText" />
+                <ValidationMessage For="@(() => MCQEditModel.JustificationText)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="marquee" class="col-sm-2 col-form-label">
+                Thumbnail
+            </label>
+            <div class="col-sm-10">
+                <InputText id="marquee" class="form-control" placeholder="Maruquee Image Url"
+                           @bind-Value="MCQEditModel.JustificationImageUrl" />
+                <ValidationMessage For="@(() => MCQEditModel.JustificationImageUrl)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="price" class="col-sm-2 col-form-label">
+                Is Approved?
+            </label>
+            <div class="col-sm-10">
+                <InputCheckbox id="price" class="form-control" placeholder="Is the subject Approved?"
+                               @bind-Value="MCQEditModel.IsAnonymous" />
+                <ValidationMessage For="@(() => MCQEditModel.IsAnonymous)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">
+                Topic ID
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="title" class="form-control" placeholder="Title"
+                             @bind-Value="MCQEditModel.TopicId" />
+                <ValidationMessage For="@(() => MCQEditModel.TopicId)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">
+                Position:
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="title" class="form-control" placeholder="Title"
+                             @bind-Value="MCQEditModel.Position" />
+                <ValidationMessage For="@(() => MCQEditModel.Position)" />
+            </div>
+        </div>
+        
+        <div style="display: flex; align-items: center">
+            <button class="btn btn-primary" type="submit" style="margin: auto">Submit</button>
+        </div>
+    </EditForm>
+
+</div>
+
+@code {
+    [Parameter] public MCQ MCQEditModel { get; set; }
+    [Parameter]
+    public EventCallback<MCQ> OnMCQEditSubmit { get; set; }
+    [Parameter] public string Title { get; set; }
+
+
+    public async Task HandleValidSubmit()
+    {
+        
+
+
+        await OnMCQEditSubmit.InvokeAsync(MCQEditModel);
+    }
+}*@

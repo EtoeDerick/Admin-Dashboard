@@ -1,0 +1,51 @@
+﻿@page "/video/create"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+
+@using Admin.Shared.Models
+
+@using Admin.Shared.Models.Tutorials
+
+@inject HttpClient Http
+@using Admin.Shared.Dtos
+
+@if (video != null)
+{
+    <Form VideoModel="video" Title="Create New Vidoe Form"  isToBeEdited="false"
+             OnConstantFormEditSubmit="@((Video) => OnCreateVideoSubmit(video))" />
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+
+    private Video video = new Video();
+
+
+    private async Task OnCreateVideoSubmit(Video video)
+    {
+        try
+        {
+
+            var result = await Http.PostAsJsonAsync<Video>("api/Videos", video);
+            if (result.IsSuccessStatusCode)
+            {
+                //Create the list of mcqs 
+            }
+            if(result != null)
+            {
+                NavigationManager.NavigateTo("/video");
+            }
+
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

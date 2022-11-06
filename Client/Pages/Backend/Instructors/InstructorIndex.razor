@@ -1,0 +1,93 @@
+﻿@page "/instructor"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Admin.Shared.Models
+
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+<a href="/instructor/create" class="btn btn-primary">Create New Instructor</a>
+
+
+@if (instructors == null)
+{
+    <div class="spinner-grow text-primary"></div>
+}
+
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Instructor ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>ImageUrl</th>
+                <th>DiscountCode</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var instructor in instructors)
+            {
+                <tr>
+                    <td>
+                        <a href="/instructor/addsubject/@instructor.Id" class="btn btn-info"><span class="oi oi-plus"></span></a>
+                        <a href="/instructorsubject/detail/@instructor.Id" class="btn btn-warning"><span class="oi oi-spreadsheet"></span></a>
+                    </td>
+                    <td>@instructor.Id</td>
+                    <td>@instructor.Name</td>
+                    <td>@instructor.Description</td>
+                    <td>@instructor.ImageUrl</td>
+                    <td>@instructor.DiscountCode</td>
+                    <td>
+                        <a class="btn btn-info" href="/instructor/edit/@instructor.Id">Edit</a>
+                        <button class="btn btn-danger" @onclick="@(async () => await DeleteInstructor(instructor))">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    private Instructor[] instructors;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            instructors = await Http.GetFromJsonAsync<Instructor[]>("api/Instructors");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task DeleteInstructor(Instructor instructor)
+    {
+        //Ask for user confirmation then delete according
+        if (!await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to delete: '{instructor.Name}'?"))
+            return;
+
+        //Delete and Navigate to List of Exams
+        try
+        {
+            await Http.DeleteAsync($"api/Instructors/{instructor.Id}");
+
+            instructors = await Http.GetFromJsonAsync<Instructor[]>("api/Instructors");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+    }
+}

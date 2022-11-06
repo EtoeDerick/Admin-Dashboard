@@ -1,0 +1,92 @@
+﻿@page "/download"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Admin.Shared.Models
+@using Admin.Shared.Models.Tutorials
+
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+<a href="/download/create" class="btn btn-primary">Create New Video</a>
+
+
+@if (downloads == null)
+{
+    <div class="spinner-grow text-primary"></div>
+}
+else
+{
+    <table class="table" style="width: 100%">
+        <thead>
+            <tr>
+                <th>DownloadID</th>
+                <th>Title</th>
+                <th>URL</th>
+                <th>SubjectId</th>
+                <th>IsPastPaper</th>
+                <td>Year</td>
+                <th>PastPaperNumber</th>
+                <th>Lesson Number#</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var download in downloads)
+            {
+                <tr>
+                    <td>@download.Id</td>
+                    <td>@download.DownloadTitle</td>
+                    <td>@download.DownloadUrl</td>
+                    <td>@download.SubjectId</td>
+                    <td>@download.IsPastPaper</td>
+                    <td>@download.Year</td>
+                    <td>@download.PastPaperNumber</td>
+                    <td>@download.LessonId</td>
+                    <td>
+                        <a class="btn btn-info" href="/download/edit/@download.Id">Edit</a>
+                        <button class="btn btn-danger" @onclick="@(async () => await Delete(download))">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Download[] downloads;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            downloads = await Http.GetFromJsonAsync<Download[]>("api/Downloads");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task Delete(Download download)
+    {
+        //Ask for user confirmation then delete according
+        if (!await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to delete: '{download.DownloadTitle}'?"))
+            return;
+
+        //Delete and Navigate to List of Exams
+        try
+        {
+            await Http.DeleteAsync($"api/Downloads/{download.Id}");
+
+            downloads = await Http.GetFromJsonAsync<Download[]>("api/Downloads");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+    }
+}

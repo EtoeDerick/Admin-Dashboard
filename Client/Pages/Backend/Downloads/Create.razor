@@ -1,0 +1,51 @@
+﻿@page "/download/create"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+
+@using Admin.Shared.Models
+
+@using Admin.Shared.Models.Tutorials
+
+@inject HttpClient Http
+@using Admin.Shared.Dtos
+
+@if (download != null)
+{
+    <Form DownloadModel="download" Title="Create New Vidoe Form"  isToBeEdited="false"
+             OnConstantFormEditSubmit="@((Download) => OnCreateDownloadSubmit(download))" />
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+
+    private Download download = new Download();
+
+
+    private async Task OnCreateDownloadSubmit(Download download)
+    {
+        try
+        {
+
+            var result = await Http.PostAsJsonAsync<Download>("api/Downloads", download);
+            if (result.IsSuccessStatusCode)
+            {
+                //Create the list of mcqs 
+            }
+            if(result != null)
+            {
+                NavigationManager.NavigateTo("/download");
+            }
+
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

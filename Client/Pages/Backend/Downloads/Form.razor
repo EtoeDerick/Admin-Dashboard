@@ -1,0 +1,313 @@
+@using Admin.Shared.Models
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.Extensions.Logging
+
+@using Admin.Shared.Models.Tutorials
+@using Admin.Shared.Dtos
+@using System.IO
+
+ 
+@using Newtonsoft.Json 
+
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+@inject ILogger<Download> Logger
+
+<div class="alert alert-secondary mt-4" role="alert">    
+    <EditForm OnValidSubmit="HandleValidSubmit" Model="DownloadModel">
+        <h3> @Title </h3>
+        <hr />
+
+        <ValidationSummary />
+        @if (!isToBeEdited)
+        {
+
+
+            @if (isLoading)
+            {
+                <LoadingSpinner />
+            }
+            else
+            {
+                <div class="form-group row">
+                    <label for="email" class="col-sm-3 col-form-label">
+                        Examination:
+                    </label>
+                    <div class="col-sm-3">
+                        <select value="@examId" @onchange="OnChangeExamination">
+                            <option value="0">Select Examination</option>
+                            @foreach (var exam in Examinations)
+                            {
+                                <option value="@exam.ExamId">@exam.ExamTitle</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <select value="@subjectId" @onchange="OnChangeSubject">
+                            <option value="0">Select Subject</option>
+                            @foreach (var subject in Subjects)
+                            {
+                                <option value="@subject.SubjectId">@subject.SubjectTitle</option>
+                            }
+                        </select>
+                    </div>
+
+                </div>
+                @if (Chapters.Count > 0)
+                {
+                    <div class="form-group row">
+
+                        <label for="email" class="col-sm-3 col-form-label">
+                            Pick Chapter:
+                        </label>
+                        <div class="col-sm-3">
+                            <div>
+                                @if (isLoadingChapters)
+                                {
+                                    <LoadingSpinner />
+                                }
+                                else
+                                {
+                                    <div class="col-sm-12">
+                                        <select value="@chapterId" @onchange="OnChapterHasChanged">
+                                            <option value="0">Select Chapter</option>
+                                            @foreach (var chapter in Chapters)
+                                            {
+                                                <option value="@chapter.Id">@chapter.ChapterTitle</option>
+                                            }
+                                        </select>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-5">
+                            @if (isLoadingLesson)
+                            {
+                                <LoadingSpinner />
+                            }
+                            else
+                            {
+                                <select value="@lessonId" @onchange="OnLessonHasChanged">
+                                    <option value="0">Select Lesoon</option>
+                                    @foreach (var lesson in Lessons)
+                                    {
+                                        if (lesson.Id == DownloadModel.LessonId)
+                                        {
+                                            <option selected value="@DownloadModel.LessonId">@lesson.LessonTitle</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@lesson.Id">@lesson.LessonTitle</option>
+                                        }
+                                    }
+
+                                </select>
+                            }
+
+                        </div>
+                    </div>
+                }
+
+            }
+        }
+        <div class="form-group row">
+            <label for="id" class="col-sm-2 col-form-label">
+                DownloadID:
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="id" class="form-control" placeholder="Auto Generated ID" disabled="true"
+                             @bind-Value="DownloadModel.Id" />
+                <ValidationMessage For="@(() => DownloadModel.Id)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">
+                Title
+            </label>
+            <div class="col-sm-10">
+                <InputText id="title" class="form-control" placeholder="Download Title"
+                           @bind-Value="DownloadModel.DownloadTitle" />
+                <ValidationMessage For="@(() => DownloadModel.DownloadTitle)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">
+                Download URL
+            </label>
+            <div class="col-sm-10">
+                <InputText id="title" class="form-control" placeholder="Description"
+                           @bind-Value="DownloadModel.DownloadUrl" />
+                <ValidationMessage For="@(() => DownloadModel.DownloadUrl)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="value" class="col-sm-2 col-form-label">
+                IsPastPaper
+            </label>
+            <div class="col-sm-10">
+                <InputCheckbox id="value" class="form-control" placeholder="Value"
+                             @bind-Value="DownloadModel.IsPastPaper" />
+                <ValidationMessage For="@(() => DownloadModel.IsPastPaper)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="value" class="col-sm-2 col-form-label">
+                Year
+            </label>
+            <div class="col-sm-10">
+                <InputText id="value" class="form-control" placeholder="download year"
+                             @bind-Value="DownloadModel.Year" />
+                <ValidationMessage For="@(() => DownloadModel.Year)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="code" class="col-sm-2 col-form-label">
+                Views Count
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="code" class="form-control" placeholder="total number of views"
+                             @bind-Value="DownloadModel.PastPaperNumber" />
+                <ValidationMessage For="@(() => DownloadModel.PastPaperNumber)" />
+            </div>
+        </div>
+       
+
+        <div style="display: flex; align-items: center">
+            <button class="btn btn-primary" type="submit" style="margin: auto">Submit</button>
+        </div>
+    </EditForm>
+
+</div>
+
+
+@code {
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public bool isToBeEdited { get; set; }
+
+    [Parameter] public Download DownloadModel { get; set; }
+
+    public List<McqPastPaperFormDto> Examinations { get; set; } = new List<McqPastPaperFormDto>();
+    public List<McqSubjectFormDto> Subjects { get; set; } = new List<McqSubjectFormDto>();
+
+    public List<Chapter> Chapters { get; set; } = new List<Chapter>();
+    public List<Lesson> Lessons { get; set; } = new List<Lesson>();
+
+    public string ExamTitle { get; set; } = string.Empty;
+
+    public string examId { get; set; } = "0";
+    private int subjectId { get; set; } = 0;
+    private int lessonId { get; set; } = 0;
+    public bool isLoading { get; set; }
+
+    private bool isLoadingChapters;
+    private bool isLoadingLesson;
+
+    private int chapterId { get; set; } = 0;
+
+    [Parameter]
+    public EventCallback<Download> OnConstantFormEditSubmit { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoading = true;
+        try
+        {
+            Examinations = await Http.GetFromJsonAsync<List<McqPastPaperFormDto>>("api/ExamSubjects");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+        isLoading = false;
+
+    }
+
+    private void OnChangeExamination(ChangeEventArgs e)
+    {
+
+        LoadSubjects(e.Value.ToString());
+
+    }
+
+
+    public async Task HandleValidSubmit()
+    {
+
+        await OnConstantFormEditSubmit.InvokeAsync(DownloadModel);
+    }
+
+
+    private void LoadSubjects(string examId)
+    {
+        Subjects = new List<McqSubjectFormDto>();
+
+        foreach (var exam in Examinations)
+        {
+            if (exam.ExamId == examId)
+            {
+                Subjects = exam.McqSubjects;
+                return;
+            }
+        }
+    }
+
+    private async void OnChangeSubject(ChangeEventArgs e)
+    {
+        var subjectId = Convert.ToInt32(e.Value.ToString());
+        await LoadChapters(subjectId);
+    }
+
+    async Task LoadChapters(int subjectId)
+    {
+        isLoadingChapters = true;
+        try
+        {
+
+            Chapters = await Http.GetFromJsonAsync<List<Chapter>>($"api/ChaptersBySubjectId/{subjectId}");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+        isLoadingChapters = false;
+        StateHasChanged();
+    }
+
+    private async void OnChapterHasChanged(ChangeEventArgs e)
+    {
+        var chaptId = Convert.ToInt32(e.Value.ToString());
+        await LoadLessons(chaptId);
+        StateHasChanged();
+    }
+
+    async Task LoadLessons(int chapterId)
+    {
+        isLoadingLesson = true;
+        try
+        {
+            Lessons = await Http.GetFromJsonAsync<List<Lesson>>($"api/LessonsByChapterId/{chapterId}");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+        isLoadingLesson = false;
+    }
+
+    private void OnLessonHasChanged(ChangeEventArgs e)
+    {
+        var lessonId = Convert.ToInt32(e.Value.ToString());
+        DownloadModel.LessonId = lessonId;
+    }
+}
+

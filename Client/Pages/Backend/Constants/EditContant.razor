@@ -1,0 +1,56 @@
+﻿@page "/constant/edit/{id:int}"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+@using Admin.Shared.Dtos 
+
+@using Admin.Shared.Models
+@inject HttpClient Http
+
+@if (constant != null)
+{
+    <ConstantForm ConstantModel="constant" Title="Edit Constant Form"  isToBeEdited="true"
+             OnConstantFormEditSubmit="@((Constants) => OnEditConstantSubmit(constant))" />
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Constants constant = null;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            constant = await Http.GetFromJsonAsync<Constants>($"api/Constants/{Id}");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task OnEditConstantSubmit(Constants constant)
+    {
+        try
+        {
+
+            await Http.PutAsJsonAsync<Constants>($"api/Constants/{constant.Id}", constant);
+
+            NavigationManager.NavigateTo("/constant");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

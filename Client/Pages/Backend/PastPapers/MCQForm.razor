@@ -1,0 +1,630 @@
+@using Admin.Shared.Models
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.Extensions.Logging
+
+@using Admin.Shared.Dtos
+@using System.IO
+
+ 
+@using Newtonsoft.Json 
+
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+@inject ILogger<MCQForm> Logger
+
+<div class="alert alert-secondary mt-4" role="alert">
+
+    @*<form>
+            <div class="form-group row">
+                <label for="email" class="col-sm-4 col-form-label">
+                    Examination:
+                </label>
+                <div class="col-sm-8">
+                    <select value="@examId" @onchange="OnChangeExamination">
+                        <option value="">Select Examination</option>
+                        @foreach (var exam in Examinations)
+                        {
+                            <option value="@exam.ExamId">@exam.ExamTitle</option>
+                        }
+                    </select>
+                </div>
+            </div><div class="form-group row">
+                <label for="email" class="col-sm-4 col-form-label">
+                    Subject:
+                </label>
+                <div class="col-sm-8">
+                    <select @bind="@subjectId">
+                        <option value="">Select Subject...</option>
+                        @foreach (var subject in Subjects)
+                        {
+                            <option value="@subject.SubjectId">@subject.SubjectTitle</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </form>*@
+    <p>
+        <label>Is Quiz:
+            <input type="checkbox" @onchange="OnQuizSelectedAction" /><br/> <b>Quiz Code: <i style="color:dodgerblue">@quizCode</i></b>
+            
+        </label>
+    </p>
+    <EditForm OnValidSubmit="HandleValidSubmit" Model="PastPaperModel">
+        <h3> @Title </h3>
+        <hr />
+
+        <ValidationSummary />
+        <div class="form-group row">
+            <label for="id" class="col-sm-2 col-form-label">
+                PastPaper ID:
+            </label>
+            <div class="col-sm-10">
+                <InputText id="id" class="form-control" placeholder="Auto Generated ID" disabled="true"
+                           @bind-Value="PastPaperModel.Id" @onchange="OnQuizSelectedAction" />
+                <ValidationMessage For="@(() => PastPaperModel.Id)" />
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">
+                Title
+            </label>
+            <div class="col-sm-10">
+                <InputText id="title" class="form-control" placeholder="Title"
+                           @bind-Value="PastPaperModel.Title" />
+                <ValidationMessage For="@(() => PastPaperModel.Title)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">
+                Status
+            </label>
+            <div class="col-sm-10">
+                <InputSelect @bind-Value="PastPaperModel.Status">
+                    <option value="Premium">Select Subscription Type</option>
+                    <option value="Free">Free</option>
+                    <option value="Basic">Basic</option>
+                    <option value="Premium">Premium</option>
+                </InputSelect>
+
+                <ValidationMessage For="@(() => PastPaperModel.Status)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="description" class="col-sm-2 col-form-label">
+                Year
+            </label>
+            <div class="col-sm-10">
+                <InputText id="description" class="form-control" placeholder="Paper year"
+                           @bind-Value="PastPaperModel.PaperYear" />
+                <ValidationMessage For="@(() => PastPaperModel.PaperYear)" />
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label for="description" class="col-sm-2 col-form-label">
+                DownloadSize KB
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="description" class="form-control" placeholder="Paper year"
+                             @bind-Value="PastPaperModel.DownloadSize" />
+                <ValidationMessage For="@(() => PastPaperModel.DownloadSize)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="imageurl" class="col-sm-2 col-form-label">
+                Paper Number
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="imageurl" class="form-control" placeholder="Paper number"
+                             @bind-Value="PastPaperModel.PaperNumber" />
+                <ValidationMessage For="@(() => PastPaperModel.PaperNumber)" />
+            </div>
+        </div>
+        <!--
+
+        <div class="form-group row">
+            <label for="imageurl" class="col-sm-2 col-form-label">
+                Paper URL
+            </label>
+            <div class="col-sm-10">
+                <InputText id="imageurl" class="form-control" placeholder="Image url"
+                           @bind-Value="PastPaperModel.Url" />
+                <ValidationMessage For="@(() => PastPaperModel.Url)" />
+            </div>
+        </div>
+        -->
+
+        <div class="form-group row">
+            <label for="marquee" class="col-sm-2 col-form-label">
+                Thumbnail
+            </label>
+            <div class="col-sm-10">
+                <InputText id="marquee" class="form-control" placeholder="Maruquee Image Url"
+                           @bind-Value="PastPaperModel.Thumbnail" />
+                <ValidationMessage For="@(() => PastPaperModel.Thumbnail)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="price" class="col-sm-2 col-form-label">
+                Is Approved?
+            </label>
+            <div class="col-sm-10">
+                <InputCheckbox id="price" class="form-control" placeholder="Is the subject Approved?"
+                               @bind-Value="PastPaperModel.IsApproved" />
+                <ValidationMessage For="@(() => PastPaperModel.IsApproved)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="price" class="col-sm-2 col-form-label">
+                Is Free?
+            </label>
+            <div class="col-sm-10">
+                <InputCheckbox id="price" class="form-control" placeholder="Is the subject free?"
+                               @bind-Value="PastPaperModel.IsFree" />
+                <ValidationMessage For="@(() => PastPaperModel.IsFree)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="price" class="col-sm-2 col-form-label">
+                Status
+            </label>
+            <div class="col-sm-10">
+                <InputText id="price" class="form-control" placeholder="Status"
+                           @bind-Value="PastPaperModel.Status" />
+                <ValidationMessage For="@(() => PastPaperModel.Status)" />
+            </div>
+        </div>
+        @if (isToBeEdited)
+        {
+            <div class="form-group row">
+                <label for="description" class="col-sm-2 col-form-label">
+                    Update DownloadSize KB
+                </label>
+                <div class="col-sm-10">
+                    <InputNumber id="description" class="form-control" placeholder="Paper year"
+                                 @bind-Value="PastPaperModel.CorrectAnswerCount" />
+                    <ValidationMessage For="@(() => PastPaperModel.CorrectAnswerCount)" />
+                </div>
+            </div>
+        }
+
+        @if (!isToBeEdited)
+        {
+
+
+            @if (isLoading)
+            {
+                <LoadingSpinner />
+            }
+            else
+            {
+
+
+                <div class="form-group row">
+                    <label for="email" class="col-sm-4 col-form-label">
+                        Examination:
+                    </label>
+                    <div class="col-sm-8">
+                        <select value="@examId" @onchange="OnChangeExamination">
+                            <option value="0">Select Examination</option>
+                            @foreach (var exam in Examinations)
+                            {
+                                <option value="@exam.ExamId">@exam.ExamTitle</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="email" class="col-sm-4 col-form-label">
+                        Subject: <b>@PastPaperModel.SubjectID</b>
+                    </label>
+                    <div class="col-sm-8">
+
+                        <InputSelectNumber ValueChanged="@((int subId) => SubjectHasChanged(subId))"
+                                           ValueExpression="@(() => subjectId)" Value="@subjectId">
+                            <option value="0">Select Subject</option>
+                            @foreach (var subject in Subjects)
+                            {
+                                <option value="@subject.SubjectId">@subject.SubjectTitle</option>
+                            }
+                        </InputSelectNumber>
+                        <ValidationMessage For="@(() => PastPaperModel.SubjectID)" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-6 col-form-label">
+                        Pick The Question File:
+                    </label>
+                    <div class="col-sm-6">
+                        <InputFile OnChange="@OnInputFileChange" multiple />
+                    </div>
+                </div>
+            }
+        }
+
+        @if (PastPaperModel.IsQuiz) { 
+    <div style="background-color:azure; padding: 10px">
+        <div class="form-group row">
+            <label for="imageurl" class="col-sm-2 col-form-label">
+                Quiz Number
+            </label>
+            <div class="col-sm-4">
+                <InputNumber id="imageurl" class="form-control" placeholder="Paper number"
+                             @bind-Value="PastPaperModel.QuizNumber" />
+                <ValidationMessage For="@(() => PastPaperModel.QuizNumber)" />
+            </div>
+            <label for="imageurl" class="col-sm-2 col-form-label">
+                Quiz Duration
+            </label>
+            <div class="col-sm-4">
+                <InputNumber id="imageurl" class="form-control" placeholder="Paper number"
+                             @bind-Value="PastPaperModel.DurationInMinutes" />
+                <ValidationMessage For="@(() => PastPaperModel.DurationInMinutes)" />
+            </div>
+
+            <label for="imageurl" class="col-sm-2 col-form-label">
+                Quiz First Price
+            </label>
+
+            <div class="col-sm-4">
+                <InputText id="imageurl" class="form-control" placeholder="First price award in fcfa"
+                             @bind-Value="PastPaperModel.Url" />
+                <ValidationMessage For="@(() => PastPaperModel.Url)" />
+            </div>
+
+
+            <label for="imageurl" class="col-sm-2 col-form-label">
+                Owner
+            </label>
+            <div class="col-sm-4">
+                <InputSelect @bind-Value="PastPaperModel.QuizOwnerId">
+                    <option value="">Select Quiz Owner</option>
+                    <option value="ogabook">OgaBook</option>
+                    <option value="beta">BETA</option>
+                </InputSelect>
+                <ValidationMessage For="@(() => PastPaperModel.QuizOwnerId)" />
+            </div>
+            <label for="imageurl" class="col-sm-2 col-form-label">
+                Written Date
+            </label>
+            <div class="col-sm-4">
+                <InputDateTime id="createdDate" class="form-control col-sm-8" @bind-Value="PastPaperModel.WrittenDate"></InputDateTime>
+                <ValidationMessage For="@(() => PastPaperModel.WrittenDate)" />
+            </div>
+
+            <label for="imageurl" class="col-sm-2 col-form-label">
+                IsRightWrong
+            </label>
+            <div class="col-sm-4">
+                <InputCheckbox id="createdDate" class="form-control col-sm-8" @bind-Value="PastPaperModel.IsRightWrong"></InputCheckbox>
+                <ValidationMessage For="@(() => PastPaperModel.IsRightWrong)" />
+            </div>
+
+            <label for="imageurl" class="col-sm-2 col-form-label">
+                Visibility:
+            </label>
+            <div class="col-sm-4">
+                <InputSelect id="imageurl" class="form-control" @bind-Value="PastPaperModel.Visibility" DisplayName="Select Visibility">
+                    <option value="">Select Visibility</option>
+                    <option value="private">Private</option>
+                    <option value="private">Protected</option>
+                    <option value="private">Public</option>
+                </InputSelect>
+                <ValidationMessage For="@(() => PastPaperModel.Visibility)" />
+            </div>
+
+        </div>
+    </div>
+        }
+        <div style="display: flex; align-items: center">
+            <button class="btn btn-primary" type="submit" style="margin: auto">Submit</button>
+        </div>
+    </EditForm>
+
+</div>
+
+<div>
+    @if (mcqs.Any())
+    {
+        @foreach(var mcq in mcqs)
+                {
+            <div style="border: 1px solid gray; margin-top: 10px; padding: 10px">
+                <p>@((MarkupString)mcq.Instruction)</p>
+                @if (!string.IsNullOrEmpty(mcq.QuestionImageUrl)) 
+                {
+                    <p>@((MarkupString)@mcq.QuestionImageUrl)</p>
+                }
+                    <p>@((MarkupString)mcq.Question)</p>
+                <p>
+                    @if (mcq.Options.Any())
+                    {
+                        @foreach (var op in mcq.Options)
+                        {
+                            @((MarkupString)op) <br />
+                        }
+                    }
+                </p>
+                <p>
+                    @if (mcq.OptionImageUrl.Any())
+                    {
+                        @foreach (var op in mcq.OptionImageUrl)
+                        {
+                            @((MarkupString)op) <br />
+                        }
+                    }
+                </p>
+                <p>
+                    <b>Answer: </b>
+                    @if (mcq.OptionImageUrl.Any())
+                    {
+                        @foreach (var op in mcq.OptionImageUrl)
+                        {
+                            @((MarkupString)op)<span>, </span>
+                        }
+                    }
+                    @if (mcq.Answer > 0)
+                    {
+                        @mcq.Answer
+                    }
+                </p>
+                <p>
+                    <b>Justification: </b>@((MarkupString)mcq.JustificationText)<br />
+                    @if (!string.IsNullOrWhiteSpace(mcq.JustificationImageUrl))
+                    {
+                        <img src="@mcq.JustificationImageUrl" height="200" />
+                    }
+                </p>
+                <p>TopicID: <b>@mcq.TopicId </b>, Position: <b>@mcq.Position</b></p>
+            </div>
+        }
+    
+    }
+
+
+</div>
+
+@code {
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public bool isToBeEdited { get; set; }
+
+    [Parameter] public PastPaper PastPaperModel { get; set; }
+    [Parameter] public List<mcqdto> mcqs { get; set; }
+
+    public List<McqPastPaperFormDto> Examinations { get; set; } = new List<McqPastPaperFormDto>();
+    public List<McqSubjectFormDto> Subjects { get; set; } = new List<McqSubjectFormDto>();
+
+
+    public string ExamTitle { get; set; } = string.Empty;
+
+    public string examId { get; set; } = "0";
+    private int subjectId { get; set; } = 0;
+    public bool isLoading { get; set; }
+
+    private long DownloadSize;
+
+
+    [Parameter]
+    public EventCallback<PastPaper> OnPastPaperFormEditSubmit { get; set; }
+
+    private static Random random = new Random();
+    private string quizCode = string.Empty;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoading = true;
+        try
+        {
+            Examinations = await Http.GetFromJsonAsync<List<McqPastPaperFormDto>>("api/ExamSubjects");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+        isLoading = false;
+
+    }
+
+    private void OnChangeExamination(ChangeEventArgs e)
+    {
+
+        LoadSubjects(e.Value.ToString());
+
+    }
+
+
+    public async Task HandleValidSubmit()
+    {
+        PastPaperModel.Id = PastPaperModel.SetId();
+
+        //Initialize the MCQ collection list
+        SetMCQs();
+
+        if (!isToBeEdited)
+        {
+            PastPaperModel.DownloadSize = DownloadSize;
+        }
+        else
+        {
+            PastPaperModel.DownloadSize = PastPaperModel.CorrectAnswerCount;
+        }
+        PastPaperModel.Quantity = mcqs.Count;
+        PastPaperModel.CorrectAnswerCount = 0;
+
+
+        await OnPastPaperFormEditSubmit.InvokeAsync(PastPaperModel);
+    }
+
+    public void SubjectHasChanged(int subjId)
+    {
+        PastPaperModel.SubjectID = subjId;
+
+        //Set pastPaperId
+        if (isToBeEdited)
+        {
+            PastPaperModel.Id = PastPaperModel.SetId();
+        }
+    }
+
+    private void LoadSubjects(string examId)
+    {
+        Subjects = new List<McqSubjectFormDto>();
+
+        foreach (var exam in Examinations)
+        {
+            if (exam.ExamId == examId)
+            {
+                Subjects = exam.McqSubjects;
+                return;
+            }
+        }
+    }
+    private async Task OnInputFileChange(InputFileChangeEventArgs e)
+    {
+
+        var file = e.File;
+
+        // Check if the file is null then return from the method
+        if (file == null)
+            return;
+
+        DownloadSize =  file.Size /1024; //Download size in Kilobytes
+
+        string jsonFromFile;
+        using (var reader = new StreamReader(file.OpenReadStream(file.Size + 10000)))
+        {
+            jsonFromFile = await reader.ReadToEndAsync();
+        }
+
+        try
+        {
+            mcqs = JsonConvert.DeserializeObject<List<mcqdto>>(jsonFromFile);
+        }catch(Exception ex)
+        {
+            Console.WriteLine("Deserialization failed", ex.Message);
+        }
+
+    }
+
+    private void SetMCQs()
+    {
+        var questions = new List<MCQ>();
+        foreach(var mcq in mcqs)
+        {
+            //1. set regular properties
+            var mCQ = new MCQ()
+            {
+                Question = mcq.Question,
+                QuestionImageUrl = mcq.QuestionImageUrl,
+                Answer = mcq.Answer,
+                MultipleAnswers = mcq.MultipleAnswers,
+                IsAnonymous = mcq.IsAnonymous,
+                correctAnswer = mcq.correctAnswer,
+                JustificationText = mcq.JustificationText,
+                JustificationImageUrl = mcq.JustificationImageUrl,
+                Instruction = mcq.Instruction,
+                TopicId = mcq.TopicId,
+                Position = mcq.Position,
+                PastPaperId = PastPaperModel.Id,
+                SubjectId = PastPaperModel.SubjectID
+            };
+
+            //2. Set options for this question if any
+            if (mcq.Options.Any())
+            {
+                var options = new List<Option>();
+                foreach(var opt in mcq.Options)
+                {
+                    var option = new Option()
+                    {
+                        mcqOption = opt
+                    };
+                    options.Add(option);
+                }
+
+                //Attach a list of options
+                mCQ.Options = options;
+            }
+            else
+            //2. Set Image Options for this question if any
+            if (mcq.OptionImageUrl.Any())
+            {
+                var options = new List<OptionImage>();
+                foreach (var op in mcq.OptionImageUrl)
+                {
+                    var option = new OptionImage()
+                    {
+                        OptionImgUrl = op
+                    };
+                    options.Add(option);
+                }
+
+                //Attach a list of options
+                mCQ.OptionImageUrl = options;
+            }
+
+            //3. Map a collection of answers
+            if (mcq.Answers.Any())
+            {
+                var answers = new List<Answer>();
+
+                foreach(var ans in mcq.Answers)
+                {
+                    answers.Add(new Answer()
+                    {
+                        Ans = ans
+                    });
+                }
+
+                mCQ.Answers = answers;
+            }
+
+            questions.Add(mCQ);
+        }
+
+        PastPaperModel.Questions = questions;
+        PastPaperModel.Quantity = mcqs.Count;
+    }
+
+    private async void OnQuizSelectedAction()
+    {
+        if (!PastPaperModel.IsQuiz)
+        {
+            PastPaperModel.IsQuiz = true;
+            const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
+            var code = new string(Enumerable.Repeat(chars, 8)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+
+            //var code = Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8);
+            quizCode = code;
+
+            PastPaperModel.QuizPassCode = code;
+
+            await JSRuntime.InvokeAsync<bool>("confirm", $" Length of striing: {code}");
+        }
+        else
+        {
+            PastPaperModel.IsQuiz = false;
+
+
+        }
+
+    }
+
+}
+

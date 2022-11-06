@@ -1,0 +1,94 @@
+﻿@page "/quizes/details/{Id}"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+@using Admin.Shared.Dtos
+
+@using Admin.Shared.Models
+@inject HttpClient Http
+@inject IJSRuntime jSRuntime
+
+<h3 class="text-dark" style="text-align: center"> <b>NATIONAL CONCOURS - WITH BETA</b> </h3>
+@if (quizResults == null)
+{
+
+
+    <div class="spinner-grow text-primary"></div>
+}
+else
+{ <button class="btn-danger  hideWhenPrint" @onclick="Print">PRINT</button>
+  <div>
+      <div class="wrapper-div">
+          <div class="first-div">
+              <div>
+                  <div class="img">
+                      <img src="https://ayosacademystorage.blob.core.windows.net/images/logobeta.png" height="100" width="100" alt="BETA CORPORATION" />
+                  </div>
+                  <h5 class="alert-light center-items">BETA CORPORATION</h5>
+                  <p class="text-danger center-items">National Concours Preparation Center.</p>
+              </div>
+          </div>
+          <div class="second-div">
+              <span class="text-info"> <b>@quizResults.QuizTitle</b></span><br />
+              <span>Total No. of Candidates: <b>@quizResults.TotalParticipated</b></span><br />
+              <span>Total Passed: <b>@quizResults.TotalPassed</b></span><br />
+              <span>% Passed: <b>@quizResults.PercentagePassed %</b> </span><br />
+              <span>Date Written: <b>@quizResults.WrittenTime.ToLongDateString() | <span style="color:dodgerblue">@quizResults.WrittenTime.ToLongTimeString()</span></b></span><br/>
+              <span style="font-size: 0.73em; font-weight: bold; font-style:italic">Tel: 670 46 58 91 /694 26 09 29 /673 77 57 63 / 697 88 58 68</span>
+          </div>
+      </div>
+      <div style="clear: both;"> </div>
+      <div class="body-results">
+
+          <table class="table table-striped  table-bordered">
+              <thead class="table-info" style="color:dodgerblue">
+                  <tr>
+                      <th>No.</th>
+                      <th>Name</th>
+                      <th>Score/@quizResults.Quantity</th>
+                      <th>Remarks</th>
+                  </tr>
+              </thead>
+
+              <tbody>
+                  @foreach (var p in quizResults.QuizParticipants)
+                  {
+                      <tr>
+                          <td><b>@p.Id</b>.</td>
+                          <td>@p.Name</td>
+                          <td>@p.Score</td>
+                          <td>@p.Remarks</td>
+                      </tr>
+                  }
+              </tbody>
+          </table>
+      </div>
+  </div>
+}
+
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    private QuizResultsDto quizResults = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            quizResults = await Http.GetFromJsonAsync<QuizResultsDto>($"api/PastPapersQuizes/{Id}");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private void Print()
+    {
+        jSRuntime.InvokeVoidAsync("Print");
+    }
+
+}

@@ -1,0 +1,57 @@
+﻿@page "/download/edit/{id:int}"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+@using Admin.Shared.Dtos 
+
+@using Admin.Shared.Models
+@using Admin.Shared.Models.Tutorials 
+@inject HttpClient Http
+
+@if (download != null)
+{
+    <Form DownloadModel="download" Title="Edit Download Form"  isToBeEdited="true"
+             OnConstantFormEditSubmit="@((Download) => OnEditChapterSubmit(download))" />
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Download download = null;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            download = await Http.GetFromJsonAsync<Download>($"api/Downloads/{Id}");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task OnEditChapterSubmit(Download download)
+    {
+        try
+        {
+
+            await Http.PutAsJsonAsync<Download>($"api/Downloads/{download.Id}", download);
+
+            NavigationManager.NavigateTo("/download");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

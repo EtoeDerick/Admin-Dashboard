@@ -1,0 +1,118 @@
+@using Admin.Shared.Models
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.Extensions.Logging
+
+@using Admin.Shared.Dtos
+@using System.IO
+
+ 
+@using Newtonsoft.Json 
+
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+@inject ILogger<ReportForm> Logger
+
+<div class="alert alert-secondary mt-4" role="alert">    
+    <EditForm OnValidSubmit="HandleValidSubmit" Model="mCQReportModel">
+        <h3> @Title </h3>
+        <hr />
+
+        <ValidationSummary />
+        <div class="form-group row">
+            <label for="id" class="col-sm-2 col-form-label">
+                Report ID:
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="id" class="form-control" placeholder="Auto Generated ID" disabled="true"
+                             @bind-Value="mCQReportModel.Id" />
+                <ValidationMessage For="@(() => mCQReportModel.Id)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="isresolved" class="col-sm-2 col-form-label">
+                Is Resolved
+            </label>
+            <div class="col-sm-10">
+                <InputCheckbox id="isresolved" class="form-control" placeholder="isresolved"
+                               @bind-Value="mCQReportModel.IsResolved" />
+                <ValidationMessage For="@(() => mCQReportModel.IsResolved)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="mcqid" class="col-sm-2 col-form-label">
+                MCQ ID:
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="mcqid" class="form-control"
+                             @bind-Value="mCQReportModel.McqId" />
+                <ValidationMessage For="@(() => mCQReportModel.McqId)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="paperid" class="col-sm-2 col-form-label">
+                PastPaper ID:
+            </label>
+            <div class="col-sm-10">
+                <InputText id="paperid" class="form-control"
+                           @bind-Value="mCQReportModel.PastPaperId" />
+                <ValidationMessage For="@(() => mCQReportModel.PastPaperId)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="mcqid" class="col-sm-2 col-form-label">
+                Report:
+            </label>
+            <div class="col-sm-10">
+                <InputTextArea id="mcqid" class="form-control" disabled="true"
+                               @bind-Value="mCQReportModel.Report" />
+                <ValidationMessage For="@(() => mCQReportModel.Report)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="resp" class="col-sm-2 col-form-label">
+                Response:
+            </label>
+            <div class="col-sm-10">
+                <InputTextArea id="resp" class="form-control" 
+                               @bind-Value="mCQReportModel.Response" />
+                <ValidationMessage For="@(() => mCQReportModel.Response)" />
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: center">
+            <button class="btn btn-primary" type="submit" style="margin: auto">Submit</button>
+        </div>
+    </EditForm>
+
+</div>
+
+
+@code {
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public bool isToBeEdited { get; set; }
+
+    [Parameter] public MCQReport mCQReportModel { get; set; }
+   
+    public bool isLoading { get; set; }
+
+    [Parameter]
+    public EventCallback<MCQReport> OnReportFormEditSubmit { get; set; }
+
+    public async Task HandleValidSubmit()
+    {
+
+        await OnReportFormEditSubmit.InvokeAsync(mCQReportModel);
+    }
+
+
+}
+

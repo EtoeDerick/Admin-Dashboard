@@ -1,0 +1,56 @@
+﻿@page "/report/edit/{Id:int}"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+@using Admin.Shared.Dtos 
+
+@using Admin.Shared.Models
+@inject HttpClient Http
+
+@if (mCQReport != null)
+{
+    <ReportForm mCQReportModel="mCQReport" Title="Edit Report Form"  isToBeEdited="true"
+             OnReportFormEditSubmit="@((MCQReport) => OnEditPastPaperSubmit(mCQReport))" />
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private MCQReport mCQReport = null;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            mCQReport = await Http.GetFromJsonAsync<MCQReport>($"api/McqReports/{Id}");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task OnEditPastPaperSubmit(MCQReport mCQReport)
+    {
+        try
+        {
+
+            await Http.PutAsJsonAsync<MCQReport>($"api/McqReports/{mCQReport.Id}", mCQReport);
+
+            NavigationManager.NavigateTo("/report");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

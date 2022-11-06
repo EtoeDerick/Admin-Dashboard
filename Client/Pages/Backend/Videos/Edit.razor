@@ -1,0 +1,57 @@
+﻿@page "/video/edit/{id:int}"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+@using Admin.Shared.Dtos 
+
+@using Admin.Shared.Models
+@using Admin.Shared.Models.Tutorials 
+@inject HttpClient Http
+
+@if (video != null)
+{
+    <Form VideoModel="video" Title="Edit Video Form"  isToBeEdited="false"
+             OnConstantFormEditSubmit="@((Video) => OnEditChapterSubmit(video))" />
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Video video = null;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            video = await Http.GetFromJsonAsync<Video>($"api/Videos/{Id}");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task OnEditChapterSubmit(Video video)
+    {
+        try
+        {
+
+            await Http.PutAsJsonAsync<Video>($"api/Videos/{video.Id}", video);
+
+            NavigationManager.NavigateTo("/video");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

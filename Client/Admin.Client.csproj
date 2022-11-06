@@ -1,0 +1,105 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="Admin.Shared.csproj" />
+    <None Include="Pages\Backend\AdminDashboardCount\CardItem.razor" />
+    <None Include="Pages\Backend\AdminDashboardCount\Dashboard.razor" />
+    <None Include="Pages\Backend\Announcemnt\AnnouncementForm.razor" />
+    <None Include="Pages\Backend\Announcemnt\AnnouncementIndex.razor" />
+    <None Include="Pages\Backend\Announcemnt\CreateAnnouncement.razor" />
+    <None Include="Pages\Backend\Announcemnt\EditAnnouncement.razor" />
+    <None Include="Pages\Backend\Chapters\ChapterForm.razor" />
+    <None Include="Pages\Backend\Chapters\ChapterIndex.razor" />
+    <None Include="Pages\Backend\Chapters\CreateChapter.razor" />
+    <None Include="Pages\Backend\Chapters\EditChapter.razor" />
+    <None Include="Pages\Backend\Constants\ConstantForm.razor" />
+    <None Include="Pages\Backend\Constants\ContantIndex.razor" />
+    <None Include="Pages\Backend\Constants\CreateConstant.razor" />
+    <None Include="Pages\Backend\Constants\EditContant.razor" />
+    <None Include="Pages\Backend\Conversations\ConversationCreate.razor" />
+    <None Include="Pages\Backend\Conversations\ConversationEdit.razor" />
+    <None Include="Pages\Backend\Conversations\ConversationForm.razor" />
+    <None Include="Pages\Backend\Conversations\ConversationIndex.razor" />
+    <None Include="Pages\Backend\Downloads\Create.razor" />
+    <None Include="Pages\Backend\Downloads\Edit.razor" />
+    <None Include="Pages\Backend\Downloads\Form.razor" />
+    <None Include="Pages\Backend\Downloads\Index.razor" />
+    <None Include="Pages\Backend\ExamCategories\Create.razor" />
+    <None Include="Pages\Backend\ExamCategories\Edit.razor" />
+    <None Include="Pages\Backend\ExamCategories\Form.razor" />
+    <None Include="Pages\Backend\ExamCategories\Index.razor" />
+    <None Include="Pages\Backend\Examinations\CreateExam.razor" />
+    <None Include="Pages\Backend\Examinations\EditExam.razor" />
+    <None Include="Pages\Backend\Examinations\Exam.razor" />
+    <None Include="Pages\Backend\Examinations\ExaminationForm.razor" />
+    <None Include="Pages\Backend\InstructorSubjects\AddSubjectToInstructorsForm.razor" />
+    <None Include="Pages\Backend\InstructorSubjects\EditSubjectToInstructor .razor" />
+    <None Include="Pages\Backend\Instructors\AddSubjectToInstructor.razor" />
+    <None Include="Pages\Backend\Instructors\AddSubjectToInstructorsForm.razor" />
+    <None Include="Pages\Backend\Instructors\CreateInstructor.razor" />
+    <None Include="Pages\Backend\Instructors\EditInstructor.razor" />
+    <None Include="Pages\Backend\Instructors\EditSubjectToInstructor .razor" />
+    <None Include="Pages\Backend\Instructors\InstructorDetail.razor" />
+    <None Include="Pages\Backend\Instructors\InstructorIndex.razor" />
+    <None Include="Pages\Backend\Instructors\InstructorsForm.razor" />
+    <None Include="Pages\Backend\Lessons\CreateLesson.razor" />
+    <None Include="Pages\Backend\Lessons\EditLesson.razor" />
+    <None Include="Pages\Backend\Lessons\LessonForm.razor" />
+    <None Include="Pages\Backend\Lessons\LessonIndex.razor" />
+    <None Include="Pages\Backend\MCQs\EditMcqByPaperId.razor" />
+    <None Include="Pages\Backend\MCQs\EditMCQForm.razor" />
+    <None Include="Pages\Backend\Objectives\ObjectiveCreate.razor" />
+    <None Include="Pages\Backend\Objectives\ObjectiveEdit.razor" />
+    <None Include="Pages\Backend\Objectives\ObjectiveForm.razor" />
+    <None Include="Pages\Backend\Objectives\ObjectiveIndex.razor" />
+    <None Include="Pages\Backend\PastPapers2n3\CreatePaper.razor" />
+    <None Include="Pages\Backend\PastPapers2n3\EditPastPaper.razor" />
+    <None Include="Pages\Backend\PastPapers2n3\ETQEditForm.razor" />
+    <None Include="Pages\Backend\PastPapers2n3\ETQForm.razor" />
+    <None Include="Pages\Backend\PastPapers2n3\PastPaperIndex.razor" />
+    <None Include="Pages\Backend\PastPapers\CreatePaper.razor" />
+    <None Include="Pages\Backend\PastPapers\EditPastPaper.razor" />
+    <None Include="Pages\Backend\PastPapers\MCQEditForm.razor" />
+    <None Include="Pages\Backend\PastPapers\MCQForm.razor" />
+    <None Include="Pages\Backend\PastPapers\PastPaperIndex.razor" />
+    <None Include="Pages\Backend\Quizes\Index.razor" />
+    <None Include="Pages\Backend\Quizes\QuizResultDetails.razor" />
+    <None Include="Pages\Backend\Reports\CreateReport.razor" />
+    <None Include="Pages\Backend\Reports\EditReport.razor" />
+    <None Include="Pages\Backend\Reports\ReportForm.razor" />
+    <None Include="Pages\Backend\Reports\ReportIndex.razor" />
+    <None Include="Pages\Backend\Subjects\CreateSubject.razor" />
+    <None Include="Pages\Backend\Subjects\EditSubject.razor" />
+    <None Include="Pages\Backend\Subjects\SubjectForm.razor" />
+    <None Include="Pages\Backend\Subjects\SubjectIndex.razor" />
+    <None Include="Pages\Backend\Topics\CreateTopic.razor" />
+    <None Include="Pages\Backend\Topics\EditTopic.razor" />
+    <None Include="Pages\Backend\Topics\TopicForm.razor" />
+    <None Include="Pages\Backend\Topics\TopicIndex.razor" />
+    <None Include="Pages\Backend\Videos\Create.razor" />
+    <None Include="Pages\Backend\Videos\Edit.razor" />
+    <None Include="Pages\Backend\Videos\Form.razor" />
+    <None Include="Pages\Backend\Videos\Index.razor" />
+    <None Include="wwwroot\jquery\jquery.min.js" />
+    <None Include="wwwroot\js\myJs.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.7" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Authentication.WebAssembly.Msal" Version="5.0.7" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
+    <PackageReference Include="System.Text.Json" Version="5.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\Admin.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

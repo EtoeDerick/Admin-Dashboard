@@ -1,0 +1,50 @@
+﻿@page "/announcement/create"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+
+@using Admin.Shared.Models
+@inject HttpClient Http
+@using Admin.Shared.Dtos
+
+@if (announcement != null)
+{
+    <AnnouncementForm AnnouncementModel="announcement" Title="Create New Announcement Form"
+                      isToBeEdited="false"
+                      OnAnnouncementFormEditSubmit="@((Announcement) => OnCreateAnnouncementSubmit(announcement))" />
+
+}
+else
+{
+    <Loading Message="Loading..." />
+}
+
+@code {
+
+    private Announcement announcement = new Announcement();
+
+
+    private async Task OnCreateAnnouncementSubmit(Announcement announcement)
+    {
+        try
+        {
+
+            var result = await Http.PostAsJsonAsync<Announcement>("api/Announcements", announcement);
+            if (result.IsSuccessStatusCode)
+            {
+                //Create the list of mcqs 
+            }
+            if(result != null)
+            {
+                NavigationManager.NavigateTo("/announcement");
+            }
+
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

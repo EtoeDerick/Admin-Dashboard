@@ -1,0 +1,38 @@
+﻿@page "/examination/category/create"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+
+@using Admin.Shared.Models
+@inject HttpClient Http
+
+@if(examCategory != null){
+    <Form ExaminationEditModel="@examCategory" Title="Create New Exam Category Form"
+      OnExaminationFormEditSubmit="@((ExamCategory) => OnCreateExaminationSubmit(examCategory))" />
+}
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+    public ExamCategory examCategory { get; set; } = new ExamCategory();
+
+    private async Task OnCreateExaminationSubmit(ExamCategory newExam)
+    {
+        try
+        {
+            //await Http.GetFromJsonAsync<Examination>($"api/Examinations/{Id}");
+
+            newExam.Examinations = null;
+
+            await Http.PostAsJsonAsync<ExamCategory>("api/ExamCategory", newExam);
+
+            NavigationManager.NavigateTo("/examination/category");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

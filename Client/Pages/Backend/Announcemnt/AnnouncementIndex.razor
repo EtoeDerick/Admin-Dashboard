@@ -1,0 +1,117 @@
+﻿@page "/announcement"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Admin.Shared.Models
+
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+<a href="/announcement/create" class="btn btn-primary">Create New Announcement</a>
+
+
+@if (announcements == null)
+{
+    <div class="spinner-grow text-primary"></div>
+}
+else
+{
+    <table class="table" style="width: 100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>No. DaysToExam</th>
+                <th>ExamID</th>
+                <th>ExamTitle</th>
+                <th>ExamDaysLeftBgColor</th>
+                <th>AnnouncementTitle</th>
+                <th>AnnouncementDescription</th>
+                <th>Label1Sub1</th>
+                <th>Label1Sub2</th>
+                <th>Label1Sub3</th>
+                <th>Label2Sub1</th>
+                <th>Label2Sub2</th>
+                <th>Label2Sub3</th>
+                <th>HowToUseOgaBookVideoUrl</th>
+                <th>VideoTitle</th>
+                <th>EmailContact</th>
+                <th>Line1ContactWithWhatsApp</th>
+                <th>Line2Contact</th>
+                <th>IsActive?</th>
+                <th>Date</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var announcement in announcements)
+            {
+                <tr>
+                    <td>@announcement.Id</td>
+                    <td>@announcement.NumberOfDaysToExamination</td>
+                    <td>@announcement.ExaminationId</td>
+                    <td>@announcement.ExaminationTitle</td>
+                    <td>@announcement.ExamDaysLeftBgColor</td>
+                    <td>@announcement.AnnouncementTitle</td>
+                    <td>@announcement.AnnouncementDescription</td>
+                    <td>@announcement.Label1Sub1</td>
+                    <td>@announcement.Label1Sub2</td>
+                    <td>@announcement.Label1Sub3</td>
+                    <td>@announcement.Label2Sub1</td>
+                    <td>@announcement.Label2Sub2</td>
+                    <td>@announcement.Label2Sub3</td>
+                    <td>@announcement.HowToUseOgaBookVideoUrl</td>
+                    <td>@announcement.VideoTitle</td>
+                    <td>@announcement.EmailContact</td>
+                    <td>@announcement.Line1ContactWithWhatsApp</td>
+                    <td>@announcement.Line2Contact</td>
+                    <td>@announcement.IsActive</td>
+                    <td>@announcement.Date</td>
+                    <td>
+                        <a class="btn btn-info" href="/announcement/edit/@announcement.Id">Edit</a>
+                        <button class="btn btn-danger" @onclick="@(async () => await DeleteAnnouncement(announcement))">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Announcement[] announcements;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            
+            announcements = await Http.GetFromJsonAsync<Announcement[]>("api/Announcements");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task DeleteAnnouncement(Announcement announcement)
+    {
+        //Ask for user confirmation then delete according
+        if (!await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to delete: '{announcement.AnnouncementTitle}'?"))
+            return;
+
+        //Delete and Navigate to List of Exams
+        try
+        {
+            await Http.DeleteAsync($"api/Announcements/{announcement.Id}");
+
+            announcements = await Http.GetFromJsonAsync<Announcement[]>("api/Constants");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+    }
+}

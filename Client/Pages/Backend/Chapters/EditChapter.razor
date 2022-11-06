@@ -1,0 +1,57 @@
+﻿@page "/chapter/edit/{id:int}"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+@using Admin.Shared.Dtos 
+
+@using Admin.Shared.Models
+@using Admin.Shared.Models.Tutorials 
+@inject HttpClient Http
+
+@if (chapter != null)
+{
+    <ChapterForm ChapterModel="chapter" Title="Edit Chapter Form"  isToBeEdited="true"
+             OnConstantFormEditSubmit="@((Chapter) => OnEditChapterSubmit(chapter))" />
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Chapter chapter = null;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            chapter = await Http.GetFromJsonAsync<Chapter>($"api/Chapters/{Id}");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    private async Task OnEditChapterSubmit(Chapter chapter)
+    {
+        try
+        {
+
+            await Http.PutAsJsonAsync<Chapter>($"api/Chapters/{chapter.Id}", chapter);
+
+            NavigationManager.NavigateTo("/chapter");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

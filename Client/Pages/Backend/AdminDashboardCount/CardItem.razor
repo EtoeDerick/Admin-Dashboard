@@ -1,0 +1,28 @@
+
+@using Admin.Client.ViewModels
+
+
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+<div>    
+    <a class="admin-card" style="background-color: @Card.backgroundColor" href="@Card.url">
+        <div class="card-content">
+            <div class="card-data">
+                <h3>@Card.count</h3>
+                <p>@Card.description</p>
+            </div>
+            <span class="card-icon"><span class="@Card.icon"></span></span>
+        </div>
+    </a>
+
+</div>
+
+
+@code {
+
+    [Parameter]
+    public Card Card { get; set; }
+        
+}
+

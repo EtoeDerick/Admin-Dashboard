@@ -1,0 +1,50 @@
+﻿@page "/conversation/create"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+
+@using Admin.Shared.Models
+
+@inject HttpClient Http
+
+@if (conversation != null)
+{
+    
+    <ConversationForm ConversationModel="conversation" Title="Create Conversation Form" isToBeEdited="false"
+                      OnFormEditSubmit="@((Conversation) => OnCreateSubmit(conversation))" />
+
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+@code {
+
+    private Conversation conversation = new Conversation();
+
+
+    private async Task OnCreateSubmit(Conversation conversation)
+    {
+        try
+        {
+
+            var result = await Http.PostAsJsonAsync<Conversation>("api/Conversations", conversation);
+            if (result.IsSuccessStatusCode)
+            {
+                //Create the list of mcqs
+            }
+            if (result != null)
+            {
+                NavigationManager.NavigateTo("/conversation");
+            }
+
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}
