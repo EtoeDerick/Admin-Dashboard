@@ -1,0 +1,655 @@
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Admin.Client.StaticWebAssets.xml
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\appsettings.Development.json
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\appsettings.json
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\BrowserDebugHost.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\BrowserDebugHost.runtimeconfig.json
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\BrowserDebugProxy.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\Microsoft.CodeAnalysis.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\Mono.Cecil.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\Mono.Cecil.Pdb.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\Mono.Cecil.Rocks.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\Newtonsoft.Json.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Admin.Server.StaticWebAssets.xml
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Admin.Server.exe
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Admin.Server.deps.json
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Admin.Server.runtimeconfig.json
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Admin.Server.runtimeconfig.dev.json
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Admin.Server.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\ref\Admin.Server.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Admin.Server.pdb
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Admin.Server.Views.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Admin.Server.Views.pdb
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Azure.Core.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Azure.Identity.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Azure.Security.KeyVault.Certificates.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Azure.Security.KeyVault.Secrets.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Authorization.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.Authorization.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.Forms.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.Web.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.WebAssembly.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.WebAssembly.Authentication.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.WebAssembly.Server.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Metadata.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.Authentication.WebAssembly.Msal.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.Identity.Client.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.Identity.Web.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.Identity.Web.UI.Views.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.Identity.Web.UI.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.JSInterop.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.JSInterop.WebAssembly.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\System.IO.Pipelines.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Admin.Client.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Admin.Shared.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Admin.Client.pdb
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Admin.Shared.pdb
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\obj\Debug\net5.0\Admin.Server.csproj.AssemblyReference.cache
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\obj\Debug\net5.0\Admin.Server.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\obj\Debug\net5.0\Admin.Server.AssemblyInfoInputs.cache
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\obj\Debug\net5.0\Admin.Server.AssemblyInfo.cs
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\obj\Debug\net5.0\Admin.Server.csproj.CoreCompileInputs.cache
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\obj\Debug\net5.0\Admin.Server.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\obj\Debug\net5.0\Admin.Server.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\obj\Debug\net5.0\Admin.Server.RazorAssemblyInfo.cache
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\obj\Debug\net5.0\Admin.Server.RazorAssemblyInfo.cs
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\obj\Debug\net5.0\staticwebassets\Admin.Server.StaticWebAssets.Manifest.cache
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\obj\Debug\net5.0\staticwebassets\Admin.Server.StaticWebAssets.xml
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\obj\Debug\net5.0\scopedcss\bundle\Admin.Server.styles.css
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\obj\Debug\net5.0\Admin.Server.TagHelpers.input.cache
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\obj\Debug\net5.0\Admin.Server.TagHelpers.output.cache
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\obj\Debug\net5.0\Admin.Server.RazorCoreGenerate.cache
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\obj\Debug\net5.0\Razor\Pages\Error.cshtml.g.cs
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\obj\Debug\net5.0\Admin.Server.RazorTargetAssemblyInfo.cache
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\obj\Debug\net5.0\Admin.Server.RazorTargetAssemblyInfo.cs
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\obj\Debug\net5.0\Admin.Server.Views.pdb
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\obj\Debug\net5.0\Admin.Server.csproj.CopyComplete
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\obj\Debug\net5.0\Admin.Server.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\obj\Debug\net5.0\ref\Admin.Server.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\obj\Debug\net5.0\Admin.Server.pdb
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\obj\Debug\net5.0\Admin.Server.genruntimeconfig.cache
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Microsoft.OpenApi.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Server\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+G:\Admin\Server\bin\Debug\net5.0\Admin.Client.StaticWebAssets.xml
+G:\Admin\Server\bin\Debug\net5.0\appsettings.Development.json
+G:\Admin\Server\bin\Debug\net5.0\appsettings.json
+G:\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\BrowserDebugHost.dll
+G:\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\BrowserDebugHost.runtimeconfig.json
+G:\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\BrowserDebugProxy.dll
+G:\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\Microsoft.CodeAnalysis.CSharp.dll
+G:\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\Microsoft.CodeAnalysis.dll
+G:\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\Mono.Cecil.dll
+G:\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\Mono.Cecil.Pdb.dll
+G:\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\Mono.Cecil.Rocks.dll
+G:\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\Newtonsoft.Json.dll
+G:\Admin\Server\bin\Debug\net5.0\Admin.Server.StaticWebAssets.xml
+G:\Admin\Server\bin\Debug\net5.0\Admin.Server.exe
+G:\Admin\Server\bin\Debug\net5.0\Admin.Server.deps.json
+G:\Admin\Server\bin\Debug\net5.0\Admin.Server.runtimeconfig.json
+G:\Admin\Server\bin\Debug\net5.0\Admin.Server.runtimeconfig.dev.json
+G:\Admin\Server\bin\Debug\net5.0\Admin.Server.dll
+G:\Admin\Server\bin\Debug\net5.0\ref\Admin.Server.dll
+G:\Admin\Server\bin\Debug\net5.0\Admin.Server.pdb
+G:\Admin\Server\bin\Debug\net5.0\Admin.Server.Views.dll
+G:\Admin\Server\bin\Debug\net5.0\Admin.Server.Views.pdb
+G:\Admin\Server\bin\Debug\net5.0\Azure.Core.dll
+G:\Admin\Server\bin\Debug\net5.0\Azure.Identity.dll
+G:\Admin\Server\bin\Debug\net5.0\Azure.Security.KeyVault.Certificates.dll
+G:\Admin\Server\bin\Debug\net5.0\Azure.Security.KeyVault.Secrets.dll
+G:\Admin\Server\bin\Debug\net5.0\Humanizer.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Authorization.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.Authorization.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.Forms.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.Web.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.WebAssembly.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.WebAssembly.Authentication.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.WebAssembly.Server.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Metadata.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Razor.Language.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.Authentication.WebAssembly.Msal.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.Bcl.AsyncInterfaces.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.CodeAnalysis.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.CodeAnalysis.CSharp.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.CodeAnalysis.Razor.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.CodeAnalysis.Workspaces.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.Identity.Client.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.Identity.Client.Extensions.Msal.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.Identity.Web.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.Identity.Web.UI.Views.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.Identity.Web.UI.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.JSInterop.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.JSInterop.WebAssembly.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.OpenApi.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
+G:\Admin\Server\bin\Debug\net5.0\dotnet-aspnet-codegenerator-design.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
+G:\Admin\Server\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+G:\Admin\Server\bin\Debug\net5.0\Newtonsoft.Json.dll
+G:\Admin\Server\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+G:\Admin\Server\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+G:\Admin\Server\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+G:\Admin\Server\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+G:\Admin\Server\bin\Debug\net5.0\System.Composition.AttributedModel.dll
+G:\Admin\Server\bin\Debug\net5.0\System.Composition.Convention.dll
+G:\Admin\Server\bin\Debug\net5.0\System.Composition.Hosting.dll
+G:\Admin\Server\bin\Debug\net5.0\System.Composition.Runtime.dll
+G:\Admin\Server\bin\Debug\net5.0\System.Composition.TypedParts.dll
+G:\Admin\Server\bin\Debug\net5.0\System.Configuration.ConfigurationManager.dll
+G:\Admin\Server\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
+G:\Admin\Server\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+G:\Admin\Server\bin\Debug\net5.0\System.IO.Pipelines.dll
+G:\Admin\Server\bin\Debug\net5.0\System.Runtime.Caching.dll
+G:\Admin\Server\bin\Debug\net5.0\System.Security.Cryptography.ProtectedData.dll
+G:\Admin\Server\bin\Debug\net5.0\System.Text.Json.dll
+G:\Admin\Server\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\fr\Microsoft.CodeAnalysis.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\it\Microsoft.CodeAnalysis.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\ja\Microsoft.CodeAnalysis.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\ko\Microsoft.CodeAnalysis.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\pl\Microsoft.CodeAnalysis.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\Admin\Server\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+G:\Admin\Server\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+G:\Admin\Server\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+G:\Admin\Server\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb
+G:\Admin\Server\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+G:\Admin\Server\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb
+G:\Admin\Server\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+G:\Admin\Server\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
+G:\Admin\Server\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+G:\Admin\Server\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
+G:\Admin\Server\bin\Debug\net5.0\runtimes\win-arm\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
+G:\Admin\Server\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
+G:\Admin\Server\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+G:\Admin\Server\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+G:\Admin\Server\bin\Debug\net5.0\Admin.Client.dll
+G:\Admin\Server\bin\Debug\net5.0\Admin.Shared.dll
+G:\Admin\Server\bin\Debug\net5.0\Admin.Client.pdb
+G:\Admin\Server\bin\Debug\net5.0\Admin.Shared.pdb
+G:\Admin\Server\obj\Debug\net5.0\Admin.Server.csproj.AssemblyReference.cache
+G:\Admin\Server\obj\Debug\net5.0\Admin.Server.GeneratedMSBuildEditorConfig.editorconfig
+G:\Admin\Server\obj\Debug\net5.0\Admin.Server.AssemblyInfoInputs.cache
+G:\Admin\Server\obj\Debug\net5.0\Admin.Server.AssemblyInfo.cs
+G:\Admin\Server\obj\Debug\net5.0\Admin.Server.csproj.CoreCompileInputs.cache
+G:\Admin\Server\obj\Debug\net5.0\Admin.Server.MvcApplicationPartsAssemblyInfo.cs
+G:\Admin\Server\obj\Debug\net5.0\Admin.Server.MvcApplicationPartsAssemblyInfo.cache
+G:\Admin\Server\obj\Debug\net5.0\Admin.Server.RazorAssemblyInfo.cache
+G:\Admin\Server\obj\Debug\net5.0\Admin.Server.RazorAssemblyInfo.cs
+G:\Admin\Server\obj\Debug\net5.0\staticwebassets\Admin.Server.StaticWebAssets.Manifest.cache
+G:\Admin\Server\obj\Debug\net5.0\staticwebassets\Admin.Server.StaticWebAssets.xml
+G:\Admin\Server\obj\Debug\net5.0\scopedcss\bundle\Admin.Server.styles.css
+G:\Admin\Server\obj\Debug\net5.0\Admin.Server.TagHelpers.input.cache
+G:\Admin\Server\obj\Debug\net5.0\Admin.Server.TagHelpers.output.cache
+G:\Admin\Server\obj\Debug\net5.0\Admin.Server.RazorCoreGenerate.cache
+G:\Admin\Server\obj\Debug\net5.0\Razor\Pages\Error.cshtml.g.cs
+G:\Admin\Server\obj\Debug\net5.0\Admin.Server.RazorTargetAssemblyInfo.cache
+G:\Admin\Server\obj\Debug\net5.0\Admin.Server.RazorTargetAssemblyInfo.cs
+G:\Admin\Server\obj\Debug\net5.0\Admin.Server.Views.pdb
+G:\Admin\Server\obj\Debug\net5.0\Admin.Server.csproj.CopyComplete
+G:\Admin\Server\obj\Debug\net5.0\Admin.Server.dll
+G:\Admin\Server\obj\Debug\net5.0\ref\Admin.Server.dll
+G:\Admin\Server\obj\Debug\net5.0\Admin.Server.pdb
+G:\Admin\Server\obj\Debug\net5.0\Admin.Server.genruntimeconfig.cache
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Client.StaticWebAssets.xml
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\appsettings.Development.json
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\appsettings.json
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\BrowserDebugHost.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\BrowserDebugHost.runtimeconfig.json
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\BrowserDebugProxy.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\Microsoft.CodeAnalysis.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\Mono.Cecil.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\Mono.Cecil.Pdb.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\Mono.Cecil.Rocks.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\Newtonsoft.Json.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Server.StaticWebAssets.xml
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Server.exe
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Server.deps.json
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Server.runtimeconfig.json
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Server.runtimeconfig.dev.json
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Server.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ref\Admin.Server.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Server.pdb
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Server.Views.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Server.Views.pdb
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Azure.Core.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Azure.Identity.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Azure.Security.KeyVault.Certificates.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Azure.Security.KeyVault.Secrets.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Humanizer.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Authorization.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.Authorization.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.Forms.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.Web.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.WebAssembly.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.WebAssembly.Authentication.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.WebAssembly.Server.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Metadata.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Razor.Language.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.Authentication.WebAssembly.Msal.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.CodeAnalysis.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.CodeAnalysis.Razor.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.Identity.Client.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.Identity.Web.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.Identity.Web.UI.Views.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.Identity.Web.UI.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.JSInterop.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.JSInterop.WebAssembly.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.OpenApi.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\dotnet-aspnet-codegenerator-design.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\System.Composition.AttributedModel.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\System.Composition.Convention.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\System.Composition.Hosting.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\System.Composition.Runtime.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\System.Composition.TypedParts.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\System.Configuration.ConfigurationManager.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\System.IO.Pipelines.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\System.Runtime.Caching.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\System.Text.Json.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\it\Microsoft.CodeAnalysis.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win-arm\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Client.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Shared.dll
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Client.pdb
+C:\Users\DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Shared.pdb
+C:\Users\DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.csproj.AssemblyReference.cache
+C:\Users\DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.AssemblyInfoInputs.cache
+C:\Users\DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.AssemblyInfo.cs
+C:\Users\DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.csproj.CoreCompileInputs.cache
+C:\Users\DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.RazorAssemblyInfo.cache
+C:\Users\DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.RazorAssemblyInfo.cs
+C:\Users\DERICK\Desktop\Admin\Server\obj\Debug\net5.0\staticwebassets\Admin.Server.StaticWebAssets.Manifest.cache
+C:\Users\DERICK\Desktop\Admin\Server\obj\Debug\net5.0\staticwebassets\Admin.Server.StaticWebAssets.xml
+C:\Users\DERICK\Desktop\Admin\Server\obj\Debug\net5.0\scopedcss\bundle\Admin.Server.styles.css
+C:\Users\DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.TagHelpers.input.cache
+C:\Users\DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.TagHelpers.output.cache
+C:\Users\DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.RazorCoreGenerate.cache
+C:\Users\DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Razor\Pages\Error.cshtml.g.cs
+C:\Users\DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.RazorTargetAssemblyInfo.cache
+C:\Users\DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.RazorTargetAssemblyInfo.cs
+C:\Users\DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.Views.pdb
+C:\Users\DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.csproj.CopyComplete
+C:\Users\DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.dll
+C:\Users\DERICK\Desktop\Admin\Server\obj\Debug\net5.0\ref\Admin.Server.dll
+C:\Users\DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.pdb
+C:\Users\DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.genruntimeconfig.cache
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Client.StaticWebAssets.xml
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\appsettings.Development.json
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\appsettings.json
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\BrowserDebugHost.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\BrowserDebugHost.runtimeconfig.json
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\BrowserDebugProxy.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\Microsoft.CodeAnalysis.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\Mono.Cecil.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\Mono.Cecil.Pdb.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\Mono.Cecil.Rocks.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\BlazorDebugProxy\Newtonsoft.Json.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Server.StaticWebAssets.xml
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Server.exe
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Server.deps.json
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Server.runtimeconfig.json
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Server.runtimeconfig.dev.json
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Server.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Server.pdb
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Server.Views.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Server.Views.pdb
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Azure.Core.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Azure.Identity.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Azure.Security.KeyVault.Certificates.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Azure.Security.KeyVault.Secrets.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Humanizer.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Authorization.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.Authorization.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.Forms.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.Web.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.WebAssembly.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.WebAssembly.Authentication.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Components.WebAssembly.Server.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Metadata.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.AspNetCore.Razor.Language.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.Authentication.WebAssembly.Msal.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.CodeAnalysis.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.CodeAnalysis.Razor.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.Identity.Client.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.Identity.Web.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.Identity.Web.UI.Views.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.Identity.Web.UI.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.JSInterop.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.JSInterop.WebAssembly.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.OpenApi.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\dotnet-aspnet-codegenerator-design.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\System.Composition.AttributedModel.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\System.Composition.Convention.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\System.Composition.Hosting.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\System.Composition.Runtime.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\System.Composition.TypedParts.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\System.Configuration.ConfigurationManager.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\System.IO.Pipelines.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\System.Runtime.Caching.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\System.Text.Json.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\it\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win-arm\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Client.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Shared.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Client.pdb
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\bin\Debug\net5.0\Admin.Shared.pdb
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.csproj.AssemblyReference.cache
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.AssemblyInfoInputs.cache
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.AssemblyInfo.cs
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.csproj.CoreCompileInputs.cache
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.RazorAssemblyInfo.cache
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.RazorAssemblyInfo.cs
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\staticwebassets\Admin.Server.StaticWebAssets.Manifest.cache
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\staticwebassets\Admin.Server.StaticWebAssets.xml
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\scopedcss\bundle\Admin.Server.styles.css
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.TagHelpers.input.cache
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.TagHelpers.output.cache
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.RazorCoreGenerate.cache
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Razor\Pages\Error.cshtml.g.cs
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.RazorTargetAssemblyInfo.cache
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.RazorTargetAssemblyInfo.cs
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.Views.pdb
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\ref\Admin.Server.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.pdb
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.genruntimeconfig.cache
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Server.sourcelink.json
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\staticwebassets\Admin.Server.StaticWebAssets.Pack.cache
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\staticwebassets\msbuild.Admin.Server.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\staticwebassets\msbuild.build.Admin.Server.props
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\staticwebassets\msbuild.buildMultiTargeting.Admin.Server.props
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\staticwebassets\msbuild.buildTransitive.Admin.Server.props
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\Admin.Se.87E180B7.Up2Date
+C:\Users\HUNTER DERICK\Desktop\Admin\Server\obj\Debug\net5.0\refint\Admin.Server.dll

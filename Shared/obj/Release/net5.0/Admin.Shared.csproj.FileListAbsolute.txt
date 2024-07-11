@@ -1,0 +1,36 @@
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Shared\bin\Release\net5.0\Admin.Shared.deps.json
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Shared\bin\Release\net5.0\Admin.Shared.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Shared\bin\Release\net5.0\ref\Admin.Shared.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Shared\bin\Release\net5.0\Admin.Shared.pdb
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Shared\obj\Release\net5.0\Admin.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Shared\obj\Release\net5.0\Admin.Shared.AssemblyInfoInputs.cache
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Shared\obj\Release\net5.0\Admin.Shared.AssemblyInfo.cs
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Shared\obj\Release\net5.0\Admin.Shared.csproj.CoreCompileInputs.cache
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Shared\obj\Release\net5.0\Admin.Shared.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Shared\obj\Release\net5.0\ref\Admin.Shared.dll
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Shared\obj\Release\net5.0\Admin.Shared.pdb
+C:\Users\DERICK\source\repos\OgaBooks\OgaBooks\Admin\Shared\obj\Release\net5.0\Admin.Shared.csproj.AssemblyReference.cache
+G:\Admin\Shared\bin\Release\net5.0\Admin.Shared.deps.json
+G:\Admin\Shared\bin\Release\net5.0\Admin.Shared.dll
+G:\Admin\Shared\bin\Release\net5.0\ref\Admin.Shared.dll
+G:\Admin\Shared\bin\Release\net5.0\Admin.Shared.pdb
+G:\Admin\Shared\obj\Release\net5.0\Admin.Shared.csproj.AssemblyReference.cache
+G:\Admin\Shared\obj\Release\net5.0\Admin.Shared.GeneratedMSBuildEditorConfig.editorconfig
+G:\Admin\Shared\obj\Release\net5.0\Admin.Shared.AssemblyInfoInputs.cache
+G:\Admin\Shared\obj\Release\net5.0\Admin.Shared.AssemblyInfo.cs
+G:\Admin\Shared\obj\Release\net5.0\Admin.Shared.csproj.CoreCompileInputs.cache
+G:\Admin\Shared\obj\Release\net5.0\Admin.Shared.dll
+G:\Admin\Shared\obj\Release\net5.0\ref\Admin.Shared.dll
+G:\Admin\Shared\obj\Release\net5.0\Admin.Shared.pdb
+C:\Users\HUNTER DERICK\Desktop\Admin\Shared\bin\Release\net5.0\Admin.Shared.deps.json
+C:\Users\HUNTER DERICK\Desktop\Admin\Shared\bin\Release\net5.0\Admin.Shared.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Shared\bin\Release\net5.0\ref\Admin.Shared.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Shared\bin\Release\net5.0\Admin.Shared.pdb
+C:\Users\HUNTER DERICK\Desktop\Admin\Shared\obj\Release\net5.0\Admin.Shared.csproj.AssemblyReference.cache
+C:\Users\HUNTER DERICK\Desktop\Admin\Shared\obj\Release\net5.0\Admin.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HUNTER DERICK\Desktop\Admin\Shared\obj\Release\net5.0\Admin.Shared.AssemblyInfoInputs.cache
+C:\Users\HUNTER DERICK\Desktop\Admin\Shared\obj\Release\net5.0\Admin.Shared.AssemblyInfo.cs
+C:\Users\HUNTER DERICK\Desktop\Admin\Shared\obj\Release\net5.0\Admin.Shared.csproj.CoreCompileInputs.cache
+C:\Users\HUNTER DERICK\Desktop\Admin\Shared\obj\Release\net5.0\Admin.Shared.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Shared\obj\Release\net5.0\ref\Admin.Shared.dll
+C:\Users\HUNTER DERICK\Desktop\Admin\Shared\obj\Release\net5.0\Admin.Shared.pdb

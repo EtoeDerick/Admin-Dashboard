@@ -1,0 +1,216 @@
+@import '';
+
+/* /Pages/Backend/AdminDashboardCount/CardItem.razor.rz.scp.css */
+.admin-card[b-3k08zbhz9o] {
+    margin: .33333333rem;
+    display: block;
+    position: relative;
+    float: left;
+    width: 24%;
+    min-width: 200px;
+    color: #fff !important;
+    text-decoration: none;
+}
+
+.admin-card:hover[b-3k08zbhz9o] {
+    text-decoration: none;
+    opacity: .8;
+}
+
+.card-content[b-3k08zbhz9o] {
+    padding: 15px;
+}
+
+.card-data h3[b-3k08zbhz9o] {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.card-data p[b-3k08zbhz9o] {
+    margin-bottom: 0;
+}
+
+.card-icon[b-3k08zbhz9o] {
+    position: absolute;
+    right: 25px;
+    top: 30%;
+    font-size: 35px;
+    opacity: .2;
+}
+/* /Pages/Backend/Quizes/QuizResultDetails.razor.rz.scp.css */
+
+
+.grid-container-element[b-8jr6k83k7d] {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    border: 1px solid black;
+    width: 100%;
+}
+
+.grid-child-element[b-8jr6k83k7d] {
+    margin: 10px;
+    
+}
+
+.wrapper-div[b-8jr6k83k7d] {
+    width: 100%;
+    margin: 0;
+}
+
+.first-div[b-8jr6k83k7d] {
+    width: 50%;
+    margin: 0;
+    float: left;
+}
+
+.second-div[b-8jr6k83k7d] {
+    width: 50%;
+    margin: 0;
+    float: left;
+}
+.center-items[b-8jr6k83k7d] {
+    text-align: center;
+}
+
+.img[b-8jr6k83k7d] {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    padding: 10px;
+}
+/* /Shared/MainLayout.razor.rz.scp.css */
+.page[b-1635twpe55] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.main[b-1635twpe55] {
+    flex: 1;
+}
+
+.sidebar[b-1635twpe55] {
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+}
+
+.top-row[b-1635twpe55] {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #d6d5d5;
+    justify-content: flex-end;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+    .top-row[b-1635twpe55]  a, .top-row .btn-link[b-1635twpe55] {
+        white-space: nowrap;
+        margin-left: 1.5rem;
+    }
+
+    .top-row a:first-child[b-1635twpe55] {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+@media (max-width: 640.98px) {
+    .top-row:not(.auth)[b-1635twpe55] {
+        display: none;
+    }
+
+    .top-row.auth[b-1635twpe55] {
+        justify-content: space-between;
+    }
+
+    .top-row a[b-1635twpe55], .top-row .btn-link[b-1635twpe55] {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 641px) {
+    .page[b-1635twpe55] {
+        flex-direction: row;
+    }
+
+    .sidebar[b-1635twpe55] {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .top-row[b-1635twpe55] {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .main > div[b-1635twpe55] {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
+/* /Shared/NavMenu.razor.rz.scp.css */
+.navbar-toggler[b-jnqzgsdb7t] {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.top-row[b-jnqzgsdb7t] {
+    height: 3.5rem;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.navbar-brand[b-jnqzgsdb7t] {
+    font-size: 1.1rem;
+}
+
+.oi[b-jnqzgsdb7t] {
+    width: 2rem;
+    font-size: 1.1rem;
+    vertical-align: text-top;
+    top: -2px;
+}
+
+.nav-item[b-jnqzgsdb7t] {
+    font-size: 0.9rem;
+    padding-bottom: 0.5rem;
+}
+
+    .nav-item:first-of-type[b-jnqzgsdb7t] {
+        padding-top: 1rem;
+    }
+
+    .nav-item:last-of-type[b-jnqzgsdb7t] {
+        padding-bottom: 1rem;
+    }
+
+    .nav-item[b-jnqzgsdb7t]  a {
+        color: #d7d7d7;
+        border-radius: 4px;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        line-height: 3rem;
+    }
+
+.nav-item[b-jnqzgsdb7t]  a.active {
+    background-color: rgba(255,255,255,0.25);
+    color: white;
+}
+
+.nav-item[b-jnqzgsdb7t]  a:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+}
+
+@media (min-width: 641px) {
+    .navbar-toggler[b-jnqzgsdb7t] {
+        display: none;
+    }
+
+    .collapse[b-jnqzgsdb7t] {
+        /* Never collapse the sidebar for wide screens */
+        display: block;
+    }
+}

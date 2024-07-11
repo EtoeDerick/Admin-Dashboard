@@ -1,0 +1,36 @@
+.admin-card[b-3k08zbhz9o] {
+    margin: .33333333rem;
+    display: block;
+    position: relative;
+    float: left;
+    width: 24%;
+    min-width: 200px;
+    color: #fff !important;
+    text-decoration: none;
+}
+
+.admin-card:hover[b-3k08zbhz9o] {
+    text-decoration: none;
+    opacity: .8;
+}
+
+.card-content[b-3k08zbhz9o] {
+    padding: 15px;
+}
+
+.card-data h3[b-3k08zbhz9o] {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.card-data p[b-3k08zbhz9o] {
+    margin-bottom: 0;
+}
+
+.card-icon[b-3k08zbhz9o] {
+    position: absolute;
+    right: 25px;
+    top: 30%;
+    font-size: 35px;
+    opacity: .2;
+}
