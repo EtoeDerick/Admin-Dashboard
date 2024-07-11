@@ -50,6 +50,7 @@ namespace Admin.Server.Repositories.AdminDashboards
             count.examCategories = await _db.ExamCategories.CountAsync();
             count.quizes = await _db.PastPapers.CountAsync(x => x.IsQuiz == true);
             count.quizawards = await _db.QuizAwards.CountAsync();
+            count.downloadpdfs = await _db.Downloadpdfs.CountAsync();
 
             return count;
         }

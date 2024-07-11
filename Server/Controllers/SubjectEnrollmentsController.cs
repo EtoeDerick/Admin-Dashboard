@@ -27,32 +27,13 @@ namespace Admin.Server.Controllers
 
         // GET: api/Examinations
         [HttpGet]
-        public async Task<IEnumerable<UserSubjectsDto>> GetAll()
+        public async Task<IEnumerable<UserSubjectsDto>> GetAll(string userid)
         {
             //Grab userId and forward to the request
             var userId = string.Empty;
 
             // HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
-            if (HttpContext != null && HttpContext.User != null)
-            {
-                var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-                if (claim != null)
-                {
-                    userId = claim.Value;
-                }
-            }
-
-            return await _db.GetAll(userId);
-        }
-
-        // GET: api/Examinations/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<EnrollmentSubjectDto>> GetMySubjectToDashboard(int id)
-        {
-            var userId = string.Empty;
-
-            //HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
-            try
+            if (string.IsNullOrEmpty(userid))
             {
                 if (HttpContext != null && HttpContext.User != null)
                 {
@@ -63,6 +44,35 @@ namespace Admin.Server.Controllers
                     }
                 }
             }
+            else
+            {
+                userId = userid;
+            }
+
+            return await _db.GetAll(userId);
+        }
+
+        // GET: api/Examinations/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<EnrollmentSubjectDto>> GetMySubjectToDashboard(int id, string userId=null)
+        {
+            var _userid = userId;
+
+            //HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+            try
+            {
+                if (string.IsNullOrEmpty(_userid))
+                {
+                    if (HttpContext != null && HttpContext.User != null)
+                    {
+                        var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+                        if (claim != null)
+                        {
+                            _userid = claim.Value;
+                        }
+                    }
+                }
+            }
             catch (Exception)
             {
 
@@ -70,8 +80,8 @@ namespace Admin.Server.Controllers
             
             var user = new AppUser()
             {
-                Id = userId,
-                //UserName = HttpContext.User.FindFirstValue("name")
+                Id = _userid,
+                UserName = HttpContext.User.FindFirstValue("name")
             };
 
             return await _db.GetMeEnroll(id, user);
@@ -79,23 +89,28 @@ namespace Admin.Server.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<IEnumerable<UserSubjectsDto>>> SoftDeleteMySubscription(int id)
+        public async Task<ActionResult<IEnumerable<UserSubjectsDto>>> SoftDeleteMySubscription(int id, string userid="")
         {
             //Grab userId and forward to the request
             var userId = string.Empty;
 
-            // HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
-            if (HttpContext != null && HttpContext.User != null)
+            if (string.IsNullOrEmpty(userid))
             {
-                var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-                if (claim != null)
+                // HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+                if (HttpContext != null && HttpContext.User != null)
                 {
-                    userId = claim.Value;
+                    var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+                    if (claim != null)
+                    {
+                        userId = claim.Value;
+                    }
                 }
             }
-
-
-
+            else
+            {
+                userId = userid;
+            }
+            
             return await _db.Delete(id, userId);
         }
     }

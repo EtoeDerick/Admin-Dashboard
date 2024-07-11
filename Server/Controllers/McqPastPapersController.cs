@@ -24,14 +24,21 @@ namespace Admin.Server.Controllers
         //Get mcqs by pastpaperId
         // GET: api/Examinations/5
         [HttpGet("{id}")]
-        public async Task<IEnumerable<MCQDto>> GetMcqsUsingPastpaperID(string id)
+        public async Task<IEnumerable<MCQDto>> GetMcqsUsingPastpaperID(string id, string userId = null)
         {
             var userid = string.Empty;
-            var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-            if (claim != null)
+            if (string.IsNullOrEmpty(userId))
             {
-                userid = claim.Value;
-                //userid = "c5c7c95b-227a-4b9f-9c7d-d13446f52a49";
+                var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+                if (claim != null)
+                {
+                    userid = claim.Value;
+
+                }
+            }            
+            else
+            {
+                userid = userId;
             }
 
             return await _db.Get(id, userid);
@@ -39,26 +46,40 @@ namespace Admin.Server.Controllers
 
         //get mcqs by topicId
         [HttpDelete("{id}")]
-        public async Task<IEnumerable<MCQDto>> GetMcqsUsingTopicID(int id)
+        public async Task<IEnumerable<MCQDto>> GetMcqsUsingTopicID(int id, string userId = null)
         {
             var userid = string.Empty;
-            var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-            if (claim != null)
+            if (string.IsNullOrEmpty(userId))
             {
-                userid = claim.Value;
+                var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+                if (claim != null)
+                {
+                    userid = claim.Value;
+                }
+            }            
+            else
+            {
+                userid = userId;
             }
             return await _db.GetMcqsByTopics(id, userid);
         }
 
         [HttpPut("{id}")]
-        public async Task<IEnumerable<TopicsDto>> GetTopicDtosForGivenSubjectID(int id)
+        public async Task<IEnumerable<TopicsDto>> GetTopicDtosForGivenSubjectID(int id, string userId = "")
         {
-            HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+            //HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
             var userid = string.Empty;
-            var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-            if (claim != null)
+            if (string.IsNullOrEmpty(userId))
             {
-                userid = claim.Value;
+                var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+                if (claim != null)
+                {
+                    userid = claim.Value;
+                }
+            }            
+            else
+            {
+                userid = userId;
             }
 
             return await _db.GetTopicDtosForGivenSubjectID(id, userid);

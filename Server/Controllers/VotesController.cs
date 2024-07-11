@@ -41,7 +41,7 @@ namespace Admin.Server.Controllers
         // PUT: api/Examinations/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IEnumerable<ForumDiscussionPageDto>> GetConversationForSubjectByForumID(int id, int subjectId, int pageNumber)
+        public async Task<IEnumerable<ForumDiscussionPageDto>> GetConversationForSubjectByForumID(int id, int subjectId, int pageNumber, string userId=null)
         {
             return await _db.GetConversationsByForumId(id, subjectId, pageNumber);
         }
@@ -49,15 +49,18 @@ namespace Admin.Server.Controllers
         // POST: api/Examinations
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Vote>> Post (int conversationId)
+        public async Task<ActionResult<Vote>> Post (int conversationId, string userId = null)
         {
-            var userid = string.Empty;
-            var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-            if (claim != null)
+            var userid = userId;
+            if (string.IsNullOrEmpty(userId))
             {
-                userid = claim.Value;
+                var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+                if (claim != null)
+                {
+                    userid = claim.Value;
+                }
             }
-
+            
             var vote = new Vote()
             {
                 ConversationId = conversationId,
@@ -70,15 +73,18 @@ namespace Admin.Server.Controllers
         }
 
         [HttpPost("{id}")]
-        public async Task<Conversation> CreateClientConversationAsync(int id, int subjectId, string title, string description, bool isReply = false, int replyId = 0)
+        public async Task<Conversation> CreateClientConversationAsync(int id, int subjectId, string title, string description, bool isReply = false, int replyId = 0, string userId=null)
         {
-            var userid = "";
-            var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-            if (claim != null)
+            var userid = userId;
+            if (string.IsNullOrEmpty(userId))
             {
-                userid = claim.Value;
+                var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+                if (claim != null)
+                {
+                    userid = claim.Value;
+                }
             }
-
+            
             var conversation = new Conversation()
             {
                 DiscussionForumId = id,

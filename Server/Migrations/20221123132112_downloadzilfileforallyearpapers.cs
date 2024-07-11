@@ -2,23 +2,23 @@
 
 namespace Admin.Server.Migrations
 {
-    public partial class MCQVideoUrlInclude : Migration
+    public partial class downloadzilfileforallyearpapers : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            /*migrationBuilder.AddColumn<string>(
-                name: "VideoUrl",
-                table: "MCQ",
+            migrationBuilder.AddColumn<string>(
+                name: "ZipFileUrl",
+                table: "Downloadpdfs",
                 type: "nvarchar(1024)",
                 maxLength: 1024,
-                nullable: true);*/
+                nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "VideoUrl",
-                table: "MCQ");
+                name: "ZipFileUrl",
+                table: "Downloadpdfs");
         }
     }
 }

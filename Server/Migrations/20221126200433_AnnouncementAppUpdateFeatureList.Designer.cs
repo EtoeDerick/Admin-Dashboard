@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Admin.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221103031402_QuizAwardReal")]
-    partial class QuizAwardReal
+    [Migration("20221126200433_AnnouncementAppUpdateFeatureList")]
+    partial class AnnouncementAppUpdateFeatureList
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -116,6 +116,9 @@ namespace Admin.Server.Migrations
 
                     b.Property<int>("NumberOfDaysToExamination")
                         .HasColumnType("int");
+
+                    b.Property<string>("UpdateFeatures")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VideoTitle")
                         .HasColumnType("nvarchar(max)");
@@ -271,6 +274,52 @@ namespace Admin.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DownloadTrackingTables");
+                });
+
+            modelBuilder.Entity("Admin.Shared.Models.Downloadpdf", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsFree")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("PaperNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PaperYear")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<int>("SubjectId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Thumbnail")
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Url")
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)");
+
+                    b.Property<string>("ZipFileUrl")
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubjectId");
+
+                    b.ToTable("Downloadpdfs");
                 });
 
             modelBuilder.Entity("Admin.Shared.Models.ETQ.EssayTypeQuestion", b =>
@@ -1562,6 +1611,15 @@ namespace Admin.Server.Migrations
                     b.Navigation("MCQ");
                 });
 
+            modelBuilder.Entity("Admin.Shared.Models.Downloadpdf", b =>
+                {
+                    b.HasOne("Admin.Shared.Models.Subject", null)
+                        .WithMany("Downloads")
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Admin.Shared.Models.ETQ.EssayTypeQuestion", b =>
                 {
                     b.HasOne("Admin.Shared.Models.PastPaper", "PastPaper")
@@ -1902,6 +1960,8 @@ namespace Admin.Server.Migrations
             modelBuilder.Entity("Admin.Shared.Models.Subject", b =>
                 {
                     b.Navigation("Chapters");
+
+                    b.Navigation("Downloads");
 
                     b.Navigation("InstructorSubjects");
 

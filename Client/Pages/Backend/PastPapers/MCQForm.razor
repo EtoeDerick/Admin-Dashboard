@@ -337,54 +337,66 @@
     {
         @foreach(var mcq in mcqs)
                 {
-            <div style="border: 1px solid gray; margin-top: 10px; padding: 10px">
-                <p>@((MarkupString)mcq.Instruction)</p>
-                @if (!string.IsNullOrEmpty(mcq.QuestionImageUrl)) 
+    <div style="border: 1px solid gray; margin-top: 10px; padding: 10px">
+        <p>@((MarkupString)mcq.Instruction)</p>
+        @if (!string.IsNullOrEmpty(mcq.QuestionImageUrl))
                 {
-                    <p>@((MarkupString)@mcq.QuestionImageUrl)</p>
+        <p>@((MarkupString)@mcq.QuestionImageUrl)</p>
                 }
-                    <p>@((MarkupString)mcq.Question)</p>
-                <p>
-                    @if (mcq.Options.Any())
+        <p>@((MarkupString)mcq.Question)</p>
+        <p>
+            @if (mcq.Options.Any())
                     {
-                        @foreach (var op in mcq.Options)
+            @foreach (var op in mcq.Options)
                         {
-                            @((MarkupString)op) <br />
+            @((MarkupString)op)  <br />
                         }
                     }
-                </p>
-                <p>
-                    @if (mcq.OptionImageUrl.Any())
+        </p>
+        <p>
+            @if (mcq.OptionImageUrl.Any())
                     {
-                        @foreach (var op in mcq.OptionImageUrl)
+            @foreach (var op in mcq.OptionImageUrl)
                         {
-                            @((MarkupString)op) <br />
+            @((MarkupString)op)  <br />
                         }
                     }
-                </p>
-                <p>
-                    <b>Answer: </b>
-                    @if (mcq.OptionImageUrl.Any())
+        </p>
+        <p>
+            <b>Answer: </b>
+            @if (mcq.OptionImageUrl.Any())
                     {
-                        @foreach (var op in mcq.OptionImageUrl)
+            @foreach (var op in mcq.OptionImageUrl)
                         {
-                            @((MarkupString)op)<span>, </span>
+            @((MarkupString)op)<span>, </span>
                         }
                     }
-                    @if (mcq.Answer > 0)
+            @if (mcq.Answer > 0)
                     {
-                        @mcq.Answer
+            @mcq.Answer
                     }
-                </p>
-                <p>
-                    <b>Justification: </b>@((MarkupString)mcq.JustificationText)<br />
-                    @if (!string.IsNullOrWhiteSpace(mcq.JustificationImageUrl))
+        </p>
+        <p>
+            <b>Justification: </b>@((MarkupString)mcq.JustificationText)<br />
+            @if (!string.IsNullOrWhiteSpace(mcq.JustificationImageUrl))
                     {
-                        <img src="@mcq.JustificationImageUrl" height="200" />
+            <img src="@mcq.JustificationImageUrl" height="200" />
                     }
-                </p>
-                <p>TopicID: <b>@mcq.TopicId </b>, Position: <b>@mcq.Position</b></p>
-            </div>
+        </p>
+        <p>TopicID: <b>@mcq.TopicId </b>, Position: <b>@mcq.Position</b></p>
+
+        <p>VideoUrl: @mcq.VideoUrl</p>
+        @if(!string.IsNullOrWhiteSpace(mcq.VideoUrl)){
+        <div>
+            <video width="320" height="240" controls>
+                <source src=@mcq.VideoUrl type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+                }
+
+
+    </div>
         }
     
     }
@@ -541,7 +553,8 @@
                 TopicId = mcq.TopicId,
                 Position = mcq.Position,
                 PastPaperId = PastPaperModel.Id,
-                SubjectId = PastPaperModel.SubjectID
+                SubjectId = PastPaperModel.SubjectID,
+                VideoUrl = mcq.VideoUrl
             };
 
             //2. Set options for this question if any

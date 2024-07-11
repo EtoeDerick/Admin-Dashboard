@@ -27,16 +27,17 @@ namespace Admin.Server.Repositories
             var subjectDtos = new List<SubjectDto>();
             var subjects = await _context.Subjects.Where(s => s.ExaminationId == ExaminationId).ToListAsync();
 
+            bool isSubjectFree = false;
+            //If subjectId was found, get subjectStatus: whether subject is FREE
+            
 
             if (subjects.Any())
             {
                 foreach(var subject in subjects)
                 {
                     var insturctors = string.Empty;
-
                     //Get Instructors for the given subject
                     var instructSubjects = await _context.InstructorSubject.Where(ins => ins.SubjectId == subject.Id).Include(i => i.Instructor).ToListAsync();
-
                     foreach(var insub in instructSubjects)
                     {
                         if(count == 0)
@@ -46,22 +47,9 @@ namespace Admin.Server.Repositories
                         else
                         {
                             insturctors = insturctors + ", " + insub.Instructor.Name;
-                        }
-                        
+                        }                        
                         count++;
-                    }
-                    var isnotEnrol = true;
-                    if (!string.IsNullOrEmpty(userId))
-                    {
-                        var isEnrolled = _context.UserSubjects.Any(u => u.SubjectId == subject.Id && u.AppUserId == userId && u.IsDeleted == false);
-
-                        if (isEnrolled)
-                        {
-                            isnotEnrol = false;
-                        }
-                        
-                    }
-                    
+                    }                    
                     //Performing mapping between Subject and SubjectDto 
                     var subjectDto = new SubjectDto()
                     {
@@ -82,7 +70,7 @@ namespace Admin.Server.Repositories
                         IsPaper3ContentAvailable = subject.IsPaper3ContentAvailable,
                         IsTutorialContentAvailable = subject.IsTutorialContentAvailable,
                         Instructors = insturctors,
-                        IsNotEnroll = isnotEnrol
+                        IsNotEnroll = !(await _context.UserSubjects.AnyAsync(u => u.SubjectId == subject.Id && u.AppUserId == userId && u.IsDeleted == false))
                     };
 
                     
@@ -92,7 +80,7 @@ namespace Admin.Server.Repositories
                         var us = _context.UserSubjects.Single(u => u.AppUserId == userId && u.SubjectId == subject.Id);
                         
 
-                        var consumptionDuration = DateTime.Now - us.EnrollmentDate;
+                        var consumptionDuration = DateTime.UtcNow - us.EnrollmentDate;
 
                        if ( consumptionDuration.TotalDays > us.Duration  )
                        {
@@ -113,6 +101,15 @@ namespace Admin.Server.Repositories
                         {
                             subjectDto.PaymentStatus = "NotEnrolled";
                         }
+                    }
+                    if (subject.Id > 0)
+                    {
+                        isSubjectFree = _context.Subjects.Single(s => s.Id == subject.Id).IsFree;
+                    }
+
+                    if (isSubjectFree)
+                    {
+                        subjectDto.PaymentStatus = "OBC";
                     }
 
                     subjectDtos.Add(subjectDto);
@@ -151,6 +148,7 @@ namespace Admin.Server.Repositories
                 announcement.EmailContact = announcements.ElementAt(0).EmailContact;
                 announcement.Line1ContactWithWhatsApp = announcements.ElementAt(0).Line1ContactWithWhatsApp;
                 announcement.Line2Contact = announcements.ElementAt(0).Line2Contact;
+                announcement.UpdateFeatures = announcements.ElementAt(0).UpdateFeatures;
 
                 var writtenDate = _context.Examinations.Single(e => e.Id == announcements.ElementAt(0).ExaminationId.ToString()).WrittenOn;
                 //var writtenDate = new DateTime(2022, 7, 20);

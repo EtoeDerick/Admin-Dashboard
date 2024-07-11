@@ -27,6 +27,13 @@ namespace Admin.Server.Repositories.FrontEnd.ETQ
             //var p2s = new List<PaperOnePastPaperDto>();
             var p2n3s = new List<PastPaper2n3Dto>();
 
+            bool isSubjectFree = false;
+            //If subjectId was found, get subjectStatus: whether subject is FREE
+            if (subjectId > 0)
+            {
+                isSubjectFree = _context.Subjects.Single(s => s.Id == subjectId).IsFree;
+            }
+
             var pastpapers = await _context.PastPapers.Where(p => p.SubjectID == subjectId && (p.PaperNumber == 2 || p.PaperNumber == 3) ).ToListAsync();
             var subjectTitle = _context.Subjects.Single(s => s.Id == subjectId).Title;
             foreach (var p in pastpapers)
@@ -101,19 +108,11 @@ namespace Admin.Server.Repositories.FrontEnd.ETQ
                     }
                 }
 
-
-                //if (p2n3.Status == "Free")
-                //{
-                //    p2n3.StatusColor = "Green";
-                //}
-                //else if (p2n3.Status == "Basic")
-                //{
-                //    p2n3.StatusColor = "DodgerBlue";
-                //}
-                //else
-                //{
-                //    p2n3.StatusColor = "#da9100";
-                //}
+                if (isSubjectFree)
+                {
+                    p2n3.Status = "OBC";
+                    p2n3.StatusColor = "OrangeRed";
+                }
 
                 if (p2n3.CorrectAnsweredCount == 0)
                 {

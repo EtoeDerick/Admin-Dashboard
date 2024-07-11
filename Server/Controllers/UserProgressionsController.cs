@@ -1,4 +1,5 @@
 ﻿using Admin.Server.Repositories.FrontEnd.UserProgression;
+using Admin.Shared.Dtos;
 using Admin.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Web.Resource;
@@ -30,30 +31,36 @@ namespace Admin.Server.Controllers
 
         //Create a record for submitted Quiz
         [HttpGet("{id}")]
-        public async Task postSoutionfromQuiz(int id, string pastpaperId, int pastpaperNumber, int topicNumber, int questionPosition, string paperYear, int answerStatus = 3)
+        public async Task postSolutionfromQuiz(int id, string pastpaperId, int pastpaperNumber, int topicNumber, int questionPosition, string paperYear, int answerStatus = 3, string userId=null)
         {
-            var userid = string.Empty;
+            var userid = userId;
 
-            HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
-            var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-            if (claim != null)
+            if (string.IsNullOrEmpty(userid))
             {
-                userid = claim.Value;
+                HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+                var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+                if (claim != null)
+                {
+                    userid = claim.Value;
+                }
             }
 
             await _db.Get(id, pastpaperId, pastpaperNumber, topicNumber, questionPosition, paperYear, userid, answerStatus);
 
         }
         [HttpPost("{pastpaperId}")]
-        public async Task<string> postSolutionfromQuiz(string pastpaperId, int score, [FromBody]string content)
+        public async Task<QuizRankDto> postSolutionfromQuiz(string pastpaperId, int score, [FromBody]string content, string userId=null)
         {
-            var userid = string.Empty;
+            var userid = userId;
 
-            HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
-            var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-            if (claim != null)
+            if (string.IsNullOrEmpty(userId))
             {
-                userid = claim.Value;
+                HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+                var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+                if (claim != null)
+                {
+                    userid = claim.Value;
+                }
             }
             //userid = "f5bd6f4d-4622-4f74-8a4f-b31ed008c572";
 

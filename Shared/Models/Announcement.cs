@@ -26,6 +26,7 @@ namespace Admin.Shared.Models
         public string EmailContact { get; set; }
         public string Line1ContactWithWhatsApp { get; set; }
         public string Line2Contact { get; set; }
+        public string UpdateFeatures { get; set; }
 
         public bool IsActive { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;

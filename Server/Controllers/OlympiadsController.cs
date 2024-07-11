@@ -53,21 +53,24 @@ namespace Admin.Server.Controllers
         }
 
         [HttpPut()]
-        public async Task<List<AllOlympiadsDto>> GetAllPastPublicOlympiads()
+        public async Task<List<AllOlympiadsDto>> GetAllPastPublicOlympiads(string userId=null)
         {
-            var userid = string.Empty;
+            var userid = userId;
 
-            //HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
-            var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-            if (claim != null)
+            if (string.IsNullOrEmpty(userid))
             {
-                userid = claim.Value;
+                //HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+                var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+                if (claim != null)
+                {
+                    userid = claim.Value;
+                }
+                /*else
+                {
+                    userid = "f5bd6f4d-4622-4f74-8a4f-b31ed008c572";
+                }*/
             }
-            /*else
-            {
-                userid = "f5bd6f4d-4622-4f74-8a4f-b31ed008c572";
-            }*/
-            
+
             return await _db.GetAllPublicQuizes(userid);
         }
 
@@ -94,19 +97,22 @@ namespace Admin.Server.Controllers
 
 
         [HttpPost()]
-        public async Task<List<PendingOlympiadsDto>> GetPendingPublicOlympiads()
+        public async Task<List<PendingOlympiadsDto>> GetPendingPublicOlympiads(string userId=null)
         {
-            var userid = string.Empty;
+            var userid = userId;
 
-            //HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
-            var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-            if (claim != null)
+            if (string.IsNullOrEmpty(userid))
             {
-                userid = claim.Value;
-            }
-            else
-            {
-                //userid = "f5bd6f4d-4622-4f74-8a4f-b31ed008c572";
+                //HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+                var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+                if (claim != null)
+                {
+                    userid = claim.Value;
+                }
+                else
+                {
+                    //userid = "f5bd6f4d-4622-4f74-8a4f-b31ed008c572";
+                }
             }
 
             return await _db.GetPendingPublicQuizes(userid);

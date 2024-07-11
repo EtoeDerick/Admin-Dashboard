@@ -9,6 +9,24 @@ namespace Admin.Server.Migrations
         {
             /*
             migrationBuilder.CreateTable(
+                name: "Addresses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    RegionOfOrigin = table.Column<string>(type: "nvarchar(24)", maxLength: 24, nullable: true),
+                    Town = table.Column<string>(type: "nvarchar(24)", maxLength: 24, nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(24)", maxLength: 24, nullable: true),
+                    School = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Announcements",
                 columns: table => new
                 {
@@ -117,7 +135,10 @@ namespace Admin.Server.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    Code = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    CategoryBgColor = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    CategoryTextColor = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -220,6 +241,23 @@ namespace Admin.Server.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Payments", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "QuizAwards",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PastPaperId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AwardedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_QuizAwards", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -440,6 +478,31 @@ namespace Admin.Server.Migrations
                     table.PrimaryKey("PK_Chapters", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Chapters_Subject_SubjectId",
+                        column: x => x.SubjectId,
+                        principalTable: "Subject",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Downloadpdfs",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PaperYear = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    PaperNumber = table.Column<int>(type: "int", nullable: false),
+                    Thumbnail = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
+                    Url = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: true),
+                    IsApproved = table.Column<bool>(type: "bit", nullable: false),
+                    IsFree = table.Column<bool>(type: "bit", nullable: false),
+                    SubjectId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Downloadpdfs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Downloadpdfs_Subject_SubjectId",
                         column: x => x.SubjectId,
                         principalTable: "Subject",
                         principalColumn: "Id",
@@ -761,6 +824,7 @@ namespace Admin.Server.Migrations
                     correctAnswer = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     JustificationText = table.Column<string>(type: "nvarchar(max)", maxLength: 10024, nullable: true),
                     JustificationImageUrl = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: true),
+                    VideoUrl = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: true),
                     Instruction = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TopicId = table.Column<int>(type: "int", nullable: false),
                     Position = table.Column<int>(type: "int", nullable: false),
@@ -932,6 +996,11 @@ namespace Admin.Server.Migrations
                 column: "SubjectId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Downloadpdfs_SubjectId",
+                table: "Downloadpdfs",
+                column: "SubjectId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_EssayTypeQuestions_PastPaperId",
                 table: "EssayTypeQuestions",
                 column: "PastPaperId");
@@ -1044,11 +1113,15 @@ namespace Admin.Server.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Votes_ConversationId",
                 table: "Votes",
-                column: "ConversationId");*/
+                column: "ConversationId");
+            */
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Addresses");
+
             migrationBuilder.DropTable(
                 name: "Announcements");
 
@@ -1057,6 +1130,9 @@ namespace Admin.Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "Constants");
+
+            migrationBuilder.DropTable(
+                name: "Downloadpdfs");
 
             migrationBuilder.DropTable(
                 name: "DownloadTrackingTables");
@@ -1087,6 +1163,9 @@ namespace Admin.Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "QuestionSolution");
+
+            migrationBuilder.DropTable(
+                name: "QuizAwards");
 
             migrationBuilder.DropTable(
                 name: "QuizOwners");

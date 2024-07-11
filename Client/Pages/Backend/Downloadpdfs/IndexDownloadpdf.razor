@@ -1,0 +1,100 @@
+﻿@page "/downloadpdf"
+
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Admin.Shared.Models
+@using Admin.Client.ViewModels
+@using Admin.Shared.Dtos
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+<a href="/downloadpdf/create" class="btn btn-primary">Create New Download</a>
+
+
+@if (downloadpdfs == null)
+{
+    <div class="spinner-grow text-primary"></div>
+}
+else
+{
+    <div>
+        @if (!isLoading)
+        {
+            <p>....</p>
+        }
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <td></td>
+                <th>ID</th>
+                <th>Title</th>
+                <th>PaperNumber</th>
+                <th>PaperYear</th>
+                <th>Url</th>
+                <th>IsApproved</th>
+                <th>SubjectID</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var d in downloadpdfs)
+            {
+                <tr>
+                    
+                    <td>@d.Id</td>
+                    <td>@d.Title</td>
+                    <td>@d.PaperNumber</td>
+                    <td>@d.PaperYear</td>
+                    <td>@d.Url</td>
+                    <td>@(d.IsApproved? "Yes": "No")</td>
+                    <td>@d.SubjectId</td>
+                    <td>
+                        <a class="btn btn-info" href="/downloadpdf/edit/@d.Id">Edit</a>
+                        <button class="btn btn-danger" @onclick="@(async () => await DeleteDownload(d))">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Downloadpdf[] downloadpdfs;
+    bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoading = true;
+        try
+        {
+            downloadpdfs = await Http.GetFromJsonAsync<Downloadpdf[]>("api/Downloadpdfs");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+        isLoading = false;
+    }
+
+    private async Task DeleteDownload(Downloadpdf downloadpdf)
+    {
+        //Ask for user confirmation then delete according
+        if (!await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to delete: '{downloadpdf.Title}'?"))
+            return;
+
+        //Delete and Navigate to List of Exams
+        try
+        {
+            await Http.DeleteAsync($"api/Downloadpdfs/{downloadpdf.Id}");
+
+            downloadpdfs = await Http.GetFromJsonAsync<Downloadpdf[]>("api/Downloadpdfs");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+    }
+}

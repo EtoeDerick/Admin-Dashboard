@@ -30,31 +30,38 @@ namespace Admin.Server.Controllers
 
         // GET: api/Examinations/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserSubject>> GetConstant(int id)
+        public async Task<ActionResult<UserSubject>> GetConstant(int id, string userId=null)
         {
 
-            var userId = "user1";
-            var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-            if (claim != null)
+            var userid = userId;
+            if (string.IsNullOrEmpty(userid))
             {
-                userId = claim.Value;
+                var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+                if (claim != null)
+                {
+                    userId = claim.Value;
+                }
             }
-            return await _db.GetSubjectInfoBeforeDownload(id, userId);
+
+            return await _db.GetSubjectInfoBeforeDownload(id, userid);
         }
 
         // PUT: api/Examinations/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ActionResult<bool>> CreateOrUpdateDownlaodTrackingTable(string id)
+        public async Task<ActionResult<bool>> CreateOrUpdateDownlaodTrackingTable(string id, string userId=null)
         {
-            var userId = "";
-            var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-            if (claim != null)
+            var userid = userId;
+            if (string.IsNullOrEmpty(userid))
             {
-                userId = claim.Value;
+                var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+                if (claim != null)
+                {
+                    userId = claim.Value;
+                }
             }
 
-            return await _db.CreatedUpdatePastPaperIsDownloaded(id, userId);
+            return await _db.CreatedUpdatePastPaperIsDownloaded(id, userid);
         }
 
         // POST: api/Examinations

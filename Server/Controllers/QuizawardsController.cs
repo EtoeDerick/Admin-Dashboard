@@ -22,37 +22,38 @@ namespace Admin.Server.Controllers
 
         //From Clients
         [HttpGet]
-        public async Task<ActionResult<List<AwardComment>>> GetConversationFromQuizAward()
+        public async Task<ActionResult<List<AwardComment>>> GetConversationFromQuizAward(string userId=null)
         {
-            var userid = string.Empty;
+            var userid = userId;
+            if (string.IsNullOrEmpty(userid))
+            {
+                //HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+                var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+                if (claim != null)
+                {
+                    userid = claim.Value;
+                }
+            }
 
-            //HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
-            var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-            if (claim != null)
-            {
-                userid = claim.Value;
-            }
-            else
-            {
-               // userid = "f5bd6f4d-4622-4f74-8a4f-b31ed008c572";
-            }
             return await _db.GetAllApprovedQuizAwardsConversations();
         }
         //post a comment from quiz award
         [HttpPost("{message}")]
-        public async Task<ActionResult<List<AwardComment>>> CreateConversationFromQuizAward(string message)
+        public async Task<ActionResult<List<AwardComment>>> CreateConversationFromQuizAward(string message, string userId)
         {
-            var userid = string.Empty;
-
-            //HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
-            var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-            if (claim != null)
+            var userid = userId;
+            if (string.IsNullOrWhiteSpace(userid))
             {
-                userid = claim.Value;
-            }
-            else
-            {
-               // userid = "f5bd6f4d-4622-4f74-8a4f-b31ed008c572";
+                //HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+                var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+                if (claim != null)
+                {
+                    userid = claim.Value;
+                }
+                else
+                {
+                    // userid = "f5bd6f4d-4622-4f74-8a4f-b31ed008c572";
+                }
             }
             return await _db.Create(message, userid);
         }

@@ -30,5 +30,6 @@ namespace Admin.Shared.Dtos
         public int conversations { get; set; }
         public int quizes { get; set; }
         public int quizawards { get; set; }
+        public int downloadpdfs { get; set; }
     }
 }

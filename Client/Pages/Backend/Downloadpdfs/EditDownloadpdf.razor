@@ -1,0 +1,71 @@
+﻿@page "/downloadpdf/edit/{id}"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+
+@using Admin.Shared.Models
+@inject HttpClient Http
+@using Admin.Shared.Dtos
+
+@inject IJSRuntime JSRuntime
+
+@if (downloadpdf != null)
+{
+    <Form downloadpdfModel="downloadpdf" Title="Edit New Download Form" isToBeEdited="true"
+          OnDownloadPdfCreateEditFormSubmit="@((Downloadpdf) => OnCreateDownloadSubmit(downloadpdf))" />
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    private Downloadpdf downloadpdf = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            downloadpdf = await Http.GetFromJsonAsync<Downloadpdf>($"api/Downloadpdfs/{Id}");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    //OnDownloadFormEditSubmit
+    private async Task OnCreateDownloadSubmit(Downloadpdf downloadpdf)
+    {
+        try
+        {
+            var response = await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to Update a new record: '{downloadpdf.Title}'?");
+
+            if (response)
+            {
+                var result = await Http.PutAsJsonAsync<Downloadpdf>($"api/Downloadpdfs/{downloadpdf.Id}", downloadpdf);
+                if (result.IsSuccessStatusCode)
+                {
+                    //Create the list of mcqs
+                }
+                if (result != null)
+                {
+                    NavigationManager.NavigateTo("/downloadpdf");
+                }
+
+            }
+
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+}

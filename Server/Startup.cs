@@ -50,6 +50,8 @@ using Admin.Shared.Models;
 using Admin.Server.Repositories.Address;
 using Admin.Server.Repositories.FrontEnd.QuizAwards;
 using Admin.Server.Repositories.FrontEnd.Pastpaperquizawards;
+using Admin.Server.Repositories.DownloadPdf;
+using Admin.Server.Repositories.GcePastPaperPdfs;
 
 namespace Admin.Server
 {
@@ -123,6 +125,8 @@ namespace Admin.Server
             services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<IQuizAwardsRepository, QuizAwardsRepository>();
             services.AddScoped<IPastpaperquizawardsRepository, PastpaperquizawardsRepository>();
+            services.AddScoped<IDownloadPdfRepository, DownloadPdfRepository>();
+            services.AddScoped<IGcePastPaperPdfsRepository, GcePastPaperPdfsRepository>();
 
             //End of Personal
 
@@ -140,8 +144,11 @@ namespace Admin.Server
                                   policy =>
                                   {
                                       policy.WithOrigins("http://localhost:3000", "https://ogabook.com", "https://etoederick-001-site1.htempurl.com",
+                                                           "https://ogabook-350008.firebaseapp.com/",
+                                                           "https://ogabook-350008.web.app/",
                                                           "https://etoederick-001-site2.htempurl.com").AllowAnyHeader()
-                                                          .AllowAnyMethod();
+                                                          .AllowAnyMethod()
+                                                          .AllowAnyOrigin();
                                   });
             });
         }

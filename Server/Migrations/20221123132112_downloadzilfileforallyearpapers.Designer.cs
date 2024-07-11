@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Admin.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221020140601_MCQVideoUrlInclude")]
-    partial class MCQVideoUrlInclude
+    [Migration("20221123132112_downloadzilfileforallyearpapers")]
+    partial class downloadzilfileforallyearpapers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,41 @@ namespace Admin.Server.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Admin.Shared.Models.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Phone")
+                        .HasMaxLength(24)
+                        .HasColumnType("nvarchar(24)");
+
+                    b.Property<string>("RegionOfOrigin")
+                        .HasMaxLength(24)
+                        .HasColumnType("nvarchar(24)");
+
+                    b.Property<string>("School")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Town")
+                        .HasMaxLength(24)
+                        .HasColumnType("nvarchar(24)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Addresses");
+                });
 
             modelBuilder.Entity("Admin.Shared.Models.Announcement", b =>
                 {
@@ -236,6 +271,52 @@ namespace Admin.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DownloadTrackingTables");
+                });
+
+            modelBuilder.Entity("Admin.Shared.Models.Downloadpdf", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsFree")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("PaperNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PaperYear")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<int>("SubjectId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Thumbnail")
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Url")
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)");
+
+                    b.Property<string>("ZipFileUrl")
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubjectId");
+
+                    b.ToTable("Downloadpdfs");
                 });
 
             modelBuilder.Entity("Admin.Shared.Models.ETQ.EssayTypeQuestion", b =>
@@ -908,6 +989,33 @@ namespace Admin.Server.Migrations
                     b.ToTable("Payments");
                 });
 
+            modelBuilder.Entity("Admin.Shared.Models.QuizAward", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("AwardedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PastPaperId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StudentImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("QuizAwards");
+                });
+
             modelBuilder.Entity("Admin.Shared.Models.QuizOwner", b =>
                 {
                     b.Property<string>("Id")
@@ -1500,6 +1608,15 @@ namespace Admin.Server.Migrations
                     b.Navigation("MCQ");
                 });
 
+            modelBuilder.Entity("Admin.Shared.Models.Downloadpdf", b =>
+                {
+                    b.HasOne("Admin.Shared.Models.Subject", null)
+                        .WithMany("Downloads")
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Admin.Shared.Models.ETQ.EssayTypeQuestion", b =>
                 {
                     b.HasOne("Admin.Shared.Models.PastPaper", "PastPaper")
@@ -1840,6 +1957,8 @@ namespace Admin.Server.Migrations
             modelBuilder.Entity("Admin.Shared.Models.Subject", b =>
                 {
                     b.Navigation("Chapters");
+
+                    b.Navigation("Downloads");
 
                     b.Navigation("InstructorSubjects");
 

@@ -39,86 +39,29 @@ namespace Admin.Server.Controllers
             return await _exam.GetAnnouncement();
         }
 
+        //id: examinationId
         [HttpGet("{id}")]
-        public async Task<IEnumerable<SubjectDto>> GetSubjectDtosForGivenExamination(string id)
+        public async Task<IEnumerable<SubjectDto>> GetSubjectDtosForGivenExamination(string id, string userId=null)
         {
-
-            string userId = string.Empty;
-            if(HttpContext != null && HttpContext.User != null)
+            string _userId = userId;
+            if(string.IsNullOrEmpty(userId))
             {
                 try
                 {
                     var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
                     if (claim != null)
                     {
-                        userId = claim.Value;
+                        _userId = claim.Value;
                     }
                 }
                 catch (Exception ex)
                 {
                     Debug.WriteLine(ex);
-                }
-                
-            }
-            
-            var subjectDtos = await _exam.Get(id, userId);
-
+                }                
+            }            
+            var subjectDtos = await _exam.Get(id, _userId);
             return subjectDtos;
         }
-
-
-
-        // GET: api/Examinations/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Examination>> GetExamination(string id)
-        //{
-        //    return await _exam.Get(id);
-        //}
-
-        //// PUT: api/Examinations/5
-        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPut("{id}")]
-        //public async Task<IEnumerable<SubjectDto>> PutExamination(string id)
-        //{
-        //    var subjectDtos= await _exam.Get(id);
-            
-        //    return subjectDtos;
-        //}
-
-        //// PUT: api/Examinations/5
-        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPut]
-        //public async Task<ActionResult<Examination>> PutExam(Examination examination)
-        //{
-
-        //    return await _exam.Update(examination);
-        //}
-
-        //// POST: api/Examinations
-        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPost]
-        //public async Task<ActionResult<Examination>> PostExamination(Examination examination)
-        //{
-        //    var newExamination = await _exam.Create(examination);
-
-        //    return CreatedAtAction(nameof(GetExaminations), new { id = newExamination.Id }, newExamination);
-        //}
-
-        //// DELETE: api/Examinations/5
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult> DeleteExamination(string id)
-        //{
-        //    var examToDelete = await  _exam.Get(id);
-
-        //    if (examToDelete == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    await _exam.Delete(examToDelete.Id);
-
-        //    return Ok();
-        //}
 
     }
 }

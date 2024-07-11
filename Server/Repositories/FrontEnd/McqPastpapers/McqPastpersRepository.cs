@@ -22,10 +22,29 @@ namespace Admin.Server.Repositories.FrontEnd.McqPastpaper
 
         public async Task<IEnumerable<MCQDto>> Get(string pastpaperId, string userId)
         {
+            int subjectId = 0;
+            bool isSubjectFree = false;
             var mcqDtos = new List<MCQDto>();
+            var parts_of_pastpaper = pastpaperId.Split('_');
+            var allowAccessToQuestions = true;
+
+            Int32.TryParse(parts_of_pastpaper[0], out subjectId);
+            //If subjectId was found, get subjectStatus: whether subject is FREE
+            if(subjectId > 0)
+            {
+                isSubjectFree = _context.Subjects.Single(s => s.Id == subjectId).IsFree;
+                if (_context.Subjects.Any(s => s.Id == subjectId))
+                {
+                    if (_context.Subjects.Single(s => s.Id == subjectId).IsApproved == false)
+                    {
+                        //Don't display past papers for subjects not approved.
+                        return mcqDtos;
+                    }
+                }
+            }            
 
             var pastPaper = await _context.PastPapers.SingleAsync(p => p.Id == pastpaperId);
-            if(pastPaper.Status == "Free" || pastPaper.Status == "Basic" || await IsPastPaperValid(pastPaper.SubjectID, userId))
+            if(pastPaper.Status == "Free" || pastPaper.Status == "Basic" || isSubjectFree == true || allowAccessToQuestions == true /*|| await IsPastPaperValid(pastPaper.SubjectID, userId)*/ )
             {
                 var mcqs = await _context.MCQs.Where(m => m.PastPaperId == pastpaperId).AsNoTracking()
                 .Include(m => m.Options.OrderBy(o => o.Id)).AsNoTracking()
@@ -103,12 +122,12 @@ namespace Admin.Server.Repositories.FrontEnd.McqPastpaper
                         mcqdto.MCQOptions.Add(opA);
                         mcqdto.MCQOptions.Add(opB);
                         mcqdto.MCQOptions.Add(opC);
-                        //mcqdto.MCQOptions.Add(opD);
+                        mcqdto.MCQOptions.Add(opD);
 
-                        if (m.Options.Count >= 4)
+                        /*if (m.Options.Count == 4)
                         {
                             mcqdto.MCQOptions.Add(opD);
-                        }
+                        }*/
 
                         if (m.Options.Count == 5)
                         {
@@ -161,6 +180,17 @@ namespace Admin.Server.Repositories.FrontEnd.McqPastpaper
         public async Task<IEnumerable<MCQDto>> GetMcqsByTopics(int topicId, string userId)
         {
             var mcqDtos = new List<MCQDto>();
+            /*bool isSubjectFree = false;
+            var topic = topicId.ToString();
+            var topicNum = topic.Substring(0, 3);
+            var subjectId = 0;
+
+            Int32.TryParse(topicNum, out subjectId);*/
+            //If subjectId was found, get subjectStatus: whether subject is FREE
+            /*if (subjectId > 0)
+            {
+                isSubjectFree = _context.Subjects.Single(s => s.Id == subjectId).IsFree;
+            }*/
 
             var mcqs = await _context.MCQs.Where(m => m.TopicId == topicId).AsNoTracking()
                 .Include(m => m.Options.OrderBy(o => o.Id)).AsNoTracking()
@@ -235,12 +265,12 @@ namespace Admin.Server.Repositories.FrontEnd.McqPastpaper
                     mcqdto.MCQOptions.Add(opA);
                     mcqdto.MCQOptions.Add(opB);
                     mcqdto.MCQOptions.Add(opC);
-                    //mcqdto.MCQOptions.Add(opD);
+                    mcqdto.MCQOptions.Add(opD);
 
-                    if (m.Options.Count >= 4)
+                    /*if (m.Options.Count == 4)
                     {
                         mcqdto.MCQOptions.Add(opD);
-                    }
+                    }*/
 
                     if (m.Options.Count == 5)
                     {
@@ -303,9 +333,9 @@ namespace Admin.Server.Repositories.FrontEnd.McqPastpaper
                     //PassedQuestionCount = await _context.UserProgressions.CountAsync(up => up.SubjectId == id && up.TopicNum == t.TopicNum && up.PaperNumber < 2 && up.UserId == userid)
                 };
 
-                if (string.IsNullOrEmpty(userid))
+                if (!string.IsNullOrEmpty(userid))
                 {
-                    topic.PassedQuestionCount = await _context.UserProgressions.CountAsync(up => up.SubjectId == id && up.TopicNum == t.TopicNum && (up.PaperNumber < 2 || up.PaperNumber >= 4));
+                    topic.PassedQuestionCount = await _context.UserProgressions.CountAsync(up => up.SubjectId == id && up.TopicNum == t.TopicNum && (up.PaperNumber < 2 || up.PaperNumber >= 4) && up.UserId == userid);
 
                     topic.FailedQuestionCount = topic.TotalQuestionCount - topic.PassedQuestionCount;
 
@@ -327,22 +357,29 @@ namespace Admin.Server.Repositories.FrontEnd.McqPastpaper
         async Task<bool> IsPastPaperValid(int subjectId, string userid)
         {
             bool isValid = false;
-
+            DateTime currentDate = DateTime.Today;
             var us = await _context.UserSubjects.Where(u => u.AppUserId == userid && u.SubjectId == subjectId).ToListAsync();
             if (us.Any())
             {
                 var ust = us.ElementAt(0);
 
-                var d1 = ust.ExpiryDate - ust.EnrollmentDate;
+                DateTime expirationDate = ust.EnrollmentDate.AddDays(ust.Duration);
+
+                /*var d1 = ust.ExpiryDate - ust.EnrollmentDate;
+
+                
 
                 var d2 = ust.EnrollmentDate - ust.EnrollmentDate.AddDays(ust.Duration);
 
                 if(d1.TotalSeconds > 1 || d2.TotalSeconds > 1)
                 {
                     return true;
-                }
+                }*/
+
+                return currentDate >= expirationDate;
             }
 
+            
 
             return isValid;
         }

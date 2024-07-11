@@ -24,7 +24,7 @@ namespace Admin.Server.Controllers
             _db = db;
         }
 
-        // GET: api/Examinations
+        // GET: api/subjects
         [HttpGet]
         public async Task<IEnumerable<Subject>> GetSubjects()
         {

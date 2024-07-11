@@ -24,15 +24,22 @@ namespace Admin.Server.Repositories.FrontEnd.SubjectEnrollment
             await SetIsExpiredStatus(userId);
 
             var userSubjectDtos = new List<UserSubjectsDto>();
-            var userSubjects = await _context.UserSubjects.Where(us => us.AppUserId == userId && us.IsDeleted == false).Include(s => s.Subject).ToListAsync();            
+            var userSubjects = await _context.UserSubjects.Where(us => us.AppUserId == userId && us.IsDeleted == false ).Include(s => s.Subject).ToListAsync();            
 
             foreach(var us in userSubjects)
             {
                 var subject = us.Subject;
 
-                var userSubjectDto = await Get(us.SubjectId, userId);
                 
+
+                var userSubjectDto = await Get(us.SubjectId, userId);
                 userSubjectDto.AverageProgress = GetAverageProgress(userSubjectDto.SubjectContentTypes);
+
+                //If subjectId was found, get subjectStatus: whether subject is FREE
+                if (_context.Subjects.Single(s => s.Id == us.SubjectId).IsFree)
+                {
+                    userSubjectDto.PaymentStatus = "OBC";
+                }
 
                 userSubjectDtos.Add(userSubjectDto);
             }
@@ -95,7 +102,7 @@ namespace Admin.Server.Repositories.FrontEnd.SubjectEnrollment
                 AnnualPrice = Decimal.ToInt32(subject.Price),
                 TenMonthsPrice = subject.TenMonths,
                 ImageUrl = subject.ImageUrl,
-                IsNotEnroll = us.IsDeleted,
+                IsNotEnroll = !(await _context.UserSubjects.AnyAsync(us => us.IsDeleted == false && us.SubjectId == subjectId && us.AppUserId == userId)), //us.IsDeleted
                 IsPaper1ContentAvailable = subject.IsPaper1ContentAvailable,
                 IsPaper2ContentAvailable = subject.IsPaper2ContentAvailable,
                 IsPaper3ContentAvailable = subject.IsPaper3ContentAvailable,
@@ -104,15 +111,17 @@ namespace Admin.Server.Repositories.FrontEnd.SubjectEnrollment
                 SubjectContentTypes = await ConstructSubjectContentTypes(subjectId, userId)
             };
             
-            //1. Ge the payment Status for this subject 
+            //1. Get the payment Status for this subject 
             if (_context.UserSubjects.Any(u => u.AppUserId == userId && u.SubjectId == subject.Id))
             {
                 var usrsubj = _context.UserSubjects.Single(u => u.AppUserId == userId && u.SubjectId == subject.Id);
 
 
-                var consumptionDuration = DateTime.Now - usrsubj.EnrollmentDate;
+                var consumptionDuration = DateTime.UtcNow.AddHours(1) - usrsubj.EnrollmentDate;
+                var t = DateTime.UtcNow.AddHours(1);
+                var diff = us.EnrollmentDate.AddDays(us.Duration) - us.ExpiryDate;
 
-                if (consumptionDuration.TotalDays > us.Duration)
+                if (HasSubscriptionExpired(us.EnrollmentDate, us.Duration))
                 {
                     userSubjectDto.PaymentStatus = "Expired";
                 }
@@ -158,7 +167,9 @@ namespace Admin.Server.Repositories.FrontEnd.SubjectEnrollment
             {
                 Duration = 0,
                 SubjectId = subjectId,
-                AppUserId = userid
+                AppUserId = userid,
+                EnrollmentDate = DateTime.UtcNow.AddHours(1),
+                ExpiryDate = DateTime.UtcNow.AddHours(1)
             };
             //Check for the existence of subject enrollment
             var usold = await _context.UserSubjects.Where(u => u.SubjectId == subjectId && u.AppUserId == userid).ToListAsync();
@@ -168,13 +179,14 @@ namespace Admin.Server.Repositories.FrontEnd.SubjectEnrollment
             {
                 us = usold.ElementAt(0);
                 us.Subject = null;
-
                 us.IsDeleted = false;
+
                 _context.Entry(us).State = EntityState.Modified;
             }
             else //Create a new enrollment for the given user.
             {                
                 us.Subject = null;
+                us.IsDeleted = false;
                 _context.UserSubjects.Add(us);
             }
 
@@ -256,8 +268,10 @@ namespace Admin.Server.Repositories.FrontEnd.SubjectEnrollment
         {
             var enrolmtdto = new EnrollmentSubjectDto() { SubjectId = subjectId};
 
+            //If the record of the specific user has been created, update ONLY the UserSubject table
             if (UserExists(user.Id) ){
 
+                //User is enrolling for the first time
                if(!_context.UserSubjects.Any(us => us.SubjectId == subjectId && us.AppUserId == user.Id )) {
                     var result = await CreateEnrollment(subjectId, user.Id);
                     enrolmtdto.IsSuccessful = result;
@@ -270,7 +284,7 @@ namespace Admin.Server.Repositories.FrontEnd.SubjectEnrollment
                 {
                     //enrolmtdto.Message = "Enrollment for this subject already exist!";
                     //USER PROBABLY UNENROLLED FROM SUBJECT LIST
-                    if(_context.UserSubjects.Any(us => us.IsDeleted)){
+                    if(_context.UserSubjects.Any(us => us.IsDeleted && us.AppUserId == user.Id && us.SubjectId == subjectId)){
                         
                         //ENROLL THE USER AGAIN
                         var us = await _context.UserSubjects.Where(u => u.SubjectId == subjectId && u.AppUserId == user.Id).ToListAsync();
@@ -291,23 +305,22 @@ namespace Admin.Server.Repositories.FrontEnd.SubjectEnrollment
                                      
                 }
 
-
             }else
             {
                 //1. Create new User
                 //2. Create new record
-                var credit = 0;
+                //var credit = 0;
                 //1. Create new User
-                try
+               /* try
                 {
                     Int32.TryParse(_context.Constants.Single(c => c.Key == "credit").Value, out credit);
                 }
                 catch (Exception)
                 {
                     credit = 0;
-                }
+                }*/
 
-                user.Credit = credit;
+                //user.Credit = credit;
 
                 await CreateUser(user);
                 var response = await CreateEnrollment(subjectId, user.Id);
@@ -349,7 +362,6 @@ namespace Admin.Server.Repositories.FrontEnd.SubjectEnrollment
             {
                 var us = _context.UserSubjects.Single(u => u.SubjectId == id && u.AppUserId == userId);
                 
-
                 us.IsDeleted = true;
                 us.Status = "UnEnrolled";
 
@@ -361,7 +373,22 @@ namespace Admin.Server.Repositories.FrontEnd.SubjectEnrollment
                 return NotFound();
             }
 
+            /*var userSubjectDtos = new List<UserSubjectsDto>();
+            var userSubjects = await _context.UserSubjects.Where(us => us.AppUserId == userId && us.SubjectId != id && us.IsDeleted == false).Include(s => s.Subject).ToListAsync();
+
+            foreach (var us in userSubjects)
+            {
+                var subject = us.Subject;
+
+                var userSubjectDto = await Get(us.SubjectId, userId);
+
+                userSubjectDto.AverageProgress = GetAverageProgress(userSubjectDto.SubjectContentTypes);
+
+                userSubjectDtos.Add(userSubjectDto);
+            }*/
+
             return Ok(await GetAll(userId) );
+            //return Ok(userSubjectDtos);
         }
 
         private async Task<EnrollmentSubjectDto> UpdateEnrollment(UserSubject userSubject, EnrollmentSubjectDto enrolmtdto = null)
@@ -395,10 +422,26 @@ namespace Admin.Server.Repositories.FrontEnd.SubjectEnrollment
                 if(span.TotalSeconds < 1)
                 {
                     //Subject has expired
+                    //u.IsExpired = true;
+                   // await UpdateEnrollment(u);
+                }
+                if (HasSubscriptionExpired(u.EnrollmentDate, u.Duration))
+                {
                     u.IsExpired = true;
                     await UpdateEnrollment(u);
                 }
+                else
+                {
+                    u.IsExpired = false;
+                    await UpdateEnrollment(u);
+                }
             }
+        }
+
+        bool HasSubscriptionExpired(DateTime enrollmentDate, int durationInDays)
+        {
+            DateTime expirationDate = enrollmentDate.AddDays(durationInDays);
+            return DateTime.Now > expirationDate;
         }
     }
 }

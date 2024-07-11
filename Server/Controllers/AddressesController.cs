@@ -26,15 +26,18 @@ namespace Admin.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Address>> CreateAddress(Address address)
+        public async Task<ActionResult<Address>> CreateAddress(Address address, string userId=null)
         {
-            var userid = string.Empty;
+            var userid = userId;
 
-            //HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
-            var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-            if (claim != null)
+            if (string.IsNullOrEmpty(userid))
             {
-                userid = claim.Value;
+                //HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+                var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+                if (claim != null)
+                {
+                    userid = claim.Value;
+                }
             }
 
             address.UserId = userid;

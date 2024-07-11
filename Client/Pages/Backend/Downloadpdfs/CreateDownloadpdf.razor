@@ -1,0 +1,59 @@
+﻿@page "/downloadpdf/create"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager NavigationManager
+
+@using Admin.Shared.Models
+@inject HttpClient Http
+@using Admin.Shared.Dtos
+
+@inject IJSRuntime JSRuntime
+
+@if (downloadpdf != null)
+{
+    <Form downloadpdfModel="downloadpdf" Title="Create New Download Form" isToBeEdited="false"
+          OnDownloadPdfCreateEditFormSubmit="@((Downloadpdf) => OnCreateDownloadSubmit(downloadpdf))"/>
+}
+else
+{
+    <Loading Message="Loading" />
+}
+
+
+@code {
+    private Downloadpdf downloadpdf = new Downloadpdf();
+
+    //OnDownloadFormEditSubmit
+    private async Task OnCreateDownloadSubmit(Downloadpdf downloadpdf)
+    {
+        try
+        {
+            var response = await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to create a new record: '{downloadpdf.Title}'?");
+
+            if (response)
+            {
+                downloadpdf.Url = "https://ayosacademystorage.blob.core.windows.net/gcepdfpastpapers/" + downloadpdf.Url;
+                downloadpdf.ZipFileUrl = "https://ayosacademystorage.blob.core.windows.net/gcepdfpastpapers/" + downloadpdf.ZipFileUrl;
+                var result = await Http.PostAsJsonAsync<Downloadpdf>("api/Downloadpdfs", downloadpdf);
+                if (result.IsSuccessStatusCode)
+                {
+                    //Create the list of mcqs
+                }
+                if (result != null)
+                {
+                    NavigationManager.NavigateTo("/downloadpdf");
+                }
+
+            }
+
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+}
+

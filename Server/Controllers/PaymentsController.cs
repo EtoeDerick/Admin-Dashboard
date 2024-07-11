@@ -21,50 +21,70 @@ namespace Admin.Server.Controllers
 
         // GET: api/<PaymentsController>
         [HttpGet]
-        public async Task<IEnumerable<Payment>> GetTransactions()
+        public async Task<IEnumerable<Payment>> GetTransactions(string userId=null)
         {
             
-            var _userId = "user1";
+            var _userId = userId;
 
-            //HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
-            var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-            if (claim != null)
+            if (string.IsNullOrEmpty(userId))
             {
-                _userId = claim.Value;
+                //HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+                var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+                if (claim != null)
+                {
+                    _userId = claim.Value;
+                }
             }
-
-
-
+            else
+            {
+                _userId = userId;
+            }
             return await _db.GetTransactions(_userId);
         }
 
 
         // GET api/<PaymentsController>/5
+        //id = transaction_ref
         [HttpGet("{id}")]
-        public async Task<MyCoolPaySuccesfulTransaction> GetTransationStatus(string id)
+        public async Task<MyCoolPaySuccesfulTransaction> GetTransationStatus(string id, string userId = null)
         {
-            var userId = "user1";
-            var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-            if (claim != null)
+            var _userId = "";
+            if (string.IsNullOrEmpty(userId))
             {
-                userId = claim.Value;
-            }           
+                var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+                if (claim != null)
+                {
+                    _userId = claim.Value;
+                }
+            }
+            else
+            {
+                _userId = userId;
+            }
+                       
 
-            return await _db.GetTransactionStatus(id, userId);            
+            return await _db.GetTransactionStatus(id, _userId);            
         }
 
 
         // PUT api/<PaymentsController>/5
         //id = subjectId
         [HttpPost("{id}")]
-        public async Task<ActionResult<TransactionReference>> PostPayment(int id, int price, int duration, string phone)
+        public async Task<ActionResult<TransactionReference>> PostPayment(int id, int price, int duration, string phone, string userId=null)
         {
-            var userId = "user1";
-            var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-            if (claim != null)
+            var _userId = "";
+            if (string.IsNullOrEmpty(userId))
             {
-                userId = claim.Value;
+                var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+                if (claim != null)
+                {
+                    _userId = claim.Value;
+                }
             }
+            else
+            {
+                _userId = userId;
+            }            
 
             var payment = new CollectPayment()
             {
@@ -74,7 +94,7 @@ namespace Admin.Server.Controllers
                 from = phone
             };
 
-            return await _db.PostPayment(payment, userId, id);
+            return await _db.PostPayment(payment, _userId, id);
 
             //var url = _context.Constants.Single(c => c.Key == "externalpaymentbaseUrl").Value + "payin";
 

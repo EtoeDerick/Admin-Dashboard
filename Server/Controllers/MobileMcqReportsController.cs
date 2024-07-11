@@ -24,14 +24,15 @@ namespace Admin.Server.Controllers
         // POST: api/Examinations
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("{id}")]
-        public async Task<ActionResult<bool>> PostReport(int id, string pastPaperId, int subjectId, string report, int questionPosition)
+        public async Task<ActionResult<bool>> PostReport(int id, string pastPaperId, int subjectId, string report, int questionPosition, string userId=null)
         {
-            var userId = "";
-
-            var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-            if (claim != null)
+            if (string.IsNullOrEmpty(userId))
             {
-                userId = claim.Value;
+                var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+                if (claim != null)
+                {
+                    userId = claim.Value;
+                }
             }
             var objectId = HttpContext.User.Claims;
 

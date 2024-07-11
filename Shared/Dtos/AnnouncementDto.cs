@@ -25,6 +25,7 @@ namespace Admin.Shared.Dtos
         public string EmailContact { get; set; }
         public string Line1ContactWithWhatsApp { get; set; }
         public string Line2Contact { get; set; }
+        public string UpdateFeatures { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
     }

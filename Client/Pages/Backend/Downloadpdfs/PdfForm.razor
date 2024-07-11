@@ -1,0 +1,250 @@
+﻿@using Admin.Shared.Models
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.Extensions.Logging
+
+@using Admin.Shared.Dtos
+@using System.IO
+
+
+@using Newtonsoft.Json
+
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+@inject ILogger<PdfForm> Logger
+
+<div class="alert alert-secondary mt-4" role="alert">
+    <EditForm OnInvalidSubmit="@HandleSubmitDownloadPdf" Model="@DownloadpdfModel">
+        <h3>@Title</h3>
+        <hr />
+        <ValidationSummary />
+
+        <div class="form-group row">
+            <label for="id" class="col-sm-2 col-form-label">
+                Download ID:
+            </label>
+            <div class="col-sm-10">
+                <InputText id="id" class="form-control" placeholder="Auto Generated ID" disabled="true"
+                           @bind-Value="DownloadpdfModel.Id" />
+                <ValidationMessage For="@(() => DownloadpdfModel.Id)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">
+                Title
+            </label>
+            <div class="col-sm-10">
+                <InputText id="title" class="form-control" placeholder="Title"
+                           @bind-Value="DownloadpdfModel.Title" />
+                <ValidationMessage For="@(() => DownloadpdfModel.Title)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="description" class="col-sm-2 col-form-label">
+                Year
+            </label>
+            <div class="col-sm-10">
+                <InputText id="paperyear" class="form-control" placeholder="Paper year"
+                           @bind-Value="DownloadpdfModel.PaperYear" />
+                <ValidationMessage For="@(() => DownloadpdfModel.PaperYear)" />
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label for="imageurl" class="col-sm-2 col-form-label">
+                Paper Number
+            </label>
+            <div class="col-sm-10">
+                <InputNumber id="papernumber" class="form-control" placeholder="Paper number"
+                             @bind-Value="DownloadpdfModel.PaperNumber" />
+                <ValidationMessage For="@(() => DownloadpdfModel.PaperNumber)" />
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label for="marquee" class="col-sm-2 col-form-label">
+                Thumbnail
+            </label>
+            <div class="col-sm-10">
+                <InputText id="thumbnail" class="form-control" placeholder="Maruquee Image Url"
+                           @bind-Value="DownloadpdfModel.Thumbnail" />
+                <ValidationMessage For="@(() => DownloadpdfModel.Thumbnail)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="price" class="col-sm-2 col-form-label">
+                Is Approved?
+            </label>
+            <div class="col-sm-10">
+                <InputCheckbox id="isapproved" class="form-control" placeholder="Is the download Approved?"
+                               @bind-Value="DownloadpdfModel.IsApproved" />
+                <ValidationMessage For="@(() => DownloadpdfModel.IsApproved)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="price" class="col-sm-2 col-form-label">
+                Is Free?
+            </label>
+            <div class="col-sm-10">
+                <InputCheckbox id="free" class="form-control" placeholder="Is the download free?"
+                               @bind-Value="DownloadpdfModel.IsFree" />
+                <ValidationMessage For="@(() => DownloadpdfModel.IsFree)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="rul" class="col-sm-2 col-form-label">
+                Download URL
+            </label>
+            <div class="col-sm-10">
+                <InputText id="url" class="form-control" placeholder="Download url"
+                           @bind-Value="DownloadpdfModel.Url" />
+                <ValidationMessage For="@(() => DownloadpdfModel.Url)" />
+            </div>
+        </div>
+
+
+        @if (!isToBeEdited)
+        {
+
+
+            @if (isLoading)
+            {
+                <LoadingSpinner />
+            }
+            else
+            {
+
+
+                <div class="form-group row">
+                    <label for="email" class="col-sm-4 col-form-label">
+                        Examination:
+                    </label>
+                    <div class="col-sm-8">
+                        <select value="@examId" @onchange="OnChangeExamination">
+                            <option value="0">Select Examination</option>
+                            @foreach (var exam in Examinations)
+                            {
+                                <option value="@exam.ExamId">@exam.ExamTitle</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="email" class="col-sm-4 col-form-label">
+                        Subject: <b>@DownloadpdfModel.SubjectId</b>
+                    </label>
+                    <div class="col-sm-8">
+
+                        <InputSelectNumber ValueChanged="@((int subId) => SubjectHasChanged(subId))"
+                                           ValueExpression="@(() => subjectId)" Value="@subjectId">
+                            <option value="0">Select Subject</option>
+                            @foreach (var subject in Subjects)
+                            {
+                                <option value="@subject.SubjectId">@subject.SubjectTitle</option>
+                            }
+                        </InputSelectNumber>
+                        <ValidationMessage For="@(() => DownloadpdfModel.SubjectId)" />
+                    </div>
+                </div>
+
+
+            }
+        }
+
+        <div style="display: flex; align-items: center">
+            <button type="submit">Submit</button>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public bool isToBeEdited { get; set; }
+
+    [Parameter] public  Downloadpdf DownloadpdfModel { set; get; }
+
+    public string ExamTitle { get; set; } = string.Empty;
+
+    public string examId { get; set; } = "0";
+    private int subjectId { get; set; } = 0;
+    public bool isLoading { get; set; }
+
+    public List<McqPastPaperFormDto> Examinations { get; set; } = new List<McqPastPaperFormDto>();
+    public List<McqSubjectFormDto> Subjects { get; set; } = new List<McqSubjectFormDto>();
+
+    [Parameter]
+    public EventCallback<Downloadpdf> OnDownloadFormEditSubmit { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoading = true;
+        try
+        {
+            Examinations = await Http.GetFromJsonAsync<List<McqPastPaperFormDto>>("api/ExamSubjects");
+
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+        isLoading = false;
+
+    }
+
+    public async Task HandleSubmitDownloadPdf()
+    {
+        //DownloadpdfModel.Id = DownloadpdfModel.SetId();
+
+        await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to delete: '{DownloadpdfModel.Title} - {DownloadpdfModel.Id}'?");
+
+        await OnDownloadFormEditSubmit.InvokeAsync(DownloadpdfModel);
+    }
+
+    private void OnChangeExamination(ChangeEventArgs e)
+    {
+
+        LoadSubjects(e.Value.ToString());
+
+    }
+
+
+    public void SubjectHasChanged(int subjId)
+    {
+        DownloadpdfModel.SubjectId = subjId;
+
+        //Set pastPaperId
+        if (isToBeEdited)
+        {
+            DownloadpdfModel.Id = DownloadpdfModel.SetId();
+        }
+    }
+
+    private void LoadSubjects(string examId)
+    {
+        Subjects = new List<McqSubjectFormDto>();
+
+        foreach (var exam in Examinations)
+        {
+            if (exam.ExamId == examId)
+            {
+                Subjects = exam.McqSubjects;
+                return;
+            }
+        }
+    }
+
+    private async void foo()
+    {
+        await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to delete: '{DownloadpdfModel.Title} - {DownloadpdfModel.Id}'?");
+    }
+}

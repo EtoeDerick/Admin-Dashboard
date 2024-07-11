@@ -63,6 +63,7 @@ namespace Admin.Shared.Models
         public virtual List<UserSubject> UserSubjects { get; set; } = new List<UserSubject>();
 
         public virtual List<PastPaper> PastPapers { get; set; } = new List<PastPaper>();
+        public virtual List<Downloadpdf> Downloads { get; set; } = new List<Downloadpdf>();
 
         public virtual List<Topic> Topics { get; set; } = new List<Topic>();
 

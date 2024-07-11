@@ -31,15 +31,27 @@ namespace Admin.Server.Controllers
 
         // GET: api/Examinations/5
         [HttpGet("{id}")]
-        public async Task<IEnumerable<PaperOnePastPaperDto>> GetPapersForSubjectWithID(int id)
+        public async Task<IEnumerable<PaperOnePastPaperDto>> GetPapersForSubjectWithID(int id, string userId=null)
         {
-            var userId = string.Empty;
-            var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-            if (claim != null)
+            var usrId = string.Empty;
+            if (!string.IsNullOrEmpty(userId))
             {
-                userId = claim.Value;
+                return await _db.Get(id, userId);
             }
-            return await _db.Get(id, userId);
+            else
+            {
+                var claim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+                if (claim != null)
+                {
+                    usrId = claim.Value;
+                }
+                else
+                {
+                    usrId = userId;
+                }
+                return await _db.Get(id, usrId);
+            }
+            
         }
 
         // PUT: api/Examinations/5

@@ -20,9 +20,9 @@ namespace Admin.Server.Controllers
         }
         
         [HttpGet("{pastpaperId}")]
-        public async Task PostUserQuiz(string pastpaperId, int score)
+        public async Task PostUserQuiz(string pastpaperId, int score, string userId=null)
         {
-            var userid = string.Empty;
+            var userid = userId;
             var username = string.Empty;
 
             HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
@@ -33,8 +33,11 @@ namespace Admin.Server.Controllers
             if (claim != null)
             {
                 var claimType = claim.Type;
-                
-                userid = claim.Value;
+
+                if (string.IsNullOrEmpty(userId))
+                {
+                    userid = claim.Value;
+                }
             }
 
             if (claimName != null)

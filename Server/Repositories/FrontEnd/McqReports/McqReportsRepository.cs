@@ -18,9 +18,9 @@ namespace Admin.Server.Repositories.FrontEnd.McqReports
             _context = context;
         }
 
-        public async Task<bool> Create(MCQReport report)
+        public async Task<bool> Create(MCQReport user_report)
         {
-            _context.MCQReports.Add(report);
+            _context.MCQReports.Add(user_report);
             try
             {
                 await _context.SaveChangesAsync();

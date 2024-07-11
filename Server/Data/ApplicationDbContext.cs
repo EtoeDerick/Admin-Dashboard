@@ -26,6 +26,7 @@ namespace Admin.Server.Data
         public DbSet<ExamCategory> ExamCategories { get; set; }
 
         public DbSet<UserSubject> UserSubjects { get; set; }
+        public DbSet<Downloadpdf> Downloadpdfs { get; set; }
 
 
         //Update: Adding Quizzes and Mentorship
